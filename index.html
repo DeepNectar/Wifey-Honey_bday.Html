@@ -7,9 +7,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}html,body{width:100%;min-height:100vh;overflow-x:hidden}
 
-/* ============================================================
-   LOCK SCREEN
-   ============================================================ */
 .lock-screen{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;background:linear-gradient(160deg,#c41e3a 0%,#8b0028 50%,#4a0016 100%);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;color:#fff;overflow:hidden}
 .lock-screen.hidden{display:none}
 .lock-screen::before,.lock-screen::after{content:'';position:absolute;border-radius:50%;filter:blur(70px);opacity:.4;pointer-events:none}
@@ -36,7 +33,6 @@
 @keyframes openBtnPulse{0%,100%{transform:scale(1);box-shadow:0 10px 24px rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,255,255,.5)}50%{transform:scale(1.04);box-shadow:0 14px 32px rgba(0,0,0,.55),inset 0 0 0 2px rgba(255,255,255,.7)}}
 .lock-hearts{margin-top:1.2rem;font-size:1.4rem;letter-spacing:8px;animation:lockPulse 2.5s ease-in-out infinite;opacity:.9}
 
-/* Password modal */
 .pw-modal{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;background:rgba(20,0,10,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:100001;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
 .pw-modal.active{opacity:1;visibility:visible}
 .pw-content{background:linear-gradient(160deg,#fffaf5,#fff0f0);border-radius:1.8rem;padding:2rem 1.6rem;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 60px -15px rgba(0,0,0,.7),0 0 0 2px #ffd700;transform:scale(.9);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
@@ -54,9 +50,6 @@
 .pw-error{color:#c41e3a;font-weight:700;font-size:.92rem;margin-top:.8rem;min-height:1.2rem;opacity:0;transition:opacity .2s}
 .pw-error.show{opacity:1}
 
-/* ============================================================
-   MAIN STYLES
-   ============================================================ */
 body{background:linear-gradient(145deg,#fff8f0 0%,#ffe0e6 40%,#f8c8d0 75%,#d4a373 100%);background-size:200% 200%;animation:gradientShift 14s ease infinite;font-family:'Georgia','Times New Roman',-apple-system,'Helvetica Neue',serif;padding:1rem;margin:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh}
 @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .floating-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
@@ -151,10 +144,64 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 .slide.video-slide{background:#000;position:relative;display:flex;align-items:center;justify-content:center}
 .slide.video-slide video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
 
-.unmute-btn{position:absolute;bottom:4.2rem;left:1rem;z-index:25;display:none;align-items:center;gap:.4rem;background:rgba(0,0,0,.72);color:#fff;border:1.5px solid rgba(255,255,255,.55);font-size:.95rem;font-weight:700;padding:.6rem 1.1rem;border-radius:50px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 8px 20px rgba(0,0,0,.55);-webkit-tap-highlight-color:transparent;animation:unmutePop .35s cubic-bezier(.34,1.56,.64,1);font-family:inherit}
+/* ============================================================
+   UNMUTE BUTTON — bottom-LEFT (forced)
+   ============================================================ */
+.unmute-btn{
+  position:absolute;
+  bottom:4.2rem;
+  left:1rem;
+  right:auto;
+  z-index:25;
+  display:none;
+  align-items:center;
+  gap:.4rem;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  border:1.5px solid rgba(255,255,255,.55);
+  font-size:.95rem;
+  font-weight:700;
+  padding:.6rem 1.1rem;
+  border-radius:50px;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 8px 20px rgba(0,0,0,.55);
+  -webkit-tap-highlight-color:transparent;
+  animation:unmutePop .35s cubic-bezier(.34,1.56,.64,1);
+  font-family:inherit;
+}
 .unmute-btn.show{display:inline-flex}
 .unmute-btn:active{transform:scale(.94)}
 @keyframes unmutePop{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
+
+/* Blocked-video pause overlay hint */
+.video-paused-hint{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:22;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  gap:.5rem;
+  color:#ffd700;
+  font-size:1rem;
+  font-weight:700;
+  font-style:italic;
+  text-align:center;
+  text-shadow:0 2px 8px rgba(0,0,0,.9);
+  pointer-events:none;
+  padding:1rem 1.4rem;
+  background:rgba(0,0,0,.55);
+  border:1.5px solid rgba(255,215,0,.55);
+  border-radius:1rem;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.video-paused-hint.show{display:flex}
+.video-paused-hint .big{font-size:2.2rem;line-height:1}
 
 .slide.fx-1.active img{animation:fx1 2s ease-out forwards}
 @keyframes fx1{0%{transform:scale(.6);opacity:0}100%{transform:scale(1.04);opacity:1}}
@@ -245,9 +292,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 .burst{position:fixed;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:10001;animation:burstFly 2s ease-out forwards}
 @keyframes burstFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.3)}}
 
-/* ============================================================
-   FLOATING EMOJI IN SLIDESHOW
-   ============================================================ */
 .float-emoji{position:absolute;pointer-events:none;z-index:15;font-size:clamp(2rem,7vw,3.2rem);line-height:1;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 4px 10px rgba(0,0,0,.55));user-select:none;}
 @keyframes fe_floatUp{0%{opacity:0;transform:translateY(20px) scale(.6)}20%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-120px) scale(1.1)}}
 @keyframes fe_floatDown{0%{opacity:0;transform:translateY(-20px) scale(.6)}20%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(120px) scale(1.1)}}
@@ -266,9 +310,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 .fe_bounce{animation:fe_bounce 3.4s ease-in-out forwards}
 .fe_sway{animation:fe_sway 3.8s ease-in-out forwards}
 
-/* ============================================================
-   IMPORT / EXPORT PANEL
-   ============================================================ */
 .data-panel{margin-top:1.4rem;padding:1.1rem 1rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border-radius:1.5rem;border:1px dashed rgba(196,30,58,.45);box-shadow:inset 0 0 0 1px rgba(255,215,0,.35)}
 .data-panel-title{font-size:.98rem;font-weight:800;font-style:italic;color:#8b0028;margin-bottom:.7rem;text-align:center;letter-spacing:.3px}
 .data-panel-row{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
@@ -305,7 +346,7 @@ h1{font-size:1.85rem}
 .counter-item{gap:.5rem;padding:.5rem .3rem}
 .counter-icon{font-size:1.3rem}
 .counter-time{font-size:.92rem}
-.unmute-btn{font-size:.85rem;padding:.5rem .95rem;bottom:3.6rem;left:.6rem}
+.unmute-btn{font-size:.85rem;padding:.5rem .95rem;bottom:3.6rem;left:.6rem;right:auto}
 }
 @media (max-width:380px){h1{font-size:1.6rem}.message{font-size:.96rem}.names{font-size:1.2rem}.closing-modal-content::before{font-size:.85rem;letter-spacing:5px}.cd-box{min-width:60px;padding:.6rem .4rem}.cd-num{font-size:1.5rem}.counter-time{font-size:.88rem}}
 @media (min-width:601px) and (max-width:1024px){.wrapper{max-width:700px}.closing-modal-content{max-width:600px}}
@@ -430,7 +471,7 @@ h1{font-size:1.85rem}
 </div>
 <input type="file" id="excelInput" accept=".xlsx,.xls" style="display:none">
 <div class="data-status" id="dataStatus"></div>
-<div class="data-hint">All media comes from Supabase. Export works even when empty, so you can fill in Excel and import. Duplicates are skipped automatically. Auto-sync every 60s. Data auto-clears after 06 Dec 2026.</div>
+<div class="data-hint">All media comes from Supabase. Export works even when empty. Duplicates are skipped on import. Auto-sync every 60s. Data auto-clears after 06 Dec 2026.</div>
 </div>
 </div>
 </div>
@@ -741,31 +782,48 @@ function toggleMusic(){
 musicToggle.addEventListener('click', toggleMusic);
 musicToggle.addEventListener('touchstart', function(e){ e.preventDefault(); toggleMusic(); }, { passive: false });
 
-/* ============================================================
-   MEDIA — NO hardcoded links. Everything comes from Supabase.
-   ============================================================ */
-
 function buildImageUrls(id){return[`https://lh3.googleusercontent.com/d/${id}=w2400`,`https://lh3.googleusercontent.com/d/${id}=s2400`,`https://drive.google.com/thumbnail?id=${id}&sz=w2400`,`https://drive.google.com/thumbnail?id=${id}&sz=s2400`,`https://drive.google.com/uc?export=view&id=${id}`,`https://drive.google.com/uc?id=${id}`];}
 
 const VIDEO_MAX_MS=40000;
 const PHOTO_MIN_MS=5000,PHOTO_MAX_MS=6000;
 function getPhotoDuration(){return PHOTO_MIN_MS+Math.random()*(PHOTO_MAX_MS-PHOTO_MIN_MS);}
 
-function playVideoEl(v, unmuteBtn){
-  try{v.currentTime=0;}catch(e){}
+/* ============================================================
+   VIDEO PLAYBACK HANDLER
+   Returns:
+     'playing'  -> video started with sound (auto-advance scheduled)
+     'blocked'  -> autoplay-with-sound failed → paused + show unmute btn
+     'error'    -> media error → caller should stop, NOT advance
+   ============================================================ */
+function playVideoEl(v, unmuteBtn, pausedHint){
+  try{ v.currentTime = 0; }catch(e){}
   v.muted = false;
+
   const p = v.play();
-  if(p !== undefined){
-    p.then(()=>{ if(unmuteBtn) unmuteBtn.classList.remove('show'); })
-     .catch(()=>{
-        v.muted = true;
-        const p2 = v.play();
-        if(p2 !== undefined){ p2.then(()=>{ if(unmuteBtn) unmuteBtn.classList.add('show'); }).catch(()=>{ if(unmuteBtn) unmuteBtn.classList.add('show'); }); }
-        else { if(unmuteBtn) unmuteBtn.classList.add('show'); }
-     });
+  if(p === undefined){
+    /* very old browser: assume success */
+    if(unmuteBtn) unmuteBtn.classList.remove('show');
+    if(pausedHint) pausedHint.classList.remove('show');
+    return 'playing';
   }
+
+  return p.then(() => {
+    if(unmuteBtn) unmuteBtn.classList.remove('show');
+    if(pausedHint) pausedHint.classList.remove('show');
+    return 'playing';
+  }).catch(() => {
+    /* Sound-blocked: keep it PAUSED, show unmute button and pause hint */
+    try{ v.pause(); }catch(e){}
+    if(unmuteBtn) unmuteBtn.classList.add('show');
+    if(pausedHint) pausedHint.classList.add('show');
+    return 'blocked';
+  });
 }
-function resetVideoEl(v){ try{v.pause();v.currentTime=0;}catch(e){} }
+
+function resetVideoEl(v){
+  try{ v.pause(); v.currentTime = 0; }catch(e){}
+  try{ v.muted = false; }catch(e){}
+}
 
 const openingScreen=document.getElementById('openingScreen');
 const cakeClickable=document.getElementById('cakeClickable');
@@ -806,7 +864,8 @@ const openBtn=document.getElementById('openBtn');
 const closingModalOverlay=document.getElementById('closingModalOverlay');
 const closingModalClose=document.getElementById('closingModalClose');
 
-let slides = [];           /* Nodelist, refreshed after each sync */
+let slides = [];
+let dots = [];
 let totalSlides = 0;
 let currentIndex = 0;
 let autoPlayInterval = null;
@@ -815,7 +874,7 @@ let videoAdvanceTimer = null;
 let photoAdvanceTimer = null;
 
 function clearTimers(){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} if(photoAdvanceTimer){clearTimeout(photoAdvanceTimer);photoAdvanceTimer=null;} }
-function scheduleVideoAdvance(video){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} let ms=VIDEO_MAX_MS; if(isFinite(video.duration)&&video.duration>0){ms=Math.min(video.duration*1000,VIDEO_MAX_MS);} videoAdvanceTimer=setTimeout(()=>{if(isModalOpen&&slides[currentIndex]&&slides[currentIndex].contains(video)){nextSlide();}},ms); }
+function scheduleVideoAdvance(video){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} let ms=VIDEO_MAX_MS; if(isFinite(video.duration)&&video.duration>0){ms=Math.min(video.duration*1000,VIDEO_MAX_MS);} videoAdvanceTimer=setTimeout(()=>{ if(isModalOpen && slides[currentIndex] && slides[currentIndex].contains(video) && !video.paused && !video.ended){ nextSlide(); } }, ms); }
 function schedulePhotoAdvance(){ if(photoAdvanceTimer){clearTimeout(photoAdvanceTimer);photoAdvanceTimer=null;} const dur=getPhotoDuration(); photoAdvanceTimer=setTimeout(()=>{if(isModalOpen&&slides[currentIndex]&&!slides[currentIndex].classList.contains('video-slide')){nextSlide();}},dur); }
 
 function updateSlideshow(){
@@ -825,19 +884,44 @@ function updateSlideshow(){
   dots.forEach((d,i)=>d.classList.toggle('active',i===currentIndex));
   slideCounter.textContent=`${currentIndex+1} / ${totalSlides}`;
   clearTimers();
+
+  /* Pause any other videos */
   slides.forEach((s,i)=>{
     if(i!==currentIndex){
-      const v=s.querySelector('video');if(v)resetVideoEl(v);
-      const b=s.querySelector('.unmute-btn');if(b)b.classList.remove('show');
+      const v=s.querySelector('video'); if(v) resetVideoEl(v);
+      const b=s.querySelector('.unmute-btn'); if(b) b.classList.remove('show');
+      const h=s.querySelector('.video-paused-hint'); if(h) h.classList.remove('show');
     }
   });
+
   const a=slides[currentIndex];
   if(!a) return;
+
   if(a.classList.contains('video-slide')){
     fadeRomanticTo(ROMANTIC_VOLUME_VIDEO, 400);
     const v=a.querySelector('video');
     const b=a.querySelector('.unmute-btn');
-    if(v){ const tryPlay=()=>{ playVideoEl(v, b); scheduleVideoAdvance(v); }; if(v.readyState>=1){tryPlay();}else{ v.addEventListener('loadedmetadata',tryPlay,{once:true}); setTimeout(()=>{if(isModalOpen&&slides[currentIndex]===a&&v.paused)tryPlay();},800); } }
+    const h=a.querySelector('.video-paused-hint');
+
+    if(v){
+      const tryPlay = () => {
+        if(!isModalOpen || slides[currentIndex]!==a) return;
+        const result = playVideoEl(v, b, h);
+        /* If 'playing' -> schedule advance. If 'blocked' -> do NOT schedule. */
+        Promise.resolve(result).then(res => {
+          if(res === 'playing'){
+            scheduleVideoAdvance(v);
+          } else {
+            clearTimers(); /* stay on this slide until user unmutes */
+          }
+        });
+      };
+      if(v.readyState >= 1){ tryPlay(); }
+      else {
+        v.addEventListener('loadedmetadata', tryPlay, { once:true });
+        setTimeout(()=>{ if(isModalOpen && slides[currentIndex]===a && v.paused) tryPlay(); }, 800);
+      }
+    }
   } else {
     if(musicEnabled && musicRomantic.paused){ playRomantic(); }
     fadeRomanticTo(ROMANTIC_VOLUME_PHOTO, 400);
@@ -860,7 +944,7 @@ nextBtn.addEventListener('click',()=>{nextSlide();});
 let tSX=0,tSY=0;
 const sc=document.querySelector('.slideshow-container');
 sc.addEventListener('touchstart',(e)=>{tSX=e.changedTouches[0].screenX;tSY=e.changedTouches[0].screenY;},{passive:true});
-sc.addEventListener('touchend',(e)=>{const dx=tSX-e.changedTouches[0].screenX;const dy=tSY-e.changedTouches[0].screenY;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){if(dx>0)nextSlide();else prevSlide();}},{passive:true});
+sc.addEventListener('touchend',(e)=>{const dx=tSX-e.changedTouches[0].screenX;const dy=tSY-changedTouches[0].screenY;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){if(dx>0)nextSlide();else prevSlide();}},{passive:true});
 document.addEventListener('keydown',(e)=>{ if(isModalOpen){if(e.key==='ArrowRight'){nextSlide();}if(e.key==='ArrowLeft'){prevSlide();}if(e.key==='Escape'){closeModal();}} if(closingModalOverlay.classList.contains('active')&&e.key==='Escape')closeClosingModal(); });
 
 /* ============================================================
@@ -879,18 +963,57 @@ function makeVideoSlide(src, index){
   video.setAttribute('webkit-playsinline','');
   video.preload = 'auto';
   video.setAttribute('disablepictureinpicture','');
-  video.muted = true;
+  video.muted = true; /* start muted; playVideoEl will unmute + fall back if blocked */
   slideDiv.appendChild(video);
+
+  /* Paused hint (center) */
+  const pausedHint = document.createElement('div');
+  pausedHint.className = 'video-paused-hint';
+  pausedHint.innerHTML = '<div class="big">🔇</div><div>Tap "Unmute" to play this video</div>';
+  slideDiv.appendChild(pausedHint);
+
+  /* Unmute button (bottom-left) */
   const unmuteBtn = document.createElement('button');
   unmuteBtn.className = 'unmute-btn';
   unmuteBtn.type = 'button';
-  unmuteBtn.innerHTML = '🔊 Tap for sound';
-  const doUnmute = (e)=>{ e.preventDefault(); e.stopPropagation(); video.muted=false; video.volume=1; const p=video.play(); if(p&&p.then)p.then(()=>unmuteBtn.classList.remove('show')).catch(()=>{}); };
+  unmuteBtn.innerHTML = '🔊 Unmute to play';
+  const doUnmute = (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    video.muted = false; video.volume = 1;
+    const p = video.play();
+    const proceed = () => {
+      unmuteBtn.classList.remove('show');
+      pausedHint.classList.remove('show');
+      scheduleVideoAdvance(video);
+    };
+    if(p && p.then){
+      p.then(proceed).catch(()=>{ pausedHint.classList.add('show'); });
+    } else {
+      proceed();
+    }
+  };
   unmuteBtn.addEventListener('click', doUnmute);
   unmuteBtn.addEventListener('touchstart', doUnmute, { passive:false });
   slideDiv.appendChild(unmuteBtn);
-  video.addEventListener('ended',()=>{ if(isModalOpen && slides[currentIndex]===slideDiv){ clearTimers(); nextSlide(); } });
-  video.addEventListener('error',()=>{ if(isModalOpen && slides[currentIndex]===slideDiv){ clearTimers(); setTimeout(nextSlide,800); } });
+
+  /* Ended → advance ONLY if actually played through */
+  video.addEventListener('ended',()=>{
+    if(isModalOpen && slides[currentIndex]===slideDiv){
+      clearTimers();
+      nextSlide();
+    }
+  });
+
+  /* Error → do NOT advance, show hint */
+  video.addEventListener('error',()=>{
+    if(isModalOpen && slides[currentIndex]===slideDiv){
+      clearTimers();
+      unmuteBtn.classList.remove('show');
+      pausedHint.innerHTML = '<div class="big">⚠️</div><div>Video could not load</div>';
+      pausedHint.classList.add('show');
+    }
+  });
+
   return slideDiv;
 }
 
@@ -961,7 +1084,6 @@ async function mergeSupabaseIntoSlideshow(force){
   if(!force && hash === lastSyncHash){ syncBadge('ok'); return; }
   lastSyncHash = hash;
 
-  /* clear current slides */
   slidesTrack.innerHTML = '';
   let fx = 0;
 
@@ -988,9 +1110,6 @@ async function mergeSupabaseIntoSlideshow(force){
 setInterval(()=>{ mergeSupabaseIntoSlideshow(false); }, SYNC_INTERVAL_MS);
 setTimeout(()=>{ mergeSupabaseIntoSlideshow(false); }, 1500);
 
-/* ============================================================
-   MODAL OPEN / CLOSE
-   ============================================================ */
 function openModal(){
   finishTypewriterNow();
   isModalOpen=true;currentIndex=0;
@@ -1018,7 +1137,11 @@ function confettiBurst(){
 function closeModal(){
   isModalOpen=false;clearTimers();
   stopFloatSpawner();
-  slides.forEach(s=>{const v=s.querySelector('video');if(v)resetVideoEl(v); const b=s.querySelector('.unmute-btn'); if(b)b.classList.remove('show');});
+  slides.forEach(s=>{
+    const v=s.querySelector('video');if(v)resetVideoEl(v);
+    const b=s.querySelector('.unmute-btn'); if(b)b.classList.remove('show');
+    const h=s.querySelector('.video-paused-hint'); if(h)h.classList.remove('show');
+  });
   musicRomantic.pause();
   musicRomantic.volume = ROMANTIC_VOLUME_PHOTO;
   musicPausedByVideo = false;
@@ -1045,7 +1168,7 @@ closingModalOverlay.addEventListener('click',(e)=>{if(e.target===closingModalOve
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimers();slides.forEach(s=>{const v=s.querySelector('video');if(v&&!v.paused)v.pause();});musicHappy.pause();musicRomantic.pause();}else if(isModalOpen){updateSlideshow();}});
 
 /* ============================================================
-   IMPORT / EXPORT EXCEL  (with de-duplication)
+   IMPORT / EXPORT EXCEL (with dedupe)
    ============================================================ */
 const btnImport   = document.getElementById('btnImport');
 const btnExport   = document.getElementById('btnExport');
@@ -1069,7 +1192,6 @@ excelInput.addEventListener('change', async (e)=>{
     const ws  = wb.Sheets[wb.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json(ws, { defval:'' });
 
-    /* normalize + validate */
     const incoming = rows.map((r, i) => {
       const norm = {};
       Object.keys(r).forEach(k => norm[k.trim().toLowerCase()] = String(r[k]).trim());
@@ -1091,7 +1213,6 @@ excelInput.addEventListener('change', async (e)=>{
 
     if(!incoming.length){ setStatus('❌ No valid rows found.', 'err'); return; }
 
-    /* fetch existing rows to dedupe */
     setStatus('⏳ Checking for duplicates…');
     const existing = await fetchSupabaseRows();
     const existingKeys = new Set();
@@ -1100,7 +1221,6 @@ excelInput.addEventListener('change', async (e)=>{
       if(r.type === 'photo' && r.drive_id) existingKeys.add('p:' + r.drive_id.trim());
     });
 
-    /* dedupe within file AND against existing */
     const seen = new Set();
     const unique = incoming.filter(r => {
       const key = r.type === 'video' ? ('v:' + r.src.trim()) : ('p:' + r.drive_id.trim());
@@ -1140,11 +1260,9 @@ btnExport.addEventListener('click', async ()=>{
       sort_order: r.sort_order || 0
     }));
 
-    /* Always export — even if empty — with the same header row */
     const ws = XLSX.utils.json_to_sheet(clean, {
       header: ['type','src','drive_id','title','sort_order']
     });
-    /* Ensure header exists even with no rows */
     if(!clean.length){
       XLSX.utils.sheet_add_aoa(ws, [['type','src','drive_id','title','sort_order']], { origin: 'A1' });
     }
@@ -1160,7 +1278,7 @@ btnExport.addEventListener('click', async ()=>{
 });
 
 /* ============================================================
-   FLOATING EMOJI SPAWNER (slideshow only)
+   FLOATING EMOJI
    ============================================================ */
 const FLOAT_EMOJIS = ['❤️','💕','✨','💖','🌹','💛','💗','💞','🌸','💝'];
 const FLOAT_EFFECTS = ['fe_floatUp','fe_floatDown','fe_driftL','fe_driftR','fe_pulse','fe_spin','fe_bounce','fe_sway'];
@@ -1183,14 +1301,10 @@ function spawnFloatEmoji(){
   container.appendChild(el);
   setTimeout(()=>el.remove(), (dur + 0.6) * 1000);
 }
-
 function scheduleNextFloat(){
   if(!floatActive) return;
   const wait = 1500 + Math.random()*3000;
-  floatSpawnerTimer = setTimeout(()=>{
-    spawnFloatEmoji();
-    scheduleNextFloat();
-  }, wait);
+  floatSpawnerTimer = setTimeout(()=>{ spawnFloatEmoji(); scheduleNextFloat(); }, wait);
 }
 function startFloatSpawner(){ if(floatActive) return; floatActive = true; scheduleNextFloat(); }
 function stopFloatSpawner(){
@@ -1199,7 +1313,7 @@ function stopFloatSpawner(){
   document.querySelectorAll('.float-emoji').forEach(n=>n.remove());
 }
 
-/* ---- initial render (empty placeholder until Supabase loads) ---- */
+/* Initial render */
 slidesTrack.appendChild(makePlaceholderSlide());
 rebuildDotsAndCounter();
 
