@@ -55,7 +55,7 @@
 .pw-error.show{opacity:1}
 
 /* ============================================================
-   ORIGINAL HONEY STYLES
+   MAIN STYLES
    ============================================================ */
 body{background:linear-gradient(145deg,#fff8f0 0%,#ffe0e6 40%,#f8c8d0 75%,#d4a373 100%);background-size:200% 200%;animation:gradientShift 14s ease infinite;font-family:'Georgia','Times New Roman',-apple-system,'Helvetica Neue',serif;padding:1rem;margin:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh}
 @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
@@ -106,7 +106,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 @keyframes blink{50%{opacity:0}}
 .message .type-cursor{display:inline-block;width:2px;height:1.05em;background:#8b0028;margin-left:2px;vertical-align:-2px;animation:blink .7s step-end infinite}
 
-/* Counters */
 .counters-box{margin-top:1.6rem;padding:1.3rem 1rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border-radius:1.5rem;border:1px solid rgba(196,30,58,.25);box-shadow:inset 0 0 0 1px rgba(255,215,0,.4),0 8px 18px -10px rgba(139,0,40,.25)}
 .counters-title{font-size:1.05rem;font-weight:800;font-style:italic;color:#8b0028;margin-bottom:.9rem;letter-spacing:.3px;text-align:center}
 .counter-item{display:flex;align-items:center;gap:.7rem;padding:.6rem .4rem;border-bottom:1px dashed rgba(196,30,58,.22);text-align:left}
@@ -152,7 +151,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 .slide.video-slide{background:#000;position:relative;display:flex;align-items:center;justify-content:center}
 .slide.video-slide video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
 
-/* Unmute button */
 .unmute-btn{position:absolute;bottom:4.2rem;right:1rem;z-index:25;display:none;align-items:center;gap:.4rem;background:rgba(0,0,0,.72);color:#fff;border:1.5px solid rgba(255,255,255,.55);font-size:.95rem;font-weight:700;padding:.6rem 1.1rem;border-radius:50px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 8px 20px rgba(0,0,0,.55);-webkit-tap-highlight-color:transparent;animation:unmutePop .35s cubic-bezier(.34,1.56,.64,1);font-family:inherit}
 .unmute-btn.show{display:inline-flex}
 .unmute-btn:active{transform:scale(.94)}
@@ -248,19 +246,9 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 @keyframes burstFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.3)}}
 
 /* ============================================================
-   ADDED: FLOATING EMOJI IN SLIDESHOW
+   FLOATING EMOJI IN SLIDESHOW
    ============================================================ */
-.float-emoji{
-  position:absolute;
-  pointer-events:none;
-  z-index:15;
-  font-size:clamp(2rem,7vw,3.2rem);
-  line-height:1;
-  opacity:0;
-  will-change:transform,opacity;
-  filter:drop-shadow(0 4px 10px rgba(0,0,0,.55));
-  user-select:none;
-}
+.float-emoji{position:absolute;pointer-events:none;z-index:15;font-size:clamp(2rem,7vw,3.2rem);line-height:1;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 4px 10px rgba(0,0,0,.55));user-select:none;}
 @keyframes fe_floatUp{0%{opacity:0;transform:translateY(20px) scale(.6)}20%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-120px) scale(1.1)}}
 @keyframes fe_floatDown{0%{opacity:0;transform:translateY(-20px) scale(.6)}20%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(120px) scale(1.1)}}
 @keyframes fe_driftL{0%{opacity:0;transform:translateX(40px) rotate(0)}20%{opacity:1}100%{opacity:0;transform:translateX(-120px) rotate(-25deg)}}
@@ -279,7 +267,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 .fe_sway{animation:fe_sway 3.8s ease-in-out forwards}
 
 /* ============================================================
-   ADDED: IMPORT / EXPORT PANEL
+   IMPORT / EXPORT PANEL
    ============================================================ */
 .data-panel{margin-top:1.4rem;padding:1.1rem 1rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border-radius:1.5rem;border:1px dashed rgba(196,30,58,.45);box-shadow:inset 0 0 0 1px rgba(255,215,0,.35)}
 .data-panel-title{font-size:.98rem;font-weight:800;font-style:italic;color:#8b0028;margin-bottom:.7rem;text-align:center;letter-spacing:.3px}
@@ -294,9 +282,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;letter-spacing:-.5px;margi
 .sync-badge{display:inline-block;margin-left:.3rem;font-size:.72rem;padding:.15rem .5rem;border-radius:40px;background:rgba(10,122,61,.15);color:#0a7a3d;font-weight:700;font-style:normal;vertical-align:middle}
 .sync-badge.syncing{background:rgba(196,30,58,.15);color:#c41e3a}
 
-/* ============================================================
-   MOBILE
-   ============================================================ */
 @media (max-width:600px){
 body{padding:.7rem}
 .card{padding:1.8rem 1.15rem;border-radius:1.6rem;background:linear-gradient(180deg,rgba(255,250,245,.18) 0%,rgba(255,240,240,.18) 100%);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -437,7 +422,6 @@ h1{font-size:1.85rem}
 <div class="heart-row"><span>❤️</span><span>💛</span><span>💕</span><span>🌹</span><span>✨</span></div>
 <button class="open-btn" id="openBtn"><span>📸</span><span>Open Our Memories</span></button>
 
-<!-- ===== ADDED: Import / Export panel ===== -->
 <div class="data-panel" id="dataPanel">
 <div class="data-panel-title">🗂️ Manage Memories (Excel)<span class="sync-badge" id="syncBadge">● live</span></div>
 <div class="data-panel-row">
@@ -446,9 +430,8 @@ h1{font-size:1.85rem}
 </div>
 <input type="file" id="excelInput" accept=".xlsx,.xls" style="display:none">
 <div class="data-status" id="dataStatus"></div>
-<div class="data-hint">Import adds rows to Supabase. Export downloads hardcoded + Supabase rows. Auto-sync every 60s. Data auto-clears after 06 Dec 2026.</div>
+<div class="data-hint">All media comes from Supabase. Export works even when empty, so you can fill in Excel and import. Duplicates are skipped automatically. Auto-sync every 60s. Data auto-clears after 06 Dec 2026.</div>
 </div>
-<!-- ===== /ADDED ===== -->
 </div>
 </div>
 
@@ -462,7 +445,7 @@ h1{font-size:1.85rem}
 <div class="slides-viewport"><div class="slides" id="slidesTrack"></div></div>
 <button class="nav-btn prev" id="prevBtn">❮</button>
 <button class="nav-btn next" id="nextBtn">❯</button>
-<div class="slide-counter" id="slideCounter">1 / 1</div>
+<div class="slide-counter" id="slideCounter">0 / 0</div>
 <div class="progress-bar" id="progressBar"></div>
 <div class="dots" id="dotsContainer"></div>
 </div>
@@ -518,19 +501,19 @@ h1{font-size:1.85rem}
 </div>
 </div>
 
-<!-- ===== ADDED: SheetJS for Excel import/export ===== -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <script>
 (function(){
-/* ===== ADDED: SUPABASE CONFIG ===== */
+/* ============================================================
+   SUPABASE CONFIG
+   ============================================================ */
 const SUPABASE_URL      = 'https://ueuxnkrvvnvldfwgiyqy.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVldXhua3J2dm52bGRmd2dpeXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3MjM0ODUsImV4cCI6MjEwNTI5OTQ4NX0.DwDSWdnVK1-eWLvSuXpsf22PLtMVq_ZJ-1Kq39AoOSI';
 const SUPABASE_TABLE    = 'media';
 const HARD_EXPIRY       = new Date('2026-12-06T00:00:00Z');
-const SYNC_INTERVAL_MS  = 60000; /* 1 minute auto-sync */
+const SYNC_INTERVAL_MS  = 60000;
 
-/* Lightweight Supabase REST wrapper */
 const sb = {
   headers(){
     return {
@@ -555,7 +538,6 @@ const sb = {
     return r.json();
   }
 };
-/* ===== /ADDED ===== */
 
 const UNLOCK_DATE = new Date(2026, 11, 5, 0, 0, 0);
 const PASSWORD = "Deepnectar@@1617@@";
@@ -693,21 +675,15 @@ function updateCounters(){
 }
 updateCounters(); setInterval(updateCounters, 1000);
 
-/* ============================================================
-   MUSIC
-   ============================================================ */
 const musicHappy = document.getElementById('musicHappy');
 const musicRomantic = document.getElementById('musicRomantic');
 const musicToggle = document.getElementById('musicToggle');
 let musicEnabled = false;
 let musicPausedByVideo = false;
-
 const ROMANTIC_VOLUME_PHOTO = 0.45;
 const ROMANTIC_VOLUME_VIDEO = 0.30;
-
 musicHappy.volume = 0.45;
 musicRomantic.volume = ROMANTIC_VOLUME_PHOTO;
-
 let romanticFadeTimer = null;
 function fadeRomanticTo(target, duration){
   if(romanticFadeTimer){ clearInterval(romanticFadeTimer); romanticFadeTimer = null; }
@@ -722,7 +698,6 @@ function fadeRomanticTo(target, duration){
     if(i >= steps){ clearInterval(romanticFadeTimer); romanticFadeTimer = null; musicRomantic.volume = target; }
   }, 30);
 }
-
 function updateMusicButton(){
   const anyPlaying = !musicHappy.paused || !musicRomantic.paused;
   if(musicEnabled && anyPlaying){
@@ -733,24 +708,20 @@ function updateMusicButton(){
     musicToggle.textContent = '🔇';
   }
 }
-
 function playHappy(){
   if(musicPausedByVideo){ musicPausedByVideo = false; }
   const p = musicHappy.play();
   if(p !== undefined){ p.then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); }); }
 }
-
 function playRomantic(){
   const p = musicRomantic.play();
   if(p !== undefined){ p.then(updateMusicButton).catch(()=>{}); }
 }
-
 function startMusic(){
   musicPausedByVideo = false;
   musicEnabled = true;
   playHappy();
 }
-
 function toggleMusic(){
   const anyPlaying = !musicHappy.paused || !musicRomantic.paused;
   if(musicEnabled && anyPlaying){
@@ -767,65 +738,12 @@ function toggleMusic(){
   }
   updateMusicButton();
 }
-
 musicToggle.addEventListener('click', toggleMusic);
 musicToggle.addEventListener('touchstart', function(e){ e.preventDefault(); toggleMusic(); }, { passive: false });
 
 /* ============================================================
-   MEDIA — hardcoded fallback (unchanged)
+   MEDIA — NO hardcoded links. Everything comes from Supabase.
    ============================================================ */
-const MEDIA = [
-{ type: "video", src: "https://files.catbox.moe/x6wz1a.mp4" },
-{ type: "photo", id: "1y_puAEWFq0DPpHV8ahN9_Y15eCHplp9l" },
-{ type: "photo", id: "1KLpAVe197Db75AahYN8FFrn0h3Lmx13C" },
-{ type: "video", src: "https://files.catbox.moe/itm0sy.mp4" },
-{ type: "photo", id: "1ZV0vBjT0ORjnOaD9GnJSgRsDdbWODwnY" },
-{ type: "photo", id: "1pwa9sXW--1cmL2bRCTTLERftswEnjq9S" },
-{ type: "video", src: "https://files.catbox.moe/oyyjfr.mp4" },
-{ type: "photo", id: "1aCQ61xOGUimZqx12EAZvnrwaUTZemG-T" },
-{ type: "photo", id: "1Xm8aUv3PfuLJV2msH_KPGD5fiW4s0gQQ" },
-{ type: "photo", id: "1dmsav5km6JIdHYq4jPSh0x-Eygb33V2X" },
-{ type: "video", src: "https://files.catbox.moe/l66cfp.mp4" },
-{ type: "photo", id: "1LAxVEI9qiyHF0nNCX2RtL6Y5oTclo4jA" },
-{ type: "photo", id: "1m5FsBDB2sUfN0OH4hI-0aojG0UaRiDkn" },
-{ type: "photo", id: "11QlwrC-y6R9ijRdFQYeBlj2W0WWIDvjy" },
-{ type: "video", src: "https://files.catbox.moe/w7oh76.mp4" },
-{ type: "photo", id: "1I-AwkcpPZbJNbr1dQ4gBwbcNDHQLrvQN" },
-{ type: "photo", id: "15fCm3NaKbgf0n5IvLxLq6XzzD3Jh5N3n" },
-{ type: "photo", id: "1PA6dVNfSctS7QhDN_ZgKIdqG19jygXuE" },
-{ type: "video", src: "https://files.catbox.moe/1sgqfs.mp4" },
-{ type: "photo", id: "1W6BwEQK3STze3PZwcS0vK8arW-4xThK_" },
-{ type: "photo", id: "1z1YJZrhDAkPjD5_ra69BEjSrQwF3mFnY" },
-{ type: "photo", id: "1ydBBChptSUyNQRQTX_q6vBdFqZGJli1n" },
-{ type: "video", src: "https://files.catbox.moe/yj8th2.mp4" },
-{ type: "photo", id: "1JFaCq7CndvNkilozntQzHka7Ybnaz_gS" },
-{ type: "photo", id: "1lyPWaqgtrM6Dx-YVo1jEmDqx7cRBQuIX" },
-{ type: "photo", id: "1xwhMpGf0I8lXTOhKdJW-xZmPAwWGuBd_" },
-{ type: "video", src: "https://files.catbox.moe/o7kgam.mp4" },
-{ type: "photo", id: "13nlxj5BUrhKJ2WKvTCZa0znNvid3vIoi" },
-{ type: "photo", id: "1aN3gwrd595S7cutKE8M3g1nZCR9aJIxv" },
-{ type: "photo", id: "1BeTf19XlysMmqwm8cLpthSXjwoOpme65" },
-{ type: "photo", id: "1TcMf0JLvi3YBfNN4oPC1Wf4jXho9YK7l" },
-{ type: "photo", id: "1z5rroTrhXvtnqMC7--xBM4I-tD2_gzuR" },
-{ type: "photo", id: "19Evph8hBUers-hcmhJybH1QDQ9tqp1r1" },
-{ type: "photo", id: "14ZcV3MvzDDFE-hgziX6V9-yaJO0UlubZ" },
-{ type: "photo", id: "1D74gf5oAgbUyghJQLO0OMgbG6S8L_Uue" },
-{ type: "photo", id: "1p9UC_C-LH9y0kkeYDRM0oDcUUrLvaTeZ" },
-{ type: "photo", id: "1bwiemseG9gxaZBzpAbLZvkrQE86RwwRe" },
-{ type: "photo", id: "1vqcNehGmRIS9xNeiauK1H3Sn7fex7YFg" },
-{ type: "photo", id: "1SIhOVu5WCgo3Ej2AqwTgE6pGXNbxiEQG" },
-{ type: "photo", id: "1iILNznC7StDtz-fnSSRlnSJGztPJsUhf" },
-{ type: "photo", id: "18goimWcpccgVUl73fVFwdN0sQh0ZmS3z" },
-{ type: "photo", id: "10tGxX0aBPo00EUAtuk4A5zFTuvwh6roL" },
-{ type: "photo", id: "12oVqMl65Up07WkrmrvB4LqB3swm6g1l-" },
-{ type: "photo", id: "1gEhdSjzZddzQAOYacclFr1eWVmaIh5rS" },
-{ type: "photo", id: "1xUChxmfkk2WGCy0FkhRFVNkL-2LaednC" },
-{ type: "photo", id: "1p0sUILf3gMnGswJ2WEuyVTrf6LNExTFt" },
-{ type: "photo", id: "1m7ijNPLObrw4_aHzuf8_reFK8ccignjH" },
-{ type: "photo", id: "11gkyw2yMBYM3UU4Ju173fYQVQRu2eNFd" },
-{ type: "photo", id: "1pdWkPNSj0xauh6fg4PJ9kO6V-ucKlTJQ" },
-{ type: "photo", id: "1JLXDob8L6FXWtcM8ub-QuZAK1jRaXOUT" }
-];
 
 function buildImageUrls(id){return[`https://lh3.googleusercontent.com/d/${id}=w2400`,`https://lh3.googleusercontent.com/d/${id}=s2400`,`https://drive.google.com/thumbnail?id=${id}&sz=w2400`,`https://drive.google.com/thumbnail?id=${id}&sz=s2400`,`https://drive.google.com/uc?export=view&id=${id}`,`https://drive.google.com/uc?id=${id}`];}
 
@@ -887,55 +805,21 @@ const modalClose=document.getElementById('modalClose');
 const openBtn=document.getElementById('openBtn');
 const closingModalOverlay=document.getElementById('closingModalOverlay');
 const closingModalClose=document.getElementById('closingModalClose');
-let photoIndex=0;
-MEDIA.forEach((item,index)=>{
-  const slideDiv=document.createElement('div');slideDiv.dataset.index=index;
-  slideDiv.dataset.source='hardcoded';
-  if(item.type==='video'){
-    slideDiv.className='slide video-slide';
-    const video=document.createElement('video');
-    video.src=item.src; video.playsInline=true; video.setAttribute('playsinline',''); video.setAttribute('webkit-playsinline',''); video.preload='auto'; video.setAttribute('disablepictureinpicture','');
-    video.muted = true;
-    slideDiv.appendChild(video);
 
-    const unmuteBtn = document.createElement('button');
-    unmuteBtn.className = 'unmute-btn';
-    unmuteBtn.type = 'button';
-    unmuteBtn.innerHTML = '🔊 Tap for sound';
-    unmuteBtn.setAttribute('aria-label','Unmute video');
-    const doUnmute = (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
-      video.muted = false;
-      video.volume = 1;
-      const p = video.play();
-      if(p !== undefined){ p.then(()=>{ unmuteBtn.classList.remove('show'); }).catch(()=>{}); }
-    };
-    unmuteBtn.addEventListener('click', doUnmute);
-    unmuteBtn.addEventListener('touchstart', doUnmute, { passive:false });
-    slideDiv.appendChild(unmuteBtn);
-  } else {
-    const fxNum=(photoIndex%28)+1;slideDiv.className=`slide fx-${fxNum}`;photoIndex++;
-    const urls=buildImageUrls(item.id);
-    const img=document.createElement('img');
-    img.alt=`Honey memory ${index+1}`;img.loading='lazy';img.referrerPolicy='no-referrer';img.decoding='async';img.draggable=false;
-    let ui=0;img.src=urls[ui];
-    img.onerror=function(){ui++;if(ui<urls.length)this.src=urls[ui];else{this.style.display='none';const fb=document.createElement('div');fb.className='slide-placeholder';fb.innerHTML=`<div class="emoji-big">📷</div><p>Tap to open Photo ${index+1}</p><a href="https://drive.google.com/file/d/${item.id}/view" target="_blank" rel="noopener noreferrer">Open Photo ${index+1}</a>`;slideDiv.appendChild(fb);}};
-    slideDiv.appendChild(img);
-  }
-  slidesTrack.appendChild(slideDiv);
-});
-if(MEDIA.length===0){const e=document.createElement('div');e.className='slide';e.innerHTML=`<div class="slide-placeholder"><div class="emoji-big">💕</div><p>Photos coming soon, my love 💕</p></div>`;slidesTrack.appendChild(e);}
-let slides=slidesTrack.querySelectorAll('.slide');
-let totalSlides=slides.length;
-let currentIndex=0, autoPlayInterval=null, isModalOpen=false, videoAdvanceTimer=null, photoAdvanceTimer=null;
-slideCounter.textContent=`1 / ${totalSlides}`;
-slides.forEach((slide,i)=>{const isVideo=slide.classList.contains('video-slide');const dot=document.createElement('button');dot.className='dot'+(i===0?' active':'')+(isVideo?' video-dot':'');dot.setAttribute('aria-label',isVideo?`Video ${i+1}`:`Photo ${i+1}`);dot.addEventListener('click',()=>{goToSlide(i);});dotsContainer.appendChild(dot);});
-let dots=document.querySelectorAll('.dot');
+let slides = [];           /* Nodelist, refreshed after each sync */
+let totalSlides = 0;
+let currentIndex = 0;
+let autoPlayInterval = null;
+let isModalOpen = false;
+let videoAdvanceTimer = null;
+let photoAdvanceTimer = null;
+
 function clearTimers(){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} if(photoAdvanceTimer){clearTimeout(photoAdvanceTimer);photoAdvanceTimer=null;} }
 function scheduleVideoAdvance(video){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} let ms=VIDEO_MAX_MS; if(isFinite(video.duration)&&video.duration>0){ms=Math.min(video.duration*1000,VIDEO_MAX_MS);} videoAdvanceTimer=setTimeout(()=>{if(isModalOpen&&slides[currentIndex]&&slides[currentIndex].contains(video)){nextSlide();}},ms); }
 function schedulePhotoAdvance(){ if(photoAdvanceTimer){clearTimeout(photoAdvanceTimer);photoAdvanceTimer=null;} const dur=getPhotoDuration(); photoAdvanceTimer=setTimeout(()=>{if(isModalOpen&&slides[currentIndex]&&!slides[currentIndex].classList.contains('video-slide')){nextSlide();}},dur); }
+
 function updateSlideshow(){
+  if(!totalSlides){ return; }
   slidesTrack.style.transform=`translateX(-${currentIndex*100}%)`;
   slides.forEach((s,i)=>s.classList.toggle('active',i===currentIndex));
   dots.forEach((d,i)=>d.classList.toggle('active',i===currentIndex));
@@ -948,7 +832,8 @@ function updateSlideshow(){
     }
   });
   const a=slides[currentIndex];
-  if(a&&a.classList.contains('video-slide')){
+  if(!a) return;
+  if(a.classList.contains('video-slide')){
     fadeRomanticTo(ROMANTIC_VOLUME_VIDEO, 400);
     const v=a.querySelector('video');
     const b=a.querySelector('.unmute-btn');
@@ -960,12 +845,16 @@ function updateSlideshow(){
   }
   resetProgress();
 }
-function resetProgress(){ progressBar.style.transition='none';progressBar.style.width='0%';void progressBar.offsetWidth; const a=slides[currentIndex]; if(a&&a.classList.contains('video-slide')){progressBar.style.transition='none';progressBar.style.width='0%';} else {progressBar.style.transition=`width 5500ms linear`;progressBar.style.width='100%';} }
-function goToSlide(index){if(index<0)index=totalSlides-1;if(index>=totalSlides)index=0;currentIndex=index;updateSlideshow();}
-function nextSlide(){if(currentIndex===totalSlides-1){closeModal();return;}goToSlide(currentIndex+1);}
-function prevSlide(){goToSlide(currentIndex-1);}
-function startAutoPlay(){if(autoPlayInterval){clearInterval(autoPlayInterval);autoPlayInterval=null;}autoPlayInterval=setInterval(()=>{if(!isModalOpen)return;},1000);}
-function stopAutoPlay(){if(autoPlayInterval){clearInterval(autoPlayInterval);autoPlayInterval=null;}}
+function resetProgress(){
+  progressBar.style.transition='none';progressBar.style.width='0%';void progressBar.offsetWidth;
+  const a=slides[currentIndex];
+  if(!a) return;
+  if(a.classList.contains('video-slide')){progressBar.style.transition='none';progressBar.style.width='0%';}
+  else {progressBar.style.transition=`width 5500ms linear`;progressBar.style.width='100%';}
+}
+function goToSlide(index){if(!totalSlides)return;if(index<0)index=totalSlides-1;if(index>=totalSlides)index=0;currentIndex=index;updateSlideshow();}
+function nextSlide(){if(!totalSlides){closeModal();return;}if(currentIndex===totalSlides-1){closeModal();return;}goToSlide(currentIndex+1);}
+function prevSlide(){if(!totalSlides)return;goToSlide(currentIndex-1);}
 prevBtn.addEventListener('click',()=>{prevSlide();});
 nextBtn.addEventListener('click',()=>{nextSlide();});
 let tSX=0,tSY=0;
@@ -974,31 +863,15 @@ sc.addEventListener('touchstart',(e)=>{tSX=e.changedTouches[0].screenX;tSY=e.cha
 sc.addEventListener('touchend',(e)=>{const dx=tSX-e.changedTouches[0].screenX;const dy=tSY-e.changedTouches[0].screenY;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){if(dx>0)nextSlide();else prevSlide();}},{passive:true});
 document.addEventListener('keydown',(e)=>{ if(isModalOpen){if(e.key==='ArrowRight'){nextSlide();}if(e.key==='ArrowLeft'){prevSlide();}if(e.key==='Escape'){closeModal();}} if(closingModalOverlay.classList.contains('active')&&e.key==='Escape')closeClosingModal(); });
 
-/* ===== ADDED: Supabase loader + merge + auto-sync ===== */
-let supabaseSlideElements = [];   /* track dynamically added slides so we can replace them on resync */
-let lastSyncHash = '';            /* avoid rebuilding when nothing changed */
-
-async function loadSupabaseMedia(){
-  try{
-    const rows = await sb.select();
-    if(!rows || !rows.length) return [];
-    return rows
-      .filter(r => (r.type === 'video' && r.src) || (r.type === 'photo' && r.drive_id))
-      .map(r => r.type === 'video'
-        ? { type:'video', src:r.src }
-        : { type:'photo', id:r.drive_id }
-      );
-  }catch(e){
-    console.warn('[supabase] load failed:', e.message);
-    return [];
-  }
-}
+/* ============================================================
+   SUPABASE LOADER + MERGE + AUTO-SYNC
+   ============================================================ */
+let lastSyncHash = '';
 
 function makeVideoSlide(src, index){
   const slideDiv = document.createElement('div');
   slideDiv.className = 'slide video-slide';
   slideDiv.dataset.index = index;
-  slideDiv.dataset.source = 'supabase';
   const video = document.createElement('video');
   video.src = src;
   video.playsInline = true;
@@ -1025,7 +898,6 @@ function makePhotoSlide(id, index, fxNum){
   const slideDiv = document.createElement('div');
   slideDiv.className = `slide fx-${fxNum}`;
   slideDiv.dataset.index = index;
-  slideDiv.dataset.source = 'supabase';
   const urls = buildImageUrls(id);
   const img = document.createElement('img');
   img.alt = `Honey memory ${index+1}`;
@@ -1039,11 +911,19 @@ function makePhotoSlide(id, index, fxNum){
   return slideDiv;
 }
 
+function makePlaceholderSlide(){
+  const slideDiv = document.createElement('div');
+  slideDiv.className = 'slide';
+  slideDiv.dataset.placeholder = '1';
+  slideDiv.innerHTML = `<div class="slide-placeholder"><div class="emoji-big">💕</div><p>No memories yet, my love 💕<br>Import some from Excel to see them here.</p></div>`;
+  return slideDiv;
+}
+
 function rebuildDotsAndCounter(){
   slides = slidesTrack.querySelectorAll('.slide');
   totalSlides = slides.length;
   if(currentIndex >= totalSlides) currentIndex = 0;
-  slideCounter.textContent = `${currentIndex+1} / ${totalSlides}`;
+  slideCounter.textContent = totalSlides ? `${currentIndex+1} / ${totalSlides}` : '0 / 0';
   dotsContainer.innerHTML = '';
   slides.forEach((s,i)=>{
     const isVideo = s.classList.contains('video-slide');
@@ -1063,51 +943,54 @@ function syncBadge(state){
   else { badge.textContent = '● live'; badge.classList.remove('syncing'); }
 }
 
+async function fetchSupabaseRows(){
+  try{
+    const rows = await sb.select();
+    return (rows || []).filter(r => (r.type === 'video' && r.src) || (r.type === 'photo' && r.drive_id));
+  }catch(e){
+    console.warn('[supabase] load failed:', e.message);
+    return [];
+  }
+}
+
 async function mergeSupabaseIntoSlideshow(force){
   syncBadge('syncing');
-  const extra = await loadSupabaseMedia();
+  const rows = await fetchSupabaseRows();
 
-  /* hash to skip rebuilding if identical */
-  const hash = JSON.stringify(extra);
+  const hash = JSON.stringify(rows.map(r => ({ t:r.type, s:r.src||'', d:r.drive_id||'', o:r.sort_order||0 })));
   if(!force && hash === lastSyncHash){ syncBadge('ok'); return; }
   lastSyncHash = hash;
 
-  /* remove previously-merged Supabase slides */
-  supabaseSlideElements.forEach(el => el.remove());
-  supabaseSlideElements = [];
+  /* clear current slides */
+  slidesTrack.innerHTML = '';
+  let fx = 0;
 
-  /* if slideshow was on a supabase slide, reset to 0 */
-  if(currentIndex >= (slidesTrack.children.length - supabaseSlideElements.length) && supabaseSlideElements.length === 0){
-    /* nothing to do here, handled below by rebuild */
-  }
-
-  if(extra.length){
-    let fx = photoIndex;
-    extra.forEach((item, i) => {
-      const idx = slidesTrack.children.length;
-      const el = item.type === 'video'
-        ? makeVideoSlide(item.src, idx)
-        : (()=>{ const n = (fx % 28) + 1; fx++; return makePhotoSlide(item.id, idx, n); })();
+  if(!rows.length){
+    slidesTrack.appendChild(makePlaceholderSlide());
+  } else {
+    rows.forEach((r, i) => {
+      const el = r.type === 'video'
+        ? makeVideoSlide(r.src, i)
+        : (()=>{ const n = (fx % 28) + 1; fx++; return makePhotoSlide(r.drive_id, i, n); })();
       slidesTrack.appendChild(el);
-      supabaseSlideElements.push(el);
     });
   }
 
   rebuildDotsAndCounter();
   if(isModalOpen){
-    /* re-apply current slide position cleanly */
     slides.forEach((s,i)=>s.classList.toggle('active', i===currentIndex));
     slidesTrack.style.transform = `translateX(-${currentIndex*100}%)`;
+    updateSlideshow();
   }
   syncBadge('ok');
 }
 
-/* auto-sync every 60 seconds */
 setInterval(()=>{ mergeSupabaseIntoSlideshow(false); }, SYNC_INTERVAL_MS);
-/* initial sync once on load */
 setTimeout(()=>{ mergeSupabaseIntoSlideshow(false); }, 1500);
-/* ===== /ADDED ===== */
 
+/* ============================================================
+   MODAL OPEN / CLOSE
+   ============================================================ */
 function openModal(){
   finishTypewriterNow();
   isModalOpen=true;currentIndex=0;
@@ -1115,9 +998,8 @@ function openModal(){
   if(musicEnabled){ musicRomantic.volume = ROMANTIC_VOLUME_PHOTO; playRomantic(); }
   modalOverlay.classList.add('active');
   document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.width='100%';
-  mergeSupabaseIntoSlideshow(true);   /* ===== ADDED: force fresh on open ===== */
-  updateSlideshow();
-  startFloatSpawner();                /* ===== ADDED ===== */
+  mergeSupabaseIntoSlideshow(true);
+  startFloatSpawner();
 }
 
 function confettiBurst(){
@@ -1134,8 +1016,8 @@ function confettiBurst(){
 }
 
 function closeModal(){
-  isModalOpen=false;stopAutoPlay();clearTimers();
-  stopFloatSpawner();    /* ===== ADDED ===== */
+  isModalOpen=false;clearTimers();
+  stopFloatSpawner();
   slides.forEach(s=>{const v=s.querySelector('video');if(v)resetVideoEl(v); const b=s.querySelector('.unmute-btn'); if(b)b.classList.remove('show');});
   musicRomantic.pause();
   musicRomantic.volume = ROMANTIC_VOLUME_PHOTO;
@@ -1161,10 +1043,10 @@ modalOverlay.addEventListener('click',(e)=>{if(e.target===modalOverlay)closeModa
 closingModalClose.addEventListener('click',closeClosingModal);
 closingModalOverlay.addEventListener('click',(e)=>{if(e.target===closingModalOverlay)closeClosingModal();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimers();slides.forEach(s=>{const v=s.querySelector('video');if(v&&!v.paused)v.pause();});musicHappy.pause();musicRomantic.pause();}else if(isModalOpen){updateSlideshow();}});
-slides.forEach(s=>{ const v=s.querySelector('video'); if(v){ v.addEventListener('ended',()=>{ if(isModalOpen&&slides[currentIndex]===s){clearTimers();nextSlide();} }); v.addEventListener('error',()=>{ if(isModalOpen&&slides[currentIndex]===s){clearTimers();setTimeout(()=>{nextSlide();},800);} }); } });
-if(slides.length>0)slides[0].classList.add('active');
 
-/* ===== ADDED: IMPORT / EXPORT EXCEL (includes hardcoded + supabase) ===== */
+/* ============================================================
+   IMPORT / EXPORT EXCEL  (with de-duplication)
+   ============================================================ */
 const btnImport   = document.getElementById('btnImport');
 const btnExport   = document.getElementById('btnExport');
 const excelInput  = document.getElementById('excelInput');
@@ -1187,7 +1069,8 @@ excelInput.addEventListener('change', async (e)=>{
     const ws  = wb.Sheets[wb.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json(ws, { defval:'' });
 
-    const payload = rows.map((r, i) => {
+    /* normalize + validate */
+    const incoming = rows.map((r, i) => {
       const norm = {};
       Object.keys(r).forEach(k => norm[k.trim().toLowerCase()] = String(r[k]).trim());
       const type = (norm.type || '').toLowerCase();
@@ -1206,12 +1089,37 @@ excelInput.addEventListener('change', async (e)=>{
       return row;
     }).filter(Boolean);
 
-    if(!payload.length){ setStatus('❌ No valid rows found.', 'err'); return; }
+    if(!incoming.length){ setStatus('❌ No valid rows found.', 'err'); return; }
 
-    setStatus(`⏳ Uploading ${payload.length} row(s)…`);
-    await sb.insert(payload);
-    setStatus(`✅ Imported ${payload.length} row(s).`, 'ok');
-    mergeSupabaseIntoSlideshow(true);   /* refresh immediately after import */
+    /* fetch existing rows to dedupe */
+    setStatus('⏳ Checking for duplicates…');
+    const existing = await fetchSupabaseRows();
+    const existingKeys = new Set();
+    existing.forEach(r => {
+      if(r.type === 'video' && r.src) existingKeys.add('v:' + r.src.trim());
+      if(r.type === 'photo' && r.drive_id) existingKeys.add('p:' + r.drive_id.trim());
+    });
+
+    /* dedupe within file AND against existing */
+    const seen = new Set();
+    const unique = incoming.filter(r => {
+      const key = r.type === 'video' ? ('v:' + r.src.trim()) : ('p:' + r.drive_id.trim());
+      if(existingKeys.has(key)) return false;
+      if(seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    const skipped = incoming.length - unique.length;
+    if(!unique.length){
+      setStatus(`ℹ️ All ${incoming.length} row(s) already exist — nothing to add.`, 'err');
+      return;
+    }
+
+    setStatus(`⏳ Uploading ${unique.length} new row(s)${skipped ? ' (' + skipped + ' skipped)' : ''}…`);
+    await sb.insert(unique);
+    setStatus(`✅ Added ${unique.length} new row(s). ${skipped ? skipped + ' duplicate(s) skipped.' : ''}`, 'ok');
+    mergeSupabaseIntoSlideshow(true);
   }catch(err){
     console.error(err);
     setStatus('❌ ' + err.message, 'err');
@@ -1223,52 +1131,37 @@ excelInput.addEventListener('change', async (e)=>{
 btnExport.addEventListener('click', async ()=>{
   setStatus('⏳ Building export…');
   try{
-    /* 1) Hardcoded MEDIA from the HTML itself */
-    const hardcoded = MEDIA.map((m, i) => ({
-      source:     'hardcoded',
-      type:       m.type,
-      src:        m.type === 'video' ? (m.src || '') : '',
-      drive_id:   m.type === 'photo' ? (m.id  || '') : '',
-      title:      '',
-      sort_order: i
+    const rows = await fetchSupabaseRows();
+    const clean = rows.map(r => ({
+      type: r.type || '',
+      src: r.src || '',
+      drive_id: r.drive_id || '',
+      title: r.title || '',
+      sort_order: r.sort_order || 0
     }));
 
-    /* 2) Supabase rows (public table) */
-    let supabaseRows = [];
-    try{
-      const rows = await sb.select();
-      supabaseRows = (rows || []).map(r => ({
-        source:     'supabase',
-        type:       r.type || '',
-        src:        r.src || '',
-        drive_id:   r.drive_id || '',
-        title:      r.title || '',
-        sort_order: r.sort_order || 0
-      }));
-    }catch(e){
-      console.warn('[export] supabase fetch failed, exporting hardcoded only:', e.message);
-    }
-
-    const all = [...hardcoded, ...supabaseRows];
-    if(!all.length){ setStatus('ℹ️ Nothing to export.', 'err'); return; }
-
-    const ws = XLSX.utils.json_to_sheet(all, {
-      header: ['source','type','src','drive_id','title','sort_order']
+    /* Always export — even if empty — with the same header row */
+    const ws = XLSX.utils.json_to_sheet(clean, {
+      header: ['type','src','drive_id','title','sort_order']
     });
+    /* Ensure header exists even with no rows */
+    if(!clean.length){
+      XLSX.utils.sheet_add_aoa(ws, [['type','src','drive_id','title','sort_order']], { origin: 'A1' });
+    }
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'media');
     const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
     XLSX.writeFile(wb, `honey-media-${stamp}.xlsx`);
-
-    setStatus(`✅ Exported ${hardcoded.length} hardcoded + ${supabaseRows.length} supabase row(s).`, 'ok');
+    setStatus(`✅ Exported ${clean.length} row(s).`, 'ok');
   }catch(err){
     console.error(err);
     setStatus('❌ ' + err.message, 'err');
   }
 });
-/* ===== /ADDED ===== */
 
-/* ===== ADDED: FLOATING EMOJI SPAWNER (slideshow only) ===== */
+/* ============================================================
+   FLOATING EMOJI SPAWNER (slideshow only)
+   ============================================================ */
 const FLOAT_EMOJIS = ['❤️','💕','✨','💖','🌹','💛','💗','💞','🌸','💝'];
 const FLOAT_EFFECTS = ['fe_floatUp','fe_floatDown','fe_driftL','fe_driftR','fe_pulse','fe_spin','fe_bounce','fe_sway'];
 let floatSpawnerTimer = null;
@@ -1299,19 +1192,16 @@ function scheduleNextFloat(){
     scheduleNextFloat();
   }, wait);
 }
-
-function startFloatSpawner(){
-  if(floatActive) return;
-  floatActive = true;
-  scheduleNextFloat();
-}
-
+function startFloatSpawner(){ if(floatActive) return; floatActive = true; scheduleNextFloat(); }
 function stopFloatSpawner(){
   floatActive = false;
   if(floatSpawnerTimer){ clearTimeout(floatSpawnerTimer); floatSpawnerTimer = null; }
   document.querySelectorAll('.float-emoji').forEach(n=>n.remove());
 }
-/* ===== /ADDED ===== */
+
+/* ---- initial render (empty placeholder until Supabase loads) ---- */
+slidesTrack.appendChild(makePlaceholderSlide());
+rebuildDotsAndCounter();
 
 })();
 </script>
