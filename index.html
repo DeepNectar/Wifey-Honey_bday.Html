@@ -93,11 +93,15 @@
 .admin-slider-row input[type="range"]{flex:1;accent-color:#c41e3a}
 .admin-slider-row .admin-slider-val{flex:0 0 42px;text-align:right;font-size:.82rem;font-weight:700;color:#8b0028}
 
-/* Language tabs */
 .lang-tabs{display:flex;gap:.4rem;margin-bottom:.9rem;background:#fff5e0;padding:.35rem;border-radius:.9rem;border:1.5px solid rgba(196,30,58,.25)}
 .lang-tab{flex:1;padding:.55rem .4rem;border:none;border-radius:.6rem;font-size:.82rem;font-weight:800;cursor:pointer;background:transparent;color:#8b0028;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit;letter-spacing:.3px;font-style:italic}
 .lang-tab.active{background:linear-gradient(135deg,#8b0028,#c41e3a);color:#ffd700;box-shadow:0 4px 12px rgba(139,0,40,.4)}
 .lang-tab:active{transform:scale(.97)}
+
+.admin-toggle-box{padding:.8rem;border-radius:.8rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid #c41e3a;margin-bottom:.9rem}
+.admin-toggle-box label{display:flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:800;color:#8b0028;cursor:pointer;font-style:italic}
+.admin-toggle-box input[type="checkbox"]{width:22px;height:22px;accent-color:#c41e3a;cursor:pointer}
+.admin-toggle-box .hint{font-size:.72rem;color:#a06c7a;font-style:italic;margin-top:.5rem;line-height:1.4}
 
 @media (max-width:480px){.admin-content{padding:1.3rem .9rem 1rem;border-radius:1.3rem}.admin-section{padding:.75rem .65rem}.admin-date-row{grid-template-columns:1fr}.admin-counter-grid{grid-template-columns:1fr}.admin-song-row{grid-template-columns:auto 1fr}.admin-song-row .admin-select{grid-column:1 / -1}.lang-tab{font-size:.72rem;padding:.5rem .3rem}}
 
@@ -365,7 +369,7 @@ h1{font-size:1.85rem}
 @media (min-width:1025px){.wrapper{max-width:820px}}
 @media (max-height:500px) and (orientation:landscape){.opening-content{gap:.3rem}.cake-clickable{font-size:clamp(4rem,15vw,6rem);margin:.5rem 0}.closing-modal-content{max-height:95vh;padding:1.2rem}.closing-modal-content::before{display:none}}
 .card,.names,.subhead,.dot,.nav-btn,.slide-placeholder a,.open-btn,.modal-close,.cake-clickable,.closing-modal-close,.music-toggle,.unmute-btn,.data-btn,.lang-toggle{-webkit-tap-highlight-color:transparent}
-@media (prefers-color-scheme:dark){body{background:linear-gradient(145deg,#1a0008,#3d0a1a,#5e1a2e,#3d0a1a);background-size:200% 200%}.card{background:linear-gradient(180deg,rgba(45,15,25,.96),rgba(60,20,35,.94));border-color:#d4a373;box-shadow:0 25px 50px -15px #0a0004,0 0 0 1px rgba(212,163,115,.3),inset 0 0 60px rgba(255,215,0,.05)}.message{background:#2f1a22;color:#ffe8d0;border-color:rgba(212,163,115,.3)}.message .greeting{color:#ffd700}.message .greeting .cursor{background:#ffd700}.message .type-cursor{background:#ffd700}h1{background:linear-gradient(90deg,#ffd700,#ffed4e,#ffa500,#ffed4e,#ffd700);background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.subhead{background:linear-gradient(135deg,#4e1a2a,#6b1e35);color:#ffd700;border-color:rgba(255,215,0,.3)}.names{background:linear-gradient(135deg,#8b0028,#c41e3a);color:#ffd700;box-shadow:0 6px 0 #5e0018,0 8px 20px #18060c}.from span:first-child{color:#d4a373}.opening-screen{background:linear-gradient(160deg,#3d0a1a 0%,#5e1a2e 50%,#3d0a1a 100%)}.closing-modal-content{background:linear-gradient(160deg,#2d0a17 0%,#4a1025 45%,#5e1a2e 100%);border-color:#d4a373;box-shadow:0 35px 70px -20px rgba(0,0,0,.85),0 0 0 1px rgba(212,163,115,.4),0 0 100px rgba(255,215,0,.25)}.closing-modal-message{color:#ffe8d0}.closing-modal-title{background:linear-gradient(90deg,#ffd700,#ffed4e,#ffa500,#ffed4e,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.counters-box{background:linear-gradient(135deg,#3d0a1a,#4e1a2a);border-color:rgba(255,215,0,.3)}.counters-title{color:#ffd700}.counter-label{color:#ffd700}.counter-time{color:#ffe8d0}.counter-time strong{color:#ffd700}.counter-date{color:#cc8fa4}.counter-item{border-bottom-color:rgba(212,163,115,.3)}.data-panel{background:linear-gradient(135deg,rgba(61,10,26,.85),rgba(78,26,42,.85));border-color:rgba(255,215,0,.4)}.data-panel-title{color:#ffd700}.data-btn.ghost{background:#2f1a22;color:#ffd700}.admin-content{background:linear-gradient(160deg,#2d0a17,#4a1025);border-color:#d4a373}.admin-title{color:#ffd700}.admin-section{background:#2f1a22;border-color:rgba(212,163,115,.35)}.admin-section-title{color:#ffd700}.admin-input,.admin-textarea,.admin-select{background:#1f0d15;color:#ffe8d0;border-color:rgba(255,215,0,.5)}.admin-counter-row,.admin-song-row{background:#2f1a22;border-color:rgba(212,163,115,.35)}.lang-tabs{background:#2f1a22;border-color:rgba(212,163,115,.35)}.lang-tab{color:#ffd700}}
+@media (prefers-color-scheme:dark){body{background:linear-gradient(145deg,#1a0008,#3d0a1a,#5e1a2e,#3d0a1a);background-size:200% 200%}.card{background:linear-gradient(180deg,rgba(45,15,25,.96),rgba(60,20,35,.94));border-color:#d4a373;box-shadow:0 25px 50px -15px #0a0004,0 0 0 1px rgba(212,163,115,.3),inset 0 0 60px rgba(255,215,0,.05)}.message{background:#2f1a22;color:#ffe8d0;border-color:rgba(212,163,115,.3)}.message .greeting{color:#ffd700}.message .greeting .cursor{background:#ffd700}.message .type-cursor{background:#ffd700}h1{background:linear-gradient(90deg,#ffd700,#ffed4e,#ffa500,#ffed4e,#ffd700);background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.subhead{background:linear-gradient(135deg,#4e1a2a,#6b1e35);color:#ffd700;border-color:rgba(255,215,0,.3)}.names{background:linear-gradient(135deg,#8b0028,#c41e3a);color:#ffd700;box-shadow:0 6px 0 #5e0018,0 8px 20px #18060c}.from span:first-child{color:#d4a373}.opening-screen{background:linear-gradient(160deg,#3d0a1a 0%,#5e1a2e 50%,#3d0a1a 100%)}.closing-modal-content{background:linear-gradient(160deg,#2d0a17 0%,#4a1025 45%,#5e1a2e 100%);border-color:#d4a373;box-shadow:0 35px 70px -20px rgba(0,0,0,.85),0 0 0 1px rgba(212,163,115,.4),0 0 100px rgba(255,215,0,.25)}.closing-modal-message{color:#ffe8d0}.closing-modal-title{background:linear-gradient(90deg,#ffd700,#ffed4e,#ffa500,#ffed4e,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.counters-box{background:linear-gradient(135deg,#3d0a1a,#4e1a2a);border-color:rgba(255,215,0,.3)}.counters-title{color:#ffd700}.counter-label{color:#ffd700}.counter-time{color:#ffe8d0}.counter-time strong{color:#ffd700}.counter-date{color:#cc8fa4}.counter-item{border-bottom-color:rgba(212,163,115,.3)}.data-panel{background:linear-gradient(135deg,rgba(61,10,26,.85),rgba(78,26,42,.85));border-color:rgba(255,215,0,.4)}.data-panel-title{color:#ffd700}.data-btn.ghost{background:#2f1a22;color:#ffd700}.admin-content{background:linear-gradient(160deg,#2d0a17,#4a1025);border-color:#d4a373}.admin-title{color:#ffd700}.admin-section{background:#2f1a22;border-color:rgba(212,163,115,.35)}.admin-section-title{color:#ffd700}.admin-input,.admin-textarea,.admin-select{background:#1f0d15;color:#ffe8d0;border-color:rgba(255,215,0,.5)}.admin-counter-row,.admin-song-row{background:#2f1a22;border-color:rgba(212,163,115,.35)}.lang-tabs{background:#2f1a22;border-color:rgba(212,163,115,.35)}.lang-tab{color:#ffd700}.admin-toggle-box{background:linear-gradient(135deg,#2f1a22,#3d0a1a);border-color:#c41e3a}.admin-toggle-box label{color:#ffd700}.admin-toggle-box .hint{color:#cc8fa4}}
 @media (max-width:600px) and (prefers-color-scheme:dark){.card{background:linear-gradient(180deg,rgba(45,15,25,.18),rgba(60,20,35,.18))}.message{background:linear-gradient(to bottom,rgba(47,26,34,.22),rgba(47,26,34,.22));text-shadow:0 0 6px rgba(0,0,0,.9),0 0 12px rgba(0,0,0,.7),0 0 20px rgba(0,0,0,.5)}.message p,.message .greeting{text-shadow:0 0 6px rgba(0,0,0,.9),0 0 12px rgba(0,0,0,.7),0 0 20px rgba(0,0,0,.5)}.counters-box{background:linear-gradient(135deg,rgba(61,10,26,.22),rgba(78,26,42,.22))}.counters-box .counters-title,.counters-box .counter-label,.counters-box .counter-time,.counters-box .counter-time strong,.counters-box .counter-date{text-shadow:0 0 5px rgba(0,0,0,.9),0 0 10px rgba(0,0,0,.6)}.subhead{background:linear-gradient(135deg,rgba(78,26,42,.25),rgba(107,30,53,.25));text-shadow:0 0 5px rgba(0,0,0,.9)}}
 </style>
 </head>
@@ -377,7 +381,6 @@ h1{font-size:1.85rem}
 <div class="lock-icon">🔒</div>
 <div class="lock-title" id="lockTitleEl"></div>
 <div class="lock-subtitle" id="lockSubtitleEl"></div>
-
 <div class="countdown-label" id="countdownLabelEl"></div>
 <div class="countdown">
 <div class="cd-box"><div class="cd-num" id="cdDays">00</div><div class="cd-label" id="cdDaysLabel">Days</div></div>
@@ -385,11 +388,9 @@ h1{font-size:1.85rem}
 <div class="cd-box"><div class="cd-num" id="cdMins">00</div><div class="cd-label" id="cdMinsLabel">Mins</div></div>
 <div class="cd-box"><div class="cd-num" id="cdSecs">00</div><div class="cd-label" id="cdSecsLabel">Secs</div></div>
 </div>
-
 <button class="open-early-btn" id="openEarlyBtn">
 <span>🔓</span><span id="openEarlyTextEl"></span>
 </button>
-
 <div class="lock-hearts">❤️ 💕 🌹 ✨ 💖</div>
 </div>
 </div>
@@ -401,7 +402,7 @@ h1{font-size:1.85rem}
 <div class="pw-title" id="pwTitleEl"></div>
 <div class="pw-sub" id="pwSubEl"></div>
 <input type="password" class="pw-input" id="pwInput" placeholder="" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-<div class="pw-error" id="pwError">❌</div>
+<div class="pw-error" id="pwError"></div>
 <div class="pw-buttons">
 <button class="pw-btn cancel" id="pwCancel"></button>
 <button class="pw-btn confirm" id="pwConfirm"></button>
@@ -431,6 +432,12 @@ h1{font-size:1.85rem}
 <div class="admin-title">⚙️ Customize Page</div>
 <div class="admin-sub">Fill in each language tab. Then tap Save.</div>
 
+<!-- LOCK SCREEN MASTER TOGGLE -->
+<div class="admin-toggle-box">
+<label><input type="checkbox" id="f_showLockScreen" /> 🔒 Show Lock Screen (countdown + password)</label>
+<div class="hint">When unchecked, the page skips the lock screen and goes directly to the cake reveal.</div>
+</div>
+
 <!-- Language tabs -->
 <div class="lang-tabs">
 <button class="lang-tab active" data-lang="en">🇬🇧 English</button>
@@ -438,13 +445,12 @@ h1{font-size:1.85rem}
 <button class="lang-tab" data-lang="hi">🇮🇳 हिन्दी</button>
 </div>
 
-<!-- ===== PER-LANGUAGE FIELDS ===== -->
 <div class="admin-section">
 <div class="admin-section-title">🔓 Lock Screen</div>
 <div class="admin-field"><label class="admin-label">Lock Title</label><input type="text" class="admin-input" id="f_lockTitle" /></div>
 <div class="admin-field"><label class="admin-label">Lock Subtitle</label><input type="text" class="admin-input" id="f_lockSubtitle" /></div>
 <div class="admin-field"><label class="admin-label">Unlock Date Display Text</label><input type="text" class="admin-input" id="f_lockDateText" /></div>
-<div class="admin-field"><label class="admin-label">Countdown Label (e.g. ⏳ Unlocks in)</label><input type="text" class="admin-input" id="f_countdownLabel" /></div>
+<div class="admin-field"><label class="admin-label">Countdown Label</label><input type="text" class="admin-input" id="f_countdownLabel" /></div>
 <div class="admin-field"><label class="admin-label">Days Label</label><input type="text" class="admin-input" id="f_daysLabel" /></div>
 <div class="admin-field"><label class="admin-label">Hours Label</label><input type="text" class="admin-input" id="f_hoursLabel" /></div>
 <div class="admin-field"><label class="admin-label">Mins Label</label><input type="text" class="admin-input" id="f_minsLabel" /></div>
@@ -477,9 +483,9 @@ h1{font-size:1.85rem}
 <div class="admin-field"><label class="admin-label">Paragraph 4</label><textarea class="admin-textarea" id="f_msg4"></textarea></div>
 <div class="admin-field"><label class="admin-label">Paragraph 5</label><textarea class="admin-textarea" id="f_msg5"></textarea></div>
 <div class="admin-field"><label class="admin-label">Sign-off</label><input type="text" class="admin-input" id="f_signoff" /></div>
-<div class="admin-field"><label class="admin-label">Names Badge (e.g. Deep 💖)</label><input type="text" class="admin-input" id="f_namesBadge" /></div>
+<div class="admin-field"><label class="admin-label">Names Badge</label><input type="text" class="admin-input" id="f_namesBadge" /></div>
 <div class="admin-field"><label class="admin-label">"Lots of love from" Label</label><input type="text" class="admin-input" id="f_fromLabel" /></div>
-<div class="admin-field"><label class="admin-label">Counters Box Title (💖 Our Journey Together)</label><input type="text" class="admin-input" id="f_countersTitle" /></div>
+<div class="admin-field"><label class="admin-label">Counters Box Title</label><input type="text" class="admin-input" id="f_countersTitle" /></div>
 <div class="admin-field"><label class="admin-label">Counter 1 Label</label><input type="text" class="admin-input" id="f_ct1_label" /></div>
 <div class="admin-field"><label class="admin-label">Counter 2 Label</label><input type="text" class="admin-input" id="f_ct2_label" /></div>
 <div class="admin-field"><label class="admin-label">Counter 3 Label</label><input type="text" class="admin-input" id="f_ct3_label" /></div>
@@ -497,17 +503,8 @@ h1{font-size:1.85rem}
 <div class="admin-field"><label class="admin-label">Close Button</label><input type="text" class="admin-input" id="f_closeBtn" /></div>
 </div>
 
-<!-- ===== SHARED SETTINGS ===== -->
 <div class="admin-section">
-<div class="admin-section-title">⚙️ Shared Settings (same for all languages)</div>
-
-<div class="admin-field">
-<label class="admin-label">☑ Show Lock Screen (countdown + password)</label>
-<div class="admin-radio-row">
-<label><input type="checkbox" id="f_showLockScreen" /> Show lock screen</label>
-</div>
-</div>
-
+<div class="admin-section-title">⚙️ Shared Settings</div>
 <div class="admin-field">
 <label class="admin-label">Default Card Language (viewer can still switch)</label>
 <select class="admin-select" id="f_defaultLanguage">
@@ -516,7 +513,6 @@ h1{font-size:1.85rem}
 <option value="hi">हिन्दी (Hindi)</option>
 </select>
 </div>
-
 <div class="admin-field">
 <label class="admin-label">Unlock Date &amp; Time (live countdown target)</label>
 <div class="admin-date-row">
@@ -528,48 +524,20 @@ h1{font-size:1.85rem}
 
 <div class="admin-section">
 <div class="admin-section-title">💖 Counter Visibility &amp; Dates</div>
-<div class="admin-sub" style="text-align:left;margin-bottom:.6rem;font-size:.78rem;">Uncheck to hide a counter. If all 3 unchecked, the whole box disappears.</div>
-
 <div class="admin-counter-row">
-<div class="admin-counter-head">
-<input type="checkbox" id="f_ct1_show" />
-<label for="f_ct1_show">💬 Counter 1 — Show</label>
+<div class="admin-counter-head"><input type="checkbox" id="f_ct1_show" /><label for="f_ct1_show">💬 Counter 1 — Show</label></div>
+<div class="admin-counter-grid"><div><label class="admin-label">Display Date</label><input type="text" class="admin-input" id="f_ct1_dispdate" /></div></div>
+<div class="admin-date-row"><input type="date" class="admin-input" id="f_ct1_date" /><input type="time" class="admin-input" id="f_ct1_time" /></div>
 </div>
-<div class="admin-counter-grid">
-<div><label class="admin-label">Display Date</label><input type="text" class="admin-input" id="f_ct1_dispdate" /></div>
-</div>
-<div class="admin-date-row">
-<input type="date" class="admin-input" id="f_ct1_date" />
-<input type="time" class="admin-input" id="f_ct1_time" />
-</div>
-</div>
-
 <div class="admin-counter-row">
-<div class="admin-counter-head">
-<input type="checkbox" id="f_ct2_show" />
-<label for="f_ct2_show">💕 Counter 2 — Show</label>
+<div class="admin-counter-head"><input type="checkbox" id="f_ct2_show" /><label for="f_ct2_show">💕 Counter 2 — Show</label></div>
+<div class="admin-counter-grid"><div><label class="admin-label">Display Date</label><input type="text" class="admin-input" id="f_ct2_dispdate" /></div></div>
+<div class="admin-date-row"><input type="date" class="admin-input" id="f_ct2_date" /><input type="time" class="admin-input" id="f_ct2_time" /></div>
 </div>
-<div class="admin-counter-grid">
-<div><label class="admin-label">Display Date</label><input type="text" class="admin-input" id="f_ct2_dispdate" /></div>
-</div>
-<div class="admin-date-row">
-<input type="date" class="admin-input" id="f_ct2_date" />
-<input type="time" class="admin-input" id="f_ct2_time" />
-</div>
-</div>
-
 <div class="admin-counter-row">
-<div class="admin-counter-head">
-<input type="checkbox" id="f_ct3_show" />
-<label for="f_ct3_show">💍 Counter 3 — Show</label>
-</div>
-<div class="admin-counter-grid">
-<div><label class="admin-label">Display Date</label><input type="text" class="admin-input" id="f_ct3_dispdate" /></div>
-</div>
-<div class="admin-date-row">
-<input type="date" class="admin-input" id="f_ct3_date" />
-<input type="time" class="admin-input" id="f_ct3_time" />
-</div>
+<div class="admin-counter-head"><input type="checkbox" id="f_ct3_show" /><label for="f_ct3_show">💍 Counter 3 — Show</label></div>
+<div class="admin-counter-grid"><div><label class="admin-label">Display Date</label><input type="text" class="admin-input" id="f_ct3_dispdate" /></div></div>
+<div class="admin-date-row"><input type="date" class="admin-input" id="f_ct3_date" /><input type="time" class="admin-input" id="f_ct3_time" /></div>
 </div>
 </div>
 
@@ -583,14 +551,12 @@ h1{font-size:1.85rem}
 <label><input type="radio" name="music_mode" value="slideshow" /> Slideshow only</label>
 </div>
 </div>
-
-<div class="admin-song-label">🎶 Playlist (5 slots — plays in order, loops)</div>
+<div class="admin-song-label">🎶 Playlist (5 slots)</div>
 <div class="admin-song-row"><input type="checkbox" id="f_song1_on" /><div><input type="text" class="admin-input" id="f_song1_url" placeholder="https://... .mp3" /></div><select class="admin-select" id="f_song1_where"><option value="both">Both</option><option value="card">Card</option><option value="slideshow">Slideshow</option></select></div>
 <div class="admin-song-row"><input type="checkbox" id="f_song2_on" /><div><input type="text" class="admin-input" id="f_song2_url" placeholder="https://... .mp3" /></div><select class="admin-select" id="f_song2_where"><option value="both">Both</option><option value="card">Card</option><option value="slideshow">Slideshow</option></select></div>
 <div class="admin-song-row"><input type="checkbox" id="f_song3_on" /><div><input type="text" class="admin-input" id="f_song3_url" placeholder="https://... .mp3" /></div><select class="admin-select" id="f_song3_where"><option value="both">Both</option><option value="card">Card</option><option value="slideshow">Slideshow</option></select></div>
 <div class="admin-song-row"><input type="checkbox" id="f_song4_on" /><div><input type="text" class="admin-input" id="f_song4_url" placeholder="https://... .mp3" /></div><select class="admin-select" id="f_song4_where"><option value="both">Both</option><option value="card">Card</option><option value="slideshow">Slideshow</option></select></div>
 <div class="admin-song-row"><input type="checkbox" id="f_song5_on" /><div><input type="text" class="admin-input" id="f_song5_url" placeholder="https://... .mp3" /></div><select class="admin-select" id="f_song5_where"><option value="both">Both</option><option value="card">Card</option><option value="slideshow">Slideshow</option></select></div>
-
 <div class="admin-song-label" style="margin-top:.8rem;">🔊 Volume</div>
 <div class="admin-slider-row"><label>Card</label><input type="range" id="f_vol_card" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_card_val">0.45</span></div>
 <div class="admin-slider-row"><label>Slideshow</label><input type="range" id="f_vol_slide" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_slide_val">0.85</span></div>
@@ -603,7 +569,7 @@ h1{font-size:1.85rem}
 <button class="admin-btn cancel" id="adminCancel">Cancel</button>
 </div>
 <div class="admin-status" id="adminStatus"></div>
-<div class="admin-lock-hint">🔒 After you tap Save, this panel closes and reopens only with the admin password (triple-tap the 🎂 on the main card).</div>
+<div class="admin-lock-hint">🔒 After you tap Save, this panel closes and reopens only with the admin password.</div>
 </div>
 </div>
 
@@ -611,7 +577,6 @@ h1{font-size:1.85rem}
 <div id="confettiContainer"></div>
 
 <audio id="audioPlayer" preload="auto" crossorigin="anonymous"></audio>
-
 <button class="music-toggle muted" id="musicToggle" aria-label="Toggle music" title="Toggle music">🔇</button>
 <button class="lang-toggle" id="langToggle" aria-label="Change language" title="Change language" data-state="en">EN</button>
 
@@ -641,30 +606,9 @@ h1{font-size:1.85rem}
 
 <div class="counters-box" id="countersMain">
 <div class="counters-title" id="countersMainTitle"></div>
-<div class="counter-item" id="ctMain1">
-<div class="counter-icon">💬</div>
-<div class="counter-body">
-<div class="counter-label" id="ctMain1_label"></div>
-<div class="counter-time" id="counterTalkMain">…</div>
-<div class="counter-date" id="ctMain1_date"></div>
-</div>
-</div>
-<div class="counter-item" id="ctMain2">
-<div class="counter-icon">💕</div>
-<div class="counter-body">
-<div class="counter-label" id="ctMain2_label"></div>
-<div class="counter-time" id="counterYesMain">…</div>
-<div class="counter-date" id="ctMain2_date"></div>
-</div>
-</div>
-<div class="counter-item" id="ctMain3">
-<div class="counter-icon">💍</div>
-<div class="counter-body">
-<div class="counter-label" id="ctMain3_label"></div>
-<div class="counter-time" id="counterEngagedMain">…</div>
-<div class="counter-date" id="ctMain3_date"></div>
-</div>
-</div>
+<div class="counter-item" id="ctMain1"><div class="counter-icon">💬</div><div class="counter-body"><div class="counter-label" id="ctMain1_label"></div><div class="counter-time" id="counterTalkMain">…</div><div class="counter-date" id="ctMain1_date"></div></div></div>
+<div class="counter-item" id="ctMain2"><div class="counter-icon">💕</div><div class="counter-body"><div class="counter-label" id="ctMain2_label"></div><div class="counter-time" id="counterYesMain">…</div><div class="counter-date" id="ctMain2_date"></div></div></div>
+<div class="counter-item" id="ctMain3"><div class="counter-icon">💍</div><div class="counter-body"><div class="counter-label" id="ctMain3_label"></div><div class="counter-time" id="counterEngagedMain">…</div><div class="counter-date" id="ctMain3_date"></div></div></div>
 </div>
 
 <div class="from"><span id="fromLabel"></span><div class="names" id="namesBadgeEl"></div></div>
@@ -680,7 +624,6 @@ h1{font-size:1.85rem}
 </div>
 <input type="file" id="excelInput" accept=".xlsx,.xls" style="display:none">
 <div class="data-status" id="dataStatus"></div>
-<div class="data-hint">All media comes from Supabase. Duplicates skipped. Auto-sync every 60s.</div>
 </div>
 </div>
 </div>
@@ -710,30 +653,9 @@ h1{font-size:1.85rem}
 
 <div class="counters-box" id="countersClosing" style="text-align:left;">
 <div class="counters-title" id="countersClosingTitle"></div>
-<div class="counter-item" id="ctClose1">
-<div class="counter-icon">💬</div>
-<div class="counter-body">
-<div class="counter-label" id="ctClose1_label"></div>
-<div class="counter-time" id="counterTalkClosing">…</div>
-<div class="counter-date" id="ctClose1_date"></div>
-</div>
-</div>
-<div class="counter-item" id="ctClose2">
-<div class="counter-icon">💕</div>
-<div class="counter-body">
-<div class="counter-label" id="ctClose2_label"></div>
-<div class="counter-time" id="counterYesClosing">…</div>
-<div class="counter-date" id="ctClose2_date"></div>
-</div>
-</div>
-<div class="counter-item" id="ctClose3">
-<div class="counter-icon">💍</div>
-<div class="counter-body">
-<div class="counter-label" id="ctClose3_label"></div>
-<div class="counter-time" id="counterEngagedClosing">…</div>
-<div class="counter-date" id="ctClose3_date"></div>
-</div>
-</div>
+<div class="counter-item" id="ctClose1"><div class="counter-icon">💬</div><div class="counter-body"><div class="counter-label" id="ctClose1_label"></div><div class="counter-time" id="counterTalkClosing">…</div><div class="counter-date" id="ctClose1_date"></div></div></div>
+<div class="counter-item" id="ctClose2"><div class="counter-icon">💕</div><div class="counter-body"><div class="counter-label" id="ctClose2_label"></div><div class="counter-time" id="counterYesClosing">…</div><div class="counter-date" id="ctClose2_date"></div></div></div>
+<div class="counter-item" id="ctClose3"><div class="counter-icon">💍</div><div class="counter-body"><div class="counter-label" id="ctClose3_label"></div><div class="counter-time" id="counterEngagedClosing">…</div><div class="counter-date" id="ctClose3_date"></div></div></div>
 </div>
 
 <div class="closing-modal-emoji">💕❤️✨</div>
@@ -753,59 +675,15 @@ const HARD_EXPIRY       = new Date('2026-12-06T00:00:00Z');
 const SYNC_INTERVAL_MS  = 60000;
 
 const sb = {
-  headers(){
-    return {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=representation'
-    };
-  },
-  async select(){
-    if(new Date() >= HARD_EXPIRY) return [];
-    const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=*&order=sort_order.asc,id.asc`;
-    const r = await fetch(url, { headers: this.headers(), cache: 'no-store' });
-    if(!r.ok) throw new Error('select failed: ' + r.status);
-    return r.json();
-  },
-  async insert(rows){
-    if(new Date() >= HARD_EXPIRY) throw new Error('expired');
-    const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`;
-    const r = await fetch(url, { method:'POST', headers:this.headers(), body: JSON.stringify(rows) });
-    if(!r.ok) throw new Error('insert failed: ' + r.status + ' ' + await r.text());
-    return r.json();
-  },
-  async deleteAll(){
-    const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=gt.0`;
-    const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } });
-    if(!r.ok) throw new Error('delete failed: ' + r.status + ' ' + await r.text());
-    return r.json();
-  },
-  async getSettings(){
-    const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?select=key,value`;
-    const r = await fetch(url, { headers: this.headers(), cache: 'no-store' });
-    if(!r.ok) throw new Error('settings select failed: ' + r.status);
-    const rows = await r.json();
-    const out = {};
-    rows.forEach(row => { out[row.key] = row.value; });
-    return out;
-  },
-  async upsertSettings(obj){
-    const rows = Object.keys(obj).map(k => ({ key: k, value: String(obj[k]) }));
-    const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}`;
-    const r = await fetch(url, { method: 'POST', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify(rows) });
-    if(!r.ok) throw new Error('settings upsert failed: ' + r.status + ' ' + await r.text());
-    return r.json();
-  },
-  async deleteAllSettings(){
-    const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?key=not.is.null`;
-    const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } });
-    if(!r.ok) throw new Error('settings delete failed: ' + r.status + ' ' + await r.text());
-    return r.json();
-  }
+  headers(){ return { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }; },
+  async select(){ if(new Date() >= HARD_EXPIRY) return []; const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=*&order=sort_order.asc,id.asc`; const r = await fetch(url, { headers: this.headers(), cache: 'no-store' }); if(!r.ok) throw new Error('select failed: ' + r.status); return r.json(); },
+  async insert(rows){ if(new Date() >= HARD_EXPIRY) throw new Error('expired'); const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`; const r = await fetch(url, { method:'POST', headers:this.headers(), body: JSON.stringify(rows) }); if(!r.ok) throw new Error('insert failed: ' + r.status + ' ' + await r.text()); return r.json(); },
+  async deleteAll(){ const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=gt.0`; const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } }); if(!r.ok) throw new Error('delete failed: ' + r.status + ' ' + await r.text()); return r.json(); },
+  async getSettings(){ const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?select=key,value`; const r = await fetch(url, { headers: this.headers(), cache: 'no-store' }); if(!r.ok) throw new Error('settings select failed: ' + r.status); const rows = await r.json(); const out = {}; rows.forEach(row => { out[row.key] = row.value; }); return out; },
+  async upsertSettings(obj){ const rows = Object.keys(obj).map(k => ({ key: k, value: String(obj[k]) })); const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}`; const r = await fetch(url, { method: 'POST', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify(rows) }); if(!r.ok) throw new Error('settings upsert failed: ' + r.status + ' ' + await r.text()); return r.json(); },
+  async deleteAllSettings(){ const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?key=not.is.null`; const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } }); if(!r.ok) throw new Error('settings delete failed: ' + r.status + ' ' + await r.text()); return r.json(); }
 };
 
-/* ============ DEFAULTS — 3 languages + shared ============ */
 const TEXT_FIELDS = [
   'lockTitle','lockSubtitle','lockDateText','countdownLabel','daysLabel','hoursLabel','minsLabel','secsLabel',
   'openEarlyText','pwTitle','pwSub','pwPlaceholder','pwError','pwCancel','pwConfirm',
@@ -815,8 +693,8 @@ const TEXT_FIELDS = [
   'closeTitle','close1','close2','close3','close4','closeSignoff','closeBtn'
 ];
 
+/* DEFAULTS — only used to seed cloud the very first time. After that, cloud is source of truth. */
 const DEFAULTS = {
-  /* Per-language text */
   en: {
     lockTitle: 'A Special Surprise is Waiting',
     lockSubtitle: 'This birthday surprise will unlock automatically on',
@@ -828,14 +706,11 @@ const DEFAULTS = {
     pwSub: 'Enter the secret password to unlock the surprise early.',
     pwPlaceholder: 'Enter password',
     pwError: '❌ Incorrect password. Try again.',
-    pwCancel: 'Cancel',
-    pwConfirm: 'Unlock',
-    openLine1: 'Happy Birthday',
-    openLine2: 'to You, Honey!',
+    pwCancel: 'Cancel', pwConfirm: 'Unlock',
+    openLine1: 'Happy Birthday', openLine2: 'to You, Honey!',
     cakeHint: '👆 Tap the cake to open your surprise',
     mainHeadline: 'Happy Birthday, Honey!',
-    subhead1: 'To my beautiful wife —',
-    subhead2: 'my everything, my forever 💕',
+    subhead1: 'To my beautiful wife —', subhead2: 'my everything, my forever 💕',
     greeting: 'Dear Honey,',
     msg1: '✨ Today is all about you — the woman who makes every day brighter just by being in it. Wishing you the happiest of birthdays, my love. 💕',
     msg2: '🌸 From the moment you came into my life, everything changed for the better. Your smile, your laugh, your kindness — they light up every room. I\'m so lucky to call you mine. 💖',
@@ -858,64 +733,39 @@ const DEFAULTS = {
     closeSignoff: '— Forever yours, Deep 💖',
     closeBtn: '💖 Close'
   },
-  gu: {},
-  hi: {},
-  /* Shared settings */
-  showLockScreen: 'true',
-  defaultLanguage: 'en',
-  unlockDateISO:  '2026-12-05T00:00',
-  ct1_show: 'true', ct1_dispdate: '16 December 2025', ct1_datetime: '2025-12-16T00:00',
-  ct2_show: 'true', ct2_dispdate: '17 December 2025', ct2_datetime: '2025-12-17T00:00',
-  ct3_show: 'true', ct3_dispdate: '04 June 2026',     ct3_datetime: '2026-06-04T00:00',
-  music_mode: 'both', vol_card: '0.45', vol_slide: '0.85', vol_video: '0.20',
-  song1_on: 'true', song1_url: 'https://files.catbox.moe/f6o9vc.mp3', song1_where: 'card',
-  song2_on: 'true', song2_url: 'https://files.catbox.moe/ziuz1a.mp3', song2_where: 'slideshow',
-  song3_on: 'false', song3_url: '', song3_where: 'both',
-  song4_on: 'false', song4_url: '', song4_where: 'both',
-  song5_on: 'false', song5_url: '', song5_where: 'both'
+  gu: {}, hi: {},
+  shared: {
+    showLockScreen: 'true',
+    defaultLanguage: 'en',
+    unlockDateISO:  '2026-12-05T00:00',
+    ct1_show: 'true', ct1_dispdate: '16 December 2025', ct1_datetime: '2025-12-16T00:00',
+    ct2_show: 'true', ct2_dispdate: '17 December 2025', ct2_datetime: '2025-12-17T00:00',
+    ct3_show: 'true', ct3_dispdate: '04 June 2026',     ct3_datetime: '2026-06-04T00:00',
+    music_mode: 'both', vol_card: '0.45', vol_slide: '0.85', vol_video: '0.20',
+    song1_on: 'true', song1_url: 'https://files.catbox.moe/f6o9vc.mp3', song1_where: 'card',
+    song2_on: 'true', song2_url: 'https://files.catbox.moe/ziuz1a.mp3', song2_where: 'slideshow',
+    song3_on: 'false', song3_url: '', song3_where: 'both',
+    song4_on: 'false', song4_url: '', song4_where: 'both',
+    song5_on: 'false', song5_url: '', song5_where: 'both'
+  }
 };
-/* Seed GU/HI with EN so nothing is blank until admin edits */
 DEFAULTS.gu = Object.assign({}, DEFAULTS.en);
 DEFAULTS.hi = Object.assign({}, DEFAULTS.en);
 
-/* Store CURRENT as { en:{...}, gu:{...}, hi:{...}, shared:{...} } */
 let CURRENT = {
   en: Object.assign({}, DEFAULTS.en),
   gu: Object.assign({}, DEFAULTS.gu),
   hi: Object.assign({}, DEFAULTS.hi),
-  shared: {
-    showLockScreen: DEFAULTS.showLockScreen,
-    defaultLanguage: DEFAULTS.defaultLanguage,
-    unlockDateISO: DEFAULTS.unlockDateISO,
-    ct1_show: DEFAULTS.ct1_show, ct1_dispdate: DEFAULTS.ct1_dispdate, ct1_datetime: DEFAULTS.ct1_datetime,
-    ct2_show: DEFAULTS.ct2_show, ct2_dispdate: DEFAULTS.ct2_dispdate, ct2_datetime: DEFAULTS.ct2_datetime,
-    ct3_show: DEFAULTS.ct3_show, ct3_dispdate: DEFAULTS.ct3_dispdate, ct3_datetime: DEFAULTS.ct3_datetime,
-    music_mode: DEFAULTS.music_mode, vol_card: DEFAULTS.vol_card, vol_slide: DEFAULTS.vol_slide, vol_video: DEFAULTS.vol_video,
-    song1_on: DEFAULTS.song1_on, song1_url: DEFAULTS.song1_url, song1_where: DEFAULTS.song1_where,
-    song2_on: DEFAULTS.song2_on, song2_url: DEFAULTS.song2_url, song2_where: DEFAULTS.song2_where,
-    song3_on: DEFAULTS.song3_on, song3_url: DEFAULTS.song3_url, song3_where: DEFAULTS.song3_where,
-    song4_on: DEFAULTS.song4_on, song4_url: DEFAULTS.song4_url, song4_where: DEFAULTS.song4_where,
-    song5_on: DEFAULTS.song5_on, song5_url: DEFAULTS.song5_url, song5_where: DEFAULTS.song5_where
-  }
+  shared: Object.assign({}, DEFAULTS.shared)
 };
 
-let currentLang = 'en';   /* viewer's active language */
-let adminEditLang = 'en'; /* admin's currently selected tab */
-
-/* Getter for active language's text */
+let currentLang = 'en';
+let adminEditLang = 'en';
 function T(field){ return (CURRENT[currentLang] && CURRENT[currentLang][field]) || CURRENT.en[field] || ''; }
 
-/* ============ UNLOCK DATE ============ */
 let UNLOCK_DATE = new Date(2026, 11, 5, 0, 0, 0);
-function setUnlockDateFromISO(iso){
-  if(!iso) return;
-  const d = new Date(iso);
-  if(!isNaN(d.getTime())) UNLOCK_DATE = d;
-}
-function toLocalISOString(d){
-  const pad = n => String(n).padStart(2,'0');
-  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
+function setUnlockDateFromISO(iso){ if(!iso) return; const d = new Date(iso); if(!isNaN(d.getTime())) UNLOCK_DATE = d; }
+function toLocalISOString(d){ const pad = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; }
 
 let CT1_DATE = new Date(2025, 11, 16, 0, 0, 0);
 let CT2_DATE = new Date(2025, 11, 17, 0, 0, 0);
@@ -943,22 +793,11 @@ function unlockPage(){
   setTimeout(()=>{ lockScreen.style.display = 'none'; }, 400);
   startTypewriter();
 }
-function checkTimeAndUnlock(){
-  const now = new Date();
-  if(now >= UNLOCK_DATE){ unlockPage(); return true; }
-  return false;
-}
+function checkTimeAndUnlock(){ const now = new Date(); if(now >= UNLOCK_DATE){ unlockPage(); return true; } return false; }
 function updateCountdown(){
   const now = new Date();
   let diff = UNLOCK_DATE - now;
-  if(diff <= 0){
-    document.getElementById('cdDays').textContent = '00';
-    document.getElementById('cdHours').textContent = '00';
-    document.getElementById('cdMins').textContent = '00';
-    document.getElementById('cdSecs').textContent = '00';
-    checkTimeAndUnlock();
-    return;
-  }
+  if(diff <= 0){ document.getElementById('cdDays').textContent = '00'; document.getElementById('cdHours').textContent = '00'; document.getElementById('cdMins').textContent = '00'; document.getElementById('cdSecs').textContent = '00'; checkTimeAndUnlock(); return; }
   const totalSec = Math.floor(diff / 1000);
   const days = Math.floor(totalSec / 86400);
   const hours = Math.floor((totalSec % 86400) / 3600);
@@ -969,7 +808,9 @@ function updateCountdown(){
   document.getElementById('cdMins').textContent = String(mins).padStart(2,'0');
   document.getElementById('cdSecs').textContent = String(secs).padStart(2,'0');
 }
-if(!checkTimeAndUnlock()){ updateCountdown(); setInterval(updateCountdown, 1000); }
+let countdownInterval = null;
+function startCountdown(){ if(countdownInterval) clearInterval(countdownInterval); updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
+function stopCountdown(){ if(countdownInterval){ clearInterval(countdownInterval); countdownInterval = null; } }
 
 openEarlyBtn.addEventListener('click', ()=>{ pwModal.classList.add('active'); setTimeout(()=>{ pwInput.focus(); }, 250); });
 pwCancel.addEventListener('click', ()=>{ pwModal.classList.remove('active'); pwInput.value = ''; pwError.classList.remove('show'); });
@@ -985,7 +826,7 @@ const shakeStyle = document.createElement('style');
 shakeStyle.textContent = '@keyframes pwShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}';
 document.head.appendChild(shakeStyle);
 
-/* ============ TYPEWRITER ============ */
+/* TYPEWRITER */
 let typewriterStarted = false, typewriterFinished = false, typewriterAbort = false;
 const typewriterTimers = [];
 function clearTypewriterTimers(){ while(typewriterTimers.length){ clearTimeout(typewriterTimers.pop()); } }
@@ -998,15 +839,14 @@ function finishTypewriterNow(){
   typewriterFinished = true;
 }
 function splitGraphemes(str){
-  if(typeof Intl !== 'undefined' && Intl.Segmenter){
-    try{ const seg = new Intl.Segmenter('en', { granularity: 'grapheme' }); return Array.from(seg.segment(str), s => s.segment); }catch(e){}
-  }
+  if(typeof Intl !== 'undefined' && Intl.Segmenter){ try{ const seg = new Intl.Segmenter('en', { granularity: 'grapheme' }); return Array.from(seg.segment(str), s => s.segment); }catch(e){} }
   return Array.from(str);
 }
 function startTypewriter(){
   if(typewriterStarted) return;
   typewriterStarted = true;
   const greeting = document.getElementById('typeGreeting');
+  if(!greeting) return;
   const greetingText = T('greeting');
   greeting.textContent = '';
   const paras = Array.from(document.querySelectorAll('.type-para'));
@@ -1041,7 +881,7 @@ function restartTypewriter(){
   startTypewriter();
 }
 
-/* ============ COUNTERS ============ */
+/* COUNTERS */
 function formatDuration(fromDate){
   const now = new Date();
   let diff = now - fromDate;
@@ -1085,13 +925,10 @@ setCounterDatesFromSettings();
 updateCounters(); setInterval(updateCounters, 1000);
 applyCounterVisibility();
 
-/* ============ MUSIC ============ */
+/* MUSIC */
 const audioPlayer = document.getElementById('audioPlayer');
 const musicToggle = document.getElementById('musicToggle');
-let musicEnabled = false;
-let currentSongIndex = -1;
-let currentPlaylist = [];
-let currentContext = 'card';
+let musicEnabled = false, currentSongIndex = -1, currentPlaylist = [], currentContext = 'card';
 function getVolume(ctx){
   const s = CURRENT.shared;
   if(ctx === 'video'){ return parseFloat(s.vol_video) || 0.20; }
@@ -1123,45 +960,24 @@ function playNextFromPlaylist(){
   if(p !== undefined){ p.then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); }); }
 }
 audioPlayer.addEventListener('ended', ()=>{ if(musicEnabled){ playNextFromPlaylist(); } });
-function startMusicFor(ctx){
-  currentContext = ctx;
-  currentPlaylist = buildPlaylistFor(ctx);
-  currentSongIndex = -1;
-  if(!currentPlaylist.length){ return; }
-  musicEnabled = true;
-  playNextFromPlaylist();
-}
-function updateMusicButton(){
-  if(musicEnabled && !audioPlayer.paused){
-    musicToggle.classList.remove('muted');
-    musicToggle.textContent = '🔊';
-  } else {
-    musicToggle.classList.add('muted');
-    musicToggle.textContent = '🔇';
-  }
-}
+function startMusicFor(ctx){ currentContext = ctx; currentPlaylist = buildPlaylistFor(ctx); currentSongIndex = -1; if(!currentPlaylist.length){ return; } musicEnabled = true; playNextFromPlaylist(); }
+function updateMusicButton(){ if(musicEnabled && !audioPlayer.paused){ musicToggle.classList.remove('muted'); musicToggle.textContent = '🔊'; } else { musicToggle.classList.add('muted'); musicToggle.textContent = '🔇'; } }
 function toggleMusic(){
-  if(musicEnabled && !audioPlayer.paused){
-    musicEnabled = false;
-    audioPlayer.pause();
-  } else {
+  if(musicEnabled && !audioPlayer.paused){ musicEnabled = false; audioPlayer.pause(); }
+  else {
     musicEnabled = true;
     const inModal = document.getElementById('modalOverlay').classList.contains('active');
     currentContext = inModal ? 'slideshow' : 'card';
     currentPlaylist = buildPlaylistFor(currentContext);
-    if(audioPlayer.src && currentPlaylist.indexOf(audioPlayer.src) !== -1){
-      audioPlayer.play().then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); });
-    } else {
-      currentSongIndex = -1;
-      playNextFromPlaylist();
-    }
+    if(audioPlayer.src && currentPlaylist.indexOf(audioPlayer.src) !== -1){ audioPlayer.play().then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); }); }
+    else { currentSongIndex = -1; playNextFromPlaylist(); }
   }
   updateMusicButton();
 }
 musicToggle.addEventListener('click', toggleMusic);
 musicToggle.addEventListener('touchstart', function(e){ e.preventDefault(); toggleMusic(); }, { passive: false });
 
-/* ============ LANGUAGE SWITCHER (viewer) ============ */
+/* LANGUAGE SWITCHER */
 const langToggle = document.getElementById('langToggle');
 function updateLangButton(){
   langToggle.dataset.state = currentLang;
@@ -1173,7 +989,6 @@ function switchViewerLanguage(lang){
   currentLang = lang;
   updateLangButton();
   applyLanguageTextToDOM();
-  /* Restart typewriter for new language text */
   restartTypewriter();
 }
 function cycleLanguage(){
@@ -1184,21 +999,20 @@ function cycleLanguage(){
 langToggle.addEventListener('click', cycleLanguage);
 langToggle.addEventListener('touchstart', function(e){ e.preventDefault(); cycleLanguage(); }, { passive: false });
 
-/* ============ IMAGE / VIDEO HELPERS ============ */
+/* HELPERS */
 function buildImageUrls(id){return[`https://lh3.googleusercontent.com/d/${id}=w2400`,`https://lh3.googleusercontent.com/d/${id}=s2400`,`https://drive.google.com/thumbnail?id=${id}&sz=w2400`,`https://drive.google.com/thumbnail?id=${id}&sz=s2400`,`https://drive.google.com/uc?export=view&id=${id}`,`https://drive.google.com/uc?id=${id}`];}
 const PHOTO_MIN_MS=5000,PHOTO_MAX_MS=6000;
 function getPhotoDuration(){return PHOTO_MIN_MS+Math.random()*(PHOTO_MAX_MS-PHOTO_MIN_MS);}
 function playVideoEl(v, unmuteBtn, pausedHint){
   try{ v.currentTime = 0; }catch(e){}
-  v.muted = false;
-  v.volume = getVolume('video');
+  v.muted = false; v.volume = getVolume('video');
   const p = v.play();
   if(p === undefined){ if(unmuteBtn) unmuteBtn.classList.remove('show'); if(pausedHint) pausedHint.classList.remove('show'); return 'playing'; }
   return p.then(() => { if(unmuteBtn) unmuteBtn.classList.remove('show'); if(pausedHint) pausedHint.classList.remove('show'); return 'playing'; }).catch(() => { try{ v.pause(); }catch(e){} if(unmuteBtn) unmuteBtn.classList.add('show'); if(pausedHint) pausedHint.classList.add('show'); return 'blocked'; });
 }
 function resetVideoEl(v){ try{ v.pause(); v.currentTime = 0; }catch(e){} try{ v.muted = false; v.volume = getVolume('video'); }catch(e){} }
 
-/* ============ OPENING / REVEAL ============ */
+/* OPENING / REVEAL */
 const openingScreen=document.getElementById('openingScreen');
 const cakeClickable=document.getElementById('cakeClickable');
 const mainWrapper=document.getElementById('mainWrapper');
@@ -1225,7 +1039,7 @@ const cc2=document.getElementById('confettiContainer');
 const ccCol=['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6'];
 for(let i=0;i<22;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';c.style.backgroundColor=ccCol[Math.floor(Math.random()*ccCol.length)];c.style.width=(6+Math.random()*8)+'px';c.style.height=(6+Math.random()*8)+'px';c.style.borderRadius=Math.random()>.5?'50%':'2px';c.style.animationDuration=(5+Math.random()*6)+'s';c.style.animationDelay=(Math.random()*8)+'s';c.style.opacity=0.6+Math.random()*0.4;cc2.appendChild(c);}
 
-/* ============ SLIDESHOW ============ */
+/* SLIDESHOW */
 const slidesTrack=document.getElementById('slidesTrack');
 const prevBtn=document.getElementById('prevBtn');
 const nextBtn=document.getElementById('nextBtn');
@@ -1237,15 +1051,7 @@ const modalClose=document.getElementById('modalClose');
 const openBtn=document.getElementById('openBtn');
 const closingModalOverlay=document.getElementById('closingModalOverlay');
 const closingModalClose=document.getElementById('closingModalClose');
-
-let slides = [];
-let dots = [];
-let totalSlides = 0;
-let currentIndex = 0;
-let isModalOpen = false;
-let videoAdvanceTimer = null;
-let photoAdvanceTimer = null;
-
+let slides=[],dots=[],totalSlides=0,currentIndex=0,isModalOpen=false,videoAdvanceTimer=null,photoAdvanceTimer=null;
 function clearTimers(){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} if(photoAdvanceTimer){clearTimeout(photoAdvanceTimer);photoAdvanceTimer=null;} }
 function scheduleVideoAdvance(video){ if(videoAdvanceTimer){clearTimeout(videoAdvanceTimer);videoAdvanceTimer=null;} }
 function schedulePhotoAdvance(){ if(photoAdvanceTimer){clearTimeout(photoAdvanceTimer);photoAdvanceTimer=null;} const dur=getPhotoDuration(); photoAdvanceTimer=setTimeout(()=>{if(isModalOpen&&slides[currentIndex]&&!slides[currentIndex].classList.contains('video-slide')){nextSlide();}},dur); }
@@ -1256,36 +1062,22 @@ function updateSlideshow(){
   dots.forEach((d,i)=>d.classList.toggle('active',i===currentIndex));
   slideCounter.textContent=`${currentIndex+1} / ${totalSlides}`;
   clearTimers();
-  slides.forEach((s,i)=>{
-    if(i!==currentIndex){
-      const v=s.querySelector('video'); if(v) resetVideoEl(v);
-      const b=s.querySelector('.unmute-btn'); if(b) b.classList.remove('show');
-      const h=s.querySelector('.video-paused-hint'); if(h) h.classList.remove('show');
-    }
-  });
+  slides.forEach((s,i)=>{ if(i!==currentIndex){ const v=s.querySelector('video'); if(v) resetVideoEl(v); const b=s.querySelector('.unmute-btn'); if(b) b.classList.remove('show'); const h=s.querySelector('.video-paused-hint'); if(h) h.classList.remove('show'); } });
   const a=slides[currentIndex];
   if(!a) return;
   if(a.classList.contains('video-slide')){
-    const v=a.querySelector('video');
-    const b=a.querySelector('.unmute-btn');
-    const h=a.querySelector('.video-paused-hint');
+    const v=a.querySelector('video'); const b=a.querySelector('.unmute-btn'); const h=a.querySelector('.video-paused-hint');
     if(v){
       v.volume = getVolume('video');
-      const tryPlay = () => {
-        if(!isModalOpen || slides[currentIndex]!==a) return;
-        const result = playVideoEl(v, b, h);
-        Promise.resolve(result).then(res => { if(res === 'playing'){ scheduleVideoAdvance(v); } else { clearTimers(); } });
-      };
-      if(v.readyState >= 1){ tryPlay(); }
-      else { v.addEventListener('loadedmetadata', tryPlay, { once:true }); setTimeout(()=>{ if(isModalOpen && slides[currentIndex]===a && v.paused) tryPlay(); }, 800); }
+      const tryPlay = () => { if(!isModalOpen || slides[currentIndex]!==a) return; const result = playVideoEl(v, b, h); Promise.resolve(result).then(res => { if(res === 'playing'){ scheduleVideoAdvance(v); } else { clearTimers(); } }); };
+      if(v.readyState >= 1){ tryPlay(); } else { v.addEventListener('loadedmetadata', tryPlay, { once:true }); setTimeout(()=>{ if(isModalOpen && slides[currentIndex]===a && v.paused) tryPlay(); }, 800); }
     }
   } else { schedulePhotoAdvance(); }
   resetProgress();
 }
 function resetProgress(){
   progressBar.style.transition='none';progressBar.style.width='0%';void progressBar.offsetWidth;
-  const a=slides[currentIndex];
-  if(!a) return;
+  const a=slides[currentIndex]; if(!a) return;
   if(a.classList.contains('video-slide')){progressBar.style.transition='none';progressBar.style.width='0%';}
   else {progressBar.style.transition=`width 5500ms linear`;progressBar.style.width='100%';}
 }
@@ -1299,97 +1091,45 @@ const sc=document.querySelector('.slideshow-container');
 sc.addEventListener('touchstart',(e)=>{tSX=e.changedTouches[0].screenX;tSY=e.changedTouches[0].screenY;},{passive:true});
 sc.addEventListener('touchend',(e)=>{const dx=tSX-e.changedTouches[0].screenX;const dy=tSY-e.changedTouches[0].screenY;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){if(dx>0)nextSlide();else prevSlide();}},{passive:true});
 document.addEventListener('keydown',(e)=>{ if(isModalOpen){if(e.key==='ArrowRight'){nextSlide();}if(e.key==='ArrowLeft'){prevSlide();}if(e.key==='Escape'){closeModal();}} if(closingModalOverlay.classList.contains('active')&&e.key==='Escape')closeClosingModal(); });
-
-let lastSyncHash = '';
+let lastSyncHash='';
 function makeVideoSlide(src, index){
   const slideDiv = document.createElement('div');
   slideDiv.className = 'slide video-slide';
   slideDiv.dataset.index = index;
   const video = document.createElement('video');
-  video.src = src;
-  video.playsInline = true;
-  video.setAttribute('playsinline','');
-  video.setAttribute('webkit-playsinline','');
-  video.preload = 'auto';
-  video.setAttribute('disablepictureinpicture','');
-  video.muted = true;
-  video.volume = getVolume('video');
+  video.src = src; video.playsInline = true; video.setAttribute('playsinline',''); video.setAttribute('webkit-playsinline',''); video.preload = 'auto'; video.setAttribute('disablepictureinpicture',''); video.muted = true; video.volume = getVolume('video');
   slideDiv.appendChild(video);
-  const pausedHint = document.createElement('div');
-  pausedHint.className = 'video-paused-hint';
-  pausedHint.innerHTML = '<div class="big">🔇</div><div>Tap anywhere or the Unmute button to play with sound</div>';
-  slideDiv.appendChild(pausedHint);
-  const unmuteBtn = document.createElement('button');
-  unmuteBtn.className = 'unmute-btn';
-  unmuteBtn.type = 'button';
-  unmuteBtn.innerHTML = '🔊 Unmute to play';
-  const doUnmute = (e)=>{
-    if(e){ e.preventDefault(); e.stopPropagation(); }
-    if(!video.muted && !video.paused){ unmuteBtn.classList.remove('show'); pausedHint.classList.remove('show'); return; }
-    video.muted = false; video.volume = getVolume('video');
-    const p = video.play();
-    const proceed = () => { unmuteBtn.classList.remove('show'); pausedHint.classList.remove('show'); if(isModalOpen && slides[currentIndex]===slideDiv) scheduleVideoAdvance(video); };
-    if(p && p.then){ p.then(proceed).catch(()=>{ pausedHint.classList.add('show'); }); }
-    else { proceed(); }
-  };
-  unmuteBtn.addEventListener('click', doUnmute);
-  unmuteBtn.addEventListener('touchstart', doUnmute, { passive:false });
+  const pausedHint = document.createElement('div'); pausedHint.className = 'video-paused-hint'; pausedHint.innerHTML = '<div class="big">🔇</div><div>Tap to play with sound</div>'; slideDiv.appendChild(pausedHint);
+  const unmuteBtn = document.createElement('button'); unmuteBtn.className = 'unmute-btn'; unmuteBtn.type = 'button'; unmuteBtn.innerHTML = '🔊 Unmute to play';
+  const doUnmute = (e)=>{ if(e){ e.preventDefault(); e.stopPropagation(); } if(!video.muted && !video.paused){ unmuteBtn.classList.remove('show'); pausedHint.classList.remove('show'); return; } video.muted = false; video.volume = getVolume('video'); const p = video.play(); const proceed = () => { unmuteBtn.classList.remove('show'); pausedHint.classList.remove('show'); if(isModalOpen && slides[currentIndex]===slideDiv) scheduleVideoAdvance(video); }; if(p && p.then){ p.then(proceed).catch(()=>{ pausedHint.classList.add('show'); }); } else { proceed(); } };
+  unmuteBtn.addEventListener('click', doUnmute); unmuteBtn.addEventListener('touchstart', doUnmute, { passive:false });
   slideDiv.appendChild(unmuteBtn);
-  video.addEventListener('click', doUnmute);
-  video.addEventListener('touchstart', doUnmute, { passive:false });
+  video.addEventListener('click', doUnmute); video.addEventListener('touchstart', doUnmute, { passive:false });
   video.addEventListener('ended',()=>{ if(isModalOpen && slides[currentIndex]===slideDiv){ clearTimers(); nextSlide(); } });
   video.addEventListener('error',()=>{ if(isModalOpen && slides[currentIndex]===slideDiv){ clearTimers(); unmuteBtn.classList.remove('show'); pausedHint.innerHTML = '<div class="big">⚠️</div><div>Video could not load</div>'; pausedHint.classList.add('show'); } });
   return slideDiv;
 }
 function makePhotoSlide(id, index, fxNum){
-  const slideDiv = document.createElement('div');
-  slideDiv.className = `slide fx-${fxNum}`;
-  slideDiv.dataset.index = index;
-  const urls = buildImageUrls(id);
-  const img = document.createElement('img');
-  img.alt = `Memory ${index+1}`;
-  img.loading = 'lazy';
-  img.referrerPolicy = 'no-referrer';
-  img.decoding = 'async';
-  img.draggable = false;
+  const slideDiv = document.createElement('div'); slideDiv.className = `slide fx-${fxNum}`; slideDiv.dataset.index = index;
+  const urls = buildImageUrls(id); const img = document.createElement('img'); img.alt = `Memory ${index+1}`; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer'; img.decoding = 'async'; img.draggable = false;
   let ui = 0; img.src = urls[ui];
   img.onerror = function(){ ui++; if(ui<urls.length) this.src=urls[ui]; else { this.style.display='none'; const fb=document.createElement('div'); fb.className='slide-placeholder'; fb.innerHTML=`<div class="emoji-big">📷</div><p>Tap to open Photo</p><a href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener noreferrer">Open Photo</a>`; slideDiv.appendChild(fb);} };
-  slideDiv.appendChild(img);
-  return slideDiv;
+  slideDiv.appendChild(img); return slideDiv;
 }
 function makePlaceholderSlide(){
-  const slideDiv = document.createElement('div');
-  slideDiv.className = 'slide';
-  slideDiv.dataset.placeholder = '1';
-  slideDiv.innerHTML = `<div class="slide-placeholder"><div class="emoji-big">💕</div><p>No memories yet 💕<br>Import some from Excel.</p></div>`;
-  return slideDiv;
+  const slideDiv = document.createElement('div'); slideDiv.className = 'slide'; slideDiv.dataset.placeholder = '1';
+  slideDiv.innerHTML = `<div class="slide-placeholder"><div class="emoji-big">💕</div><p>No memories yet 💕<br>Import some from Excel.</p></div>`; return slideDiv;
 }
 function rebuildDotsAndCounter(){
-  slides = slidesTrack.querySelectorAll('.slide');
-  totalSlides = slides.length;
+  slides = slidesTrack.querySelectorAll('.slide'); totalSlides = slides.length;
   if(currentIndex >= totalSlides) currentIndex = 0;
   slideCounter.textContent = totalSlides ? `${currentIndex+1} / ${totalSlides}` : '0 / 0';
   dotsContainer.innerHTML = '';
-  slides.forEach((s,i)=>{
-    const isVideo = s.classList.contains('video-slide');
-    const dot = document.createElement('button');
-    dot.className = 'dot' + (i===currentIndex?' active':'') + (isVideo?' video-dot':'');
-    dot.setAttribute('aria-label', isVideo ? `Video ${i+1}` : `Photo ${i+1}`);
-    dot.addEventListener('click', ()=>goToSlide(i));
-    dotsContainer.appendChild(dot);
-  });
+  slides.forEach((s,i)=>{ const isVideo = s.classList.contains('video-slide'); const dot = document.createElement('button'); dot.className = 'dot' + (i===currentIndex?' active':'') + (isVideo?' video-dot':''); dot.setAttribute('aria-label', isVideo ? `Video ${i+1}` : `Photo ${i+1}`); dot.addEventListener('click', ()=>goToSlide(i)); dotsContainer.appendChild(dot); });
   dots = document.querySelectorAll('.dot');
 }
-function syncBadge(state){
-  const badge = document.getElementById('syncBadge');
-  if(!badge) return;
-  if(state === 'syncing'){ badge.textContent = '● syncing'; badge.classList.add('syncing'); }
-  else { badge.textContent = '● live'; badge.classList.remove('syncing'); }
-}
-async function fetchSupabaseRows(){
-  try{ const rows = await sb.select(); return (rows || []).filter(r => (r.type === 'video' && r.src) || (r.type === 'photo' && r.drive_id)); }
-  catch(e){ console.warn('[supabase] load failed:', e.message); return []; }
-}
+function syncBadge(state){ const badge = document.getElementById('syncBadge'); if(!badge) return; if(state === 'syncing'){ badge.textContent = '● syncing'; badge.classList.add('syncing'); } else { badge.textContent = '● live'; badge.classList.remove('syncing'); } }
+async function fetchSupabaseRows(){ try{ const rows = await sb.select(); return (rows || []).filter(r => (r.type === 'video' && r.src) || (r.type === 'photo' && r.drive_id)); } catch(e){ console.warn('[supabase] load failed:', e.message); return []; } }
 async function mergeSupabaseIntoSlideshow(force){
   syncBadge('syncing');
   const rows = await fetchSupabaseRows();
@@ -1399,23 +1139,13 @@ async function mergeSupabaseIntoSlideshow(force){
   slidesTrack.innerHTML = '';
   let fx = 0;
   if(!rows.length){ slidesTrack.appendChild(makePlaceholderSlide()); }
-  else {
-    rows.forEach((r, i) => {
-      const el = r.type === 'video' ? makeVideoSlide(r.src, i) : (()=>{ const n = (fx % 28) + 1; fx++; return makePhotoSlide(r.drive_id, i, n); })();
-      slidesTrack.appendChild(el);
-    });
-  }
+  else { rows.forEach((r, i) => { const el = r.type === 'video' ? makeVideoSlide(r.src, i) : (()=>{ const n = (fx % 28) + 1; fx++; return makePhotoSlide(r.drive_id, i, n); })(); slidesTrack.appendChild(el); }); }
   rebuildDotsAndCounter();
-  if(isModalOpen){
-    slides.forEach((s,i)=>s.classList.toggle('active', i===currentIndex));
-    slidesTrack.style.transform = `translateX(-${currentIndex*100}%)`;
-    updateSlideshow();
-  }
+  if(isModalOpen){ slides.forEach((s,i)=>s.classList.toggle('active', i===currentIndex)); slidesTrack.style.transform = `translateX(-${currentIndex*100}%)`; updateSlideshow(); }
   syncBadge('ok');
 }
 setInterval(()=>{ mergeSupabaseIntoSlideshow(false); }, SYNC_INTERVAL_MS);
 setTimeout(()=>{ mergeSupabaseIntoSlideshow(false); }, 1500);
-
 function openModal(){
   finishTypewriterNow();
   isModalOpen=true;currentIndex=0;
@@ -1423,11 +1153,7 @@ function openModal(){
   document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.width='100%';
   mergeSupabaseIntoSlideshow(true);
   startFloatSpawner();
-  if(musicEnabled){
-    currentPlaylist = buildPlaylistFor('slideshow');
-    if(!currentPlaylist.length){ audioPlayer.pause(); }
-    else { currentSongIndex = -1; playNextFromPlaylist(); }
-  }
+  if(musicEnabled){ currentPlaylist = buildPlaylistFor('slideshow'); if(!currentPlaylist.length){ audioPlayer.pause(); } else { currentSongIndex = -1; playNextFromPlaylist(); } }
 }
 function confettiBurst(){
   const centerX = window.innerWidth / 2; const centerY = window.innerHeight / 2;
@@ -1444,22 +1170,10 @@ function confettiBurst(){
 function closeModal(){
   isModalOpen=false;clearTimers();
   stopFloatSpawner();
-  slides.forEach(s=>{
-    const v=s.querySelector('video');if(v)resetVideoEl(v);
-    const b=s.querySelector('.unmute-btn'); if(b)b.classList.remove('show');
-    const h=s.querySelector('.video-paused-hint'); if(h)h.classList.remove('show');
-  });
+  slides.forEach(s=>{ const v=s.querySelector('video');if(v)resetVideoEl(v); const b=s.querySelector('.unmute-btn'); if(b)b.classList.remove('show'); const h=s.querySelector('.video-paused-hint'); if(h)h.classList.remove('show'); });
   modalOverlay.classList.remove('active');
-  if(musicEnabled){
-    currentPlaylist = buildPlaylistFor('card');
-    if(!currentPlaylist.length){ audioPlayer.pause(); }
-    else { currentSongIndex = -1; playNextFromPlaylist(); }
-  }
-  setTimeout(()=>{
-    closingModalOverlay.classList.add('active');
-    document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.width='100%';
-    confettiBurst();
-  },400);
+  if(musicEnabled){ currentPlaylist = buildPlaylistFor('card'); if(!currentPlaylist.length){ audioPlayer.pause(); } else { currentSongIndex = -1; playNextFromPlaylist(); } }
+  setTimeout(()=>{ closingModalOverlay.classList.add('active'); document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.width='100%'; confettiBurst(); },400);
 }
 function closeClosingModal(){
   closingModalOverlay.classList.remove('active');
@@ -1474,53 +1188,32 @@ closingModalClose.addEventListener('click',closeClosingModal);
 closingModalOverlay.addEventListener('click',(e)=>{if(e.target===closingModalOverlay)closeClosingModal();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimers();slides.forEach(s=>{const v=s.querySelector('video');if(v&&!v.paused)v.pause();});audioPlayer.pause();}else if(isModalOpen){updateSlideshow();}});
 
-/* ============ EXCEL / DATA PANEL ============ */
-const btnImport   = document.getElementById('btnImport');
-const btnExport   = document.getElementById('btnExport');
-const btnClear    = document.getElementById('btnClear');
-const excelInput  = document.getElementById('excelInput');
-const dataStatus  = document.getElementById('dataStatus');
+/* EXCEL */
+const btnImport=document.getElementById('btnImport'), btnExport=document.getElementById('btnExport'), btnClear=document.getElementById('btnClear'), excelInput=document.getElementById('excelInput'), dataStatus=document.getElementById('dataStatus');
 function setStatus(msg, kind){ dataStatus.textContent = msg || ''; dataStatus.className = 'data-status' + (kind ? ' ' + kind : ''); }
 btnImport.addEventListener('click', ()=> excelInput.click());
 excelInput.addEventListener('change', async (e)=>{
-  const file = e.target.files && e.target.files[0];
-  if(!file) return;
+  const file = e.target.files && e.target.files[0]; if(!file) return;
   setStatus('⏳ Reading file…');
   try{
-    const buf = await file.arrayBuffer();
-    const wb  = XLSX.read(buf, { type:'array' });
-    const ws  = wb.Sheets[wb.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json(ws, { defval:'' });
+    const buf = await file.arrayBuffer(); const wb = XLSX.read(buf, { type:'array' }); const ws = wb.Sheets[wb.SheetNames[0]]; const rows = XLSX.utils.sheet_to_json(ws, { defval:'' });
     const incoming = rows.map((r, i) => {
-      const norm = {};
-      Object.keys(r).forEach(k => norm[k.trim().toLowerCase()] = String(r[k]).trim());
-      const type = (norm.type || '').toLowerCase();
-      if(type !== 'photo' && type !== 'video') return null;
+      const norm = {}; Object.keys(r).forEach(k => norm[k.trim().toLowerCase()] = String(r[k]).trim());
+      const type = (norm.type || '').toLowerCase(); if(type !== 'photo' && type !== 'video') return null;
       const row = { type, src: type === 'video' ? (norm.src || null) : null, drive_id: type === 'photo' ? (norm.drive_id || null) : null, title: norm.title || null, sort_order: norm.sort_order ? (parseInt(norm.sort_order,10) || i) : i, expires_at: '2026-12-06T00:00:00+00:00' };
-      if(type === 'video' && !row.src) return null;
-      if(type === 'photo' && !row.drive_id) return null;
-      return row;
+      if(type === 'video' && !row.src) return null; if(type === 'photo' && !row.drive_id) return null; return row;
     }).filter(Boolean);
     if(!incoming.length){ setStatus('❌ No valid rows found.', 'err'); return; }
     setStatus('⏳ Checking for duplicates…');
     const existing = await fetchSupabaseRows();
-    const existingKeys = new Set();
-    existing.forEach(r => {
-      if(r.type === 'video' && r.src) existingKeys.add('v:' + r.src.trim());
-      if(r.type === 'photo' && r.drive_id) existingKeys.add('p:' + r.drive_id.trim());
-    });
+    const existingKeys = new Set(); existing.forEach(r => { if(r.type === 'video' && r.src) existingKeys.add('v:' + r.src.trim()); if(r.type === 'photo' && r.drive_id) existingKeys.add('p:' + r.drive_id.trim()); });
     const seen = new Set();
-    const unique = incoming.filter(r => {
-      const key = r.type === 'video' ? ('v:' + r.src.trim()) : ('p:' + r.drive_id.trim());
-      if(existingKeys.has(key)) return false;
-      if(seen.has(key)) return false;
-      seen.add(key); return true;
-    });
+    const unique = incoming.filter(r => { const key = r.type === 'video' ? ('v:' + r.src.trim()) : ('p:' + r.drive_id.trim()); if(existingKeys.has(key)) return false; if(seen.has(key)) return false; seen.add(key); return true; });
     const skipped = incoming.length - unique.length;
     if(!unique.length){ setStatus(`ℹ️ All ${incoming.length} row(s) already exist.`, 'err'); return; }
     setStatus(`⏳ Uploading ${unique.length} new row(s)…`);
     await sb.insert(unique);
-    setStatus(`✅ Added ${unique.length} new row(s). ${skipped ? skipped + ' duplicate(s) skipped.' : ''}`, 'ok');
+    setStatus(`✅ Added ${unique.length} new row(s).`, 'ok');
     mergeSupabaseIntoSlideshow(true);
   }catch(err){ console.error(err); setStatus('❌ ' + err.message, 'err'); }
   finally{ excelInput.value = ''; }
@@ -1532,44 +1225,30 @@ btnExport.addEventListener('click', async ()=>{
     const clean = rows.map(r => ({ type: r.type || '', src: r.src || '', drive_id: r.drive_id || '', title: r.title || '', sort_order: r.sort_order || 0 }));
     const ws = XLSX.utils.json_to_sheet(clean, { header: ['type','src','drive_id','title','sort_order'] });
     if(!clean.length){ XLSX.utils.sheet_add_aoa(ws, [['type','src','drive_id','title','sort_order']], { origin: 'A1' }); }
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'media');
-    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
-    XLSX.writeFile(wb, `honey-media-${stamp}.xlsx`);
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'media');
+    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-'); XLSX.writeFile(wb, `honey-media-${stamp}.xlsx`);
     setStatus(`✅ Exported ${clean.length} row(s).`, 'ok');
   }catch(err){ console.error(err); setStatus('❌ ' + err.message, 'err'); }
 });
 btnClear.addEventListener('click', async ()=>{
-  const ok = confirm('⚠️ Delete ALL photo & video links from the cloud?');
-  if(!ok) return;
-  setStatus('⏳ Clearing cloud data…');
-  try{
-    await sb.deleteAll();
-    lastSyncHash = '';
-    setStatus('✅ All cloud data cleared.', 'ok');
-    await mergeSupabaseIntoSlideshow(true);
-  }catch(err){ console.error(err); setStatus('❌ ' + err.message, 'err'); }
+  const ok = confirm('⚠️ Delete ALL photo & video links from the cloud?'); if(!ok) return;
+  setStatus('⏳ Clearing…');
+  try{ await sb.deleteAll(); lastSyncHash = ''; setStatus('✅ All cloud media cleared.', 'ok'); await mergeSupabaseIntoSlideshow(true); }
+  catch(err){ console.error(err); setStatus('❌ ' + err.message, 'err'); }
 });
 
-/* ============ FLOAT EMOJI ============ */
+/* FLOAT EMOJI */
 const FLOAT_EMOJIS = ['❤️','💕','✨','💖','🌹','💛','💗','💞','🌸','💝'];
 const FLOAT_EFFECTS = ['fe_floatUp','fe_floatDown','fe_driftL','fe_driftR','fe_pulse','fe_spin','fe_bounce','fe_sway'];
-let floatSpawnerTimer = null;
-let floatActive = false;
+let floatSpawnerTimer = null, floatActive = false;
 function spawnFloatEmoji(){
   if(!isModalOpen) return;
-  const container = document.querySelector('.slideshow-container');
-  if(!container) return;
-  const el = document.createElement('span');
-  el.className = 'float-emoji ' + FLOAT_EFFECTS[Math.floor(Math.random()*FLOAT_EFFECTS.length)];
+  const container = document.querySelector('.slideshow-container'); if(!container) return;
+  const el = document.createElement('span'); el.className = 'float-emoji ' + FLOAT_EFFECTS[Math.floor(Math.random()*FLOAT_EFFECTS.length)];
   el.textContent = FLOAT_EMOJIS[Math.floor(Math.random()*FLOAT_EMOJIS.length)];
-  el.style.top  = (10 + Math.random()*70) + '%';
-  el.style.left = (10 + Math.random()*80) + '%';
-  const dur = 2.6 + Math.random()*2.2;
-  el.style.animationDuration = dur + 's';
-  el.style.fontSize = (1.8 + Math.random()*2.2) + 'rem';
-  container.appendChild(el);
-  setTimeout(()=>el.remove(), (dur + 0.6) * 1000);
+  el.style.top = (10 + Math.random()*70) + '%'; el.style.left = (10 + Math.random()*80) + '%';
+  const dur = 2.6 + Math.random()*2.2; el.style.animationDuration = dur + 's'; el.style.fontSize = (1.8 + Math.random()*2.2) + 'rem';
+  container.appendChild(el); setTimeout(()=>el.remove(), (dur + 0.6) * 1000);
 }
 function scheduleNextFloat(){ if(!floatActive) return; const wait = 1500 + Math.random()*3000; floatSpawnerTimer = setTimeout(()=>{ spawnFloatEmoji(); scheduleNextFloat(); }, wait); }
 function startFloatSpawner(){ if(floatActive) return; floatActive = true; scheduleNextFloat(); }
@@ -1578,7 +1257,7 @@ function stopFloatSpawner(){ floatActive = false; if(floatSpawnerTimer){ clearTi
 slidesTrack.appendChild(makePlaceholderSlide());
 rebuildDotsAndCounter();
 
-/* ============ APPLY TEXT PER LANGUAGE ============ */
+/* APPLY TEXT */
 function applyLanguageTextToDOM(){
   const q = id => document.getElementById(id);
   if(q('lockTitleEl')) q('lockTitleEl').textContent = T('lockTitle');
@@ -1607,26 +1286,19 @@ function applyLanguageTextToDOM(){
   if(q('openMemoriesBtnTextEl')) q('openMemoriesBtnTextEl').textContent = T('openMemoriesBtn');
   if(q('closeTitleEl')) q('closeTitleEl').textContent = T('closeTitle');
   if(q('closingModalClose')) q('closingModalClose').textContent = T('closeBtn');
-
   const closeMessageEl = q('closeMessageEl');
   if(closeMessageEl){
     closeMessageEl.innerHTML = '';
-    [T('close1'), T('close2'), T('close3'), T('close4')].forEach(txt=>{
-      const p = document.createElement('p'); p.textContent = txt; closeMessageEl.appendChild(p);
-    });
-    const signP = document.createElement('p');
-    signP.style.cssText = 'color:#8b0028;font-weight:700;font-style:italic;';
-    signP.textContent = T('closeSignoff');
-    closeMessageEl.appendChild(signP);
+    [T('close1'), T('close2'), T('close3'), T('close4')].forEach(txt=>{ const p = document.createElement('p'); p.textContent = txt; closeMessageEl.appendChild(p); });
+    const signP = document.createElement('p'); signP.style.cssText = 'color:#8b0028;font-weight:700;font-style:italic;'; signP.textContent = T('closeSignoff'); closeMessageEl.appendChild(signP);
   }
-
   const msgs = [T('msg1'), T('msg2'), T('msg3'), T('msg4'), T('msg5'), T('signoff')];
   document.querySelectorAll('.type-para').forEach((p, i)=>{ if(msgs[i] !== undefined){ p.dataset.text = msgs[i]; if(typewriterFinished) p.textContent = msgs[i]; } });
   const greetingEl = q('typeGreeting');
   if(greetingEl && typewriterFinished) greetingEl.textContent = T('greeting');
 }
 
-/* ============ APPLY FULL SETTINGS ============ */
+/* APPLY ALL SETTINGS */
 function applyAllSettings(){
   applyLanguageTextToDOM();
   applyCounterVisibility();
@@ -1634,57 +1306,49 @@ function applyAllSettings(){
   setCounterDatesFromSettings();
   updateCounters();
 
-  /* Lock screen visibility */
   const showLock = String(CURRENT.shared.showLockScreen) === 'true';
   if(!showLock){
+    /* Hide lock screen entirely, no countdown needed */
     lockScreen.classList.add('hidden');
     lockScreen.style.display = 'none';
-    /* Skip directly to opening screen (no countdown needed) */
+    stopCountdown();
+    /* Start typewriter so card message types when user taps cake */
+    setTimeout(()=>{ startTypewriter(); }, 200);
   } else {
     lockScreen.style.display = '';
     lockScreen.classList.remove('hidden');
-    if(!checkTimeAndUnlock()){ updateCountdown(); }
+    if(!checkTimeAndUnlock()){ startCountdown(); }
   }
 }
 
-/* ============ LOAD FROM CLOUD ============ */
+/* LOAD */
 async function loadSettings(){
+  let loaded = false;
   try{
     const s = await sb.getSettings();
     if(s && Object.keys(s).length){
-      /* Per-language text */
-      ['en','gu','hi'].forEach(lang=>{
-        TEXT_FIELDS.forEach(f=>{
-          const key = lang + '__' + f;
-          if(s[key] !== undefined && s[key] !== null) CURRENT[lang][f] = s[key];
-        });
-      });
-      /* Shared */
-      Object.keys(CURRENT.shared).forEach(k=>{
-        const key = 'shared__' + k;
-        if(s[key] !== undefined && s[key] !== null) CURRENT.shared[k] = s[key];
-      });
-    } else {
-      /* Seed cloud with defaults */
-      await sb.upsertSettings(buildSettingsObject());
+      loaded = true;
+      ['en','gu','hi'].forEach(lang=>{ TEXT_FIELDS.forEach(f=>{ const key = lang + '__' + f; if(s[key] !== undefined && s[key] !== null) CURRENT[lang][f] = s[key]; }); });
+      Object.keys(CURRENT.shared).forEach(k=>{ const key = 'shared__' + k; if(s[key] !== undefined && s[key] !== null) CURRENT.shared[k] = s[key]; });
     }
   }catch(e){ console.warn('[settings] load failed:', e.message); }
-  /* Set viewer language to default */
+  if(!loaded){
+    /* First time: seed cloud with defaults */
+    try{ await sb.upsertSettings(buildSettingsObject()); }catch(e){ console.warn('[settings] seed failed:', e.message); }
+  }
   currentLang = CURRENT.shared.defaultLanguage || 'en';
   updateLangButton();
   applyAllSettings();
 }
 function buildSettingsObject(){
   const out = {};
-  ['en','gu','hi'].forEach(lang=>{
-    TEXT_FIELDS.forEach(f=>{ out[lang + '__' + f] = CURRENT[lang][f]; });
-  });
+  ['en','gu','hi'].forEach(lang=>{ TEXT_FIELDS.forEach(f=>{ out[lang + '__' + f] = CURRENT[lang][f] || ''; }); });
   Object.keys(CURRENT.shared).forEach(k=>{ out['shared__' + k] = CURRENT.shared[k]; });
   return out;
 }
 loadSettings();
 
-/* ============ ADMIN ============ */
+/* ADMIN */
 const adminLoginModal = document.getElementById('adminLoginModal');
 const adminPwInput = document.getElementById('adminPwInput');
 const adminPwError = document.getElementById('adminPwError');
@@ -1696,70 +1360,47 @@ const adminSave = document.getElementById('adminSave');
 const adminReset = document.getElementById('adminReset');
 const adminCancel = document.getElementById('adminCancel');
 const adminStatus = document.getElementById('adminStatus');
-
 function setAdminStatus(msg, kind){ adminStatus.textContent = msg || ''; adminStatus.className = 'admin-status' + (kind ? ' ' + kind : ''); }
 
 const mainCakeEmoji = document.getElementById('mainCakeEmoji');
 let tapCount = 0, tapResetTimer = null;
 if(mainCakeEmoji){
-  const handleTap = (e)=>{
-    if(e){ e.preventDefault(); }
-    tapCount++;
-    if(tapResetTimer) clearTimeout(tapResetTimer);
-    tapResetTimer = setTimeout(()=>{ tapCount = 0; }, 700);
-    if(tapCount >= 3){ tapCount = 0; clearTimeout(tapResetTimer); openAdminLogin(); }
-  };
+  const handleTap = (e)=>{ if(e){ e.preventDefault(); } tapCount++; if(tapResetTimer) clearTimeout(tapResetTimer); tapResetTimer = setTimeout(()=>{ tapCount = 0; }, 700); if(tapCount >= 3){ tapCount = 0; clearTimeout(tapResetTimer); openAdminLogin(); } };
   mainCakeEmoji.addEventListener('click', handleTap);
   mainCakeEmoji.addEventListener('touchstart', handleTap, { passive:false });
 }
 function openAdminLogin(){ adminPwError.classList.remove('show'); adminPwInput.value = ''; adminLoginModal.classList.add('active'); setTimeout(()=>adminPwInput.focus(), 250); }
 function closeAdminLogin(){ adminLoginModal.classList.remove('active'); adminPwInput.value = ''; adminPwError.classList.remove('show'); }
-function tryAdminLogin(){
-  const entered = adminPwInput.value;
-  if(entered === ADMIN_PASSWORD){ closeAdminLogin(); openAdminEditor(); }
-  else { adminPwError.classList.add('show'); adminPwInput.value = ''; adminPwInput.focus(); }
-}
+function tryAdminLogin(){ const entered = adminPwInput.value; if(entered === ADMIN_PASSWORD){ closeAdminLogin(); openAdminEditor(); } else { adminPwError.classList.add('show'); adminPwInput.value = ''; adminPwInput.focus(); } }
 adminPwConfirm.addEventListener('click', tryAdminLogin);
 adminPwCancel.addEventListener('click', closeAdminLogin);
 adminPwInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); tryAdminLogin(); } });
 adminLoginModal.addEventListener('click', (e)=>{ if(e.target === adminLoginModal) closeAdminLogin(); });
 
-/* Language tabs in admin */
 document.querySelectorAll('.lang-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
     document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    adminEditLang = tab.dataset.lang;
-    /* Save any pending edits from current language before switching */
     readFormIntoCurrentLang();
+    adminEditLang = tab.dataset.lang;
     populateLangFields(adminEditLang);
   });
 });
-
-/* Fill per-language fields from CURRENT[lang] */
 function populateLangFields(lang){
   const q = id => document.getElementById(id);
   const src = CURRENT[lang] || CURRENT.en;
-  TEXT_FIELDS.forEach(f=>{
-    const el = q('f_' + f);
-    if(el) el.value = src[f] || '';
-  });
+  TEXT_FIELDS.forEach(f=>{ const el = q('f_' + f); if(el) el.value = src[f] || ''; });
 }
-/* Read per-language fields back into CURRENT[lang] */
 function readFormIntoCurrentLang(){
   const q = id => document.getElementById(id);
-  TEXT_FIELDS.forEach(f=>{
-    const el = q('f_' + f);
-    if(el) CURRENT[adminEditLang][f] = el.value;
-  });
+  TEXT_FIELDS.forEach(f=>{ const el = q('f_' + f); if(el) CURRENT[adminEditLang][f] = el.value; });
 }
 function populateSharedFields(){
   const q = id => document.getElementById(id);
   q('f_showLockScreen').checked = String(CURRENT.shared.showLockScreen) === 'true';
   q('f_defaultLanguage').value = CURRENT.shared.defaultLanguage || 'en';
   const iso = CURRENT.shared.unlockDateISO || toLocalISOString(UNLOCK_DATE);
-  q('f_unlockDate').value = iso.slice(0,10);
-  q('f_unlockTime').value = iso.slice(11,16);
+  q('f_unlockDate').value = iso.slice(0,10); q('f_unlockTime').value = iso.slice(11,16);
   q('f_ct1_show').checked = String(CURRENT.shared.ct1_show) === 'true';
   q('f_ct1_dispdate').value = CURRENT.shared.ct1_dispdate;
   const dt1 = CURRENT.shared.ct1_datetime || toLocalISOString(CT1_DATE);
@@ -1773,24 +1414,16 @@ function populateSharedFields(){
   const dt3 = CURRENT.shared.ct3_datetime || toLocalISOString(CT3_DATE);
   q('f_ct3_date').value = dt3.slice(0,10); q('f_ct3_time').value = dt3.slice(11,16);
   document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ r.checked = (r.value === (CURRENT.shared.music_mode || 'both')); });
-  for(let i=1; i<=5; i++){
-    q('f_song'+i+'_on').checked = String(CURRENT.shared['song'+i+'_on']) === 'true';
-    q('f_song'+i+'_url').value = CURRENT.shared['song'+i+'_url'] || '';
-    q('f_song'+i+'_where').value = CURRENT.shared['song'+i+'_where'] || 'both';
-  }
-  q('f_vol_card').value = CURRENT.shared.vol_card || '0.45';
-  q('f_vol_card_val').textContent = q('f_vol_card').value;
-  q('f_vol_slide').value = CURRENT.shared.vol_slide || '0.85';
-  q('f_vol_slide_val').textContent = q('f_vol_slide').value;
-  q('f_vol_video').value = CURRENT.shared.vol_video || '0.20';
-  q('f_vol_video_val').textContent = q('f_vol_video').value;
+  for(let i=1; i<=5; i++){ q('f_song'+i+'_on').checked = String(CURRENT.shared['song'+i+'_on']) === 'true'; q('f_song'+i+'_url').value = CURRENT.shared['song'+i+'_url'] || ''; q('f_song'+i+'_where').value = CURRENT.shared['song'+i+'_where'] || 'both'; }
+  q('f_vol_card').value = CURRENT.shared.vol_card || '0.45'; q('f_vol_card_val').textContent = q('f_vol_card').value;
+  q('f_vol_slide').value = CURRENT.shared.vol_slide || '0.85'; q('f_vol_slide_val').textContent = q('f_vol_slide').value;
+  q('f_vol_video').value = CURRENT.shared.vol_video || '0.20'; q('f_vol_video_val').textContent = q('f_vol_video').value;
 }
 document.addEventListener('input', (e)=>{
   if(e.target && e.target.id === 'f_vol_card') document.getElementById('f_vol_card_val').textContent = e.target.value;
   if(e.target && e.target.id === 'f_vol_slide') document.getElementById('f_vol_slide_val').textContent = e.target.value;
   if(e.target && e.target.id === 'f_vol_video') document.getElementById('f_vol_video_val').textContent = e.target.value;
 });
-
 function openAdminEditor(){
   adminEditLang = 'en';
   document.querySelectorAll('.lang-tab').forEach(t=>t.classList.toggle('active', t.dataset.lang === 'en'));
@@ -1808,58 +1441,32 @@ function readSharedFields(){
   const q = id => document.getElementById(id);
   const d = q('f_unlockDate').value, t = q('f_unlockTime').value || '00:00';
   const iso = d ? `${d}T${t}` : CURRENT.shared.unlockDateISO;
-  const d1 = q('f_ct1_date').value, t1 = q('f_ct1_time').value || '00:00';
-  const dt1 = d1 ? `${d1}T${t1}` : CURRENT.shared.ct1_datetime;
-  const d2 = q('f_ct2_date').value, t2 = q('f_ct2_time').value || '00:00';
-  const dt2 = d2 ? `${d2}T${t2}` : CURRENT.shared.ct2_datetime;
-  const d3 = q('f_ct3_date').value, t3 = q('f_ct3_time').value || '00:00';
-  const dt3 = d3 ? `${d3}T${t3}` : CURRENT.shared.ct3_datetime;
-  let music_mode = 'both';
-  document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ if(r.checked) music_mode = r.value; });
+  const d1 = q('f_ct1_date').value, t1 = q('f_ct1_time').value || '00:00'; const dt1 = d1 ? `${d1}T${t1}` : CURRENT.shared.ct1_datetime;
+  const d2 = q('f_ct2_date').value, t2 = q('f_ct2_time').value || '00:00'; const dt2 = d2 ? `${d2}T${t2}` : CURRENT.shared.ct2_datetime;
+  const d3 = q('f_ct3_date').value, t3 = q('f_ct3_time').value || '00:00'; const dt3 = d3 ? `${d3}T${t3}` : CURRENT.shared.ct3_datetime;
+  let music_mode = 'both'; document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ if(r.checked) music_mode = r.value; });
   const shared = {
     showLockScreen: q('f_showLockScreen').checked ? 'true' : 'false',
     defaultLanguage: q('f_defaultLanguage').value || 'en',
     unlockDateISO: iso,
-    ct1_show: q('f_ct1_show').checked ? 'true' : 'false',
-    ct1_dispdate: q('f_ct1_dispdate').value.trim() || DEFAULTS.ct1_dispdate,
-    ct1_datetime: dt1,
-    ct2_show: q('f_ct2_show').checked ? 'true' : 'false',
-    ct2_dispdate: q('f_ct2_dispdate').value.trim() || DEFAULTS.ct2_dispdate,
-    ct2_datetime: dt2,
-    ct3_show: q('f_ct3_show').checked ? 'true' : 'false',
-    ct3_dispdate: q('f_ct3_dispdate').value.trim() || DEFAULTS.ct3_dispdate,
-    ct3_datetime: dt3,
-    music_mode,
-    vol_card: q('f_vol_card').value,
-    vol_slide: q('f_vol_slide').value,
-    vol_video: q('f_vol_video').value
+    ct1_show: q('f_ct1_show').checked ? 'true' : 'false', ct1_dispdate: q('f_ct1_dispdate').value.trim() || DEFAULTS.shared.ct1_dispdate, ct1_datetime: dt1,
+    ct2_show: q('f_ct2_show').checked ? 'true' : 'false', ct2_dispdate: q('f_ct2_dispdate').value.trim() || DEFAULTS.shared.ct2_dispdate, ct2_datetime: dt2,
+    ct3_show: q('f_ct3_show').checked ? 'true' : 'false', ct3_dispdate: q('f_ct3_dispdate').value.trim() || DEFAULTS.shared.ct3_dispdate, ct3_datetime: dt3,
+    music_mode, vol_card: q('f_vol_card').value, vol_slide: q('f_vol_slide').value, vol_video: q('f_vol_video').value
   };
-  for(let i=1; i<=5; i++){
-    shared['song'+i+'_on']    = q('f_song'+i+'_on').checked ? 'true' : 'false';
-    shared['song'+i+'_url']   = q('f_song'+i+'_url').value.trim();
-    shared['song'+i+'_where'] = q('f_song'+i+'_where').value || 'both';
-  }
+  for(let i=1; i<=5; i++){ shared['song'+i+'_on'] = q('f_song'+i+'_on').checked ? 'true' : 'false'; shared['song'+i+'_url'] = q('f_song'+i+'_url').value.trim(); shared['song'+i+'_where'] = q('f_song'+i+'_where').value || 'both'; }
   return shared;
 }
-
 adminSave.addEventListener('click', async ()=>{
-  setAdminStatus('⏳ Saving to cloud…');
+  setAdminStatus('⏳ Saving…');
   try{
-    /* Read current tab back into CURRENT[adminEditLang] */
     readFormIntoCurrentLang();
-    /* Read shared fields */
     const shared = readSharedFields();
     CURRENT.shared = Object.assign(CURRENT.shared, shared);
-    /* Build flat object for Supabase */
     const payload = buildSettingsObject();
-    /* Add expiry marker */
     const unlock = new Date(CURRENT.shared.unlockDateISO);
-    if(!isNaN(unlock.getTime())){
-      const nextDay = new Date(unlock.getTime() + 24*60*60*1000);
-      payload['__expires_at__'] = nextDay.toISOString();
-    }
+    if(!isNaN(unlock.getTime())){ const nextDay = new Date(unlock.getTime() + 24*60*60*1000); payload['__expires_at__'] = nextDay.toISOString(); }
     await sb.upsertSettings(payload);
-    /* Apply to viewer */
     currentLang = CURRENT.shared.defaultLanguage || 'en';
     updateLangButton();
     applyAllSettings();
@@ -1868,9 +1475,8 @@ adminSave.addEventListener('click', async ()=>{
     setTimeout(()=>{ closeAdminEditor(); }, 600);
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
-
 adminReset.addEventListener('click', async ()=>{
-  const ok = confirm('⚠️ FULL RESET\n\nThis will PERMANENTLY DELETE all your custom text AND all photos & videos from the cloud.\n\nThe page will reload with factory defaults.\n\nContinue?');
+  const ok = confirm('⚠️ FULL RESET\n\nThis will PERMANENTLY DELETE:\n• All custom text (all 3 languages) from cloud\n• All photos & videos from cloud\n\nThe page will reload with factory defaults and lock screen will be OFF.\n\nContinue?');
   if(!ok) return;
   setAdminStatus('⏳ Deleting everything from cloud…');
   try{
@@ -1878,7 +1484,7 @@ adminReset.addEventListener('click', async ()=>{
     try{ await sb.deleteAllSettings(); }catch(e){ console.warn('settings delete failed:', e.message); }
     try{ localStorage.clear(); }catch(e){}
     try{ sessionStorage.clear(); }catch(e){}
-    setAdminStatus('✅ Everything cleared. Reloading…', 'ok');
+    setAdminStatus('✅ Cleared. Reloading…', 'ok');
     setTimeout(()=>{ location.reload(); }, 900);
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
