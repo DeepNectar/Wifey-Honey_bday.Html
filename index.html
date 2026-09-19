@@ -207,11 +207,12 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 .story-nav button{background:linear-gradient(135deg,var(--c-primary),var(--c-primary-2));color:var(--c-accent);border:none;padding:.6rem 1.2rem;border-radius:var(--radius-btn);font-weight:800;cursor:pointer;font-family:inherit}
 .story-nav .story-page-num{font-size:.85rem;color:var(--c-text-muted);font-weight:700}
 .map-canvas{width:100%;height:340px;background:linear-gradient(135deg,#e8f5f0,#d3ede1);border-radius:1rem;position:relative;overflow:hidden;border:1px solid rgba(196,30,58,.2)}
-.map-pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;font-size:1.6rem;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));-webkit-tap-highlight-color:transparent}
-.map-pin-popup{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#fff;border-radius:.7rem;padding:.6rem .8rem;box-shadow:0 8px 20px rgba(0,0,0,.3);display:none;min-width:140px;max-width:200px;text-align:center;z-index:5}
+.map-pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;font-size:1.6rem;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));-webkit-tap-highlight-color:transparent;z-index:2}
+.map-pin-popup{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#fff;border-radius:.7rem;padding:1.4rem .8rem .5rem;box-shadow:0 8px 20px rgba(0,0,0,.3);display:none;min-width:180px;max-width:260px;text-align:center;z-index:10}
 .map-pin-popup.show{display:block}
-.map-pin-popup img{max-width:100%;border-radius:.4rem;margin-bottom:.4rem}
-.map-pin-popup p{font-size:.78rem;color:var(--c-text);line-height:1.4}
+.map-pin-popup img{max-width:100%;border-radius:.4rem;margin-bottom:.4rem;display:block}
+.map-pin-popup p{font-size:.78rem;color:var(--c-text);line-height:1.4;margin-top:.3rem}
+.map-pin-popup strong{font-size:.8rem;display:block;margin-top:.3rem;color:var(--c-primary)}
 .upload-form{display:flex;flex-direction:column;gap:.6rem}
 .upload-form input,.upload-form textarea{padding:.6rem .8rem;border:1.5px solid var(--c-accent);border-radius:.6rem;font-size:.92rem;font-family:inherit;background:#fffdf8;outline:none}
 .upload-form button{background:linear-gradient(135deg,var(--c-primary),var(--c-primary-2));color:var(--c-accent);border:none;padding:.7rem;border-radius:var(--radius-btn);font-weight:800;cursor:pointer;font-family:inherit;font-style:italic}
@@ -296,13 +297,12 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 .data-status.ok{color:#0a7a3d}.data-status.err{color:var(--c-primary-2)}
 .sync-badge{display:inline-block;margin-left:.3rem;font-size:.72rem;padding:.15rem .5rem;border-radius:40px;background:rgba(10,122,61,.15);color:#0a7a3d;font-weight:700;font-style:normal}
 .sync-badge.syncing{background:rgba(196,30,58,.15);color:var(--c-primary-2)}
-@media (max-width:600px){body{padding:.7rem}.card{padding:1.8rem 1.15rem}h1{font-size:1.85rem}.cake-emoji{font-size:3.1rem}.names{font-size:1.35rem;padding:.5rem 1.7rem}.open-btn{font-size:1.05rem;padding:.9rem 1.8rem}.nav-btn{width:2.6rem;height:2.6rem;font-size:1.1rem}.nav-btn.prev{left:.5rem}.nav-btn.next{right:.5rem}.music-toggle{width:2.8rem;height:2.8rem;font-size:1.2rem;bottom:.7rem;right:.7rem}.lang-toggle{width:2.8rem;height:2.8rem;font-size:.92rem;bottom:.7rem;right:4rem}.counter-time{font-size:.92rem}.gift-box .gift-emoji{font-size:3rem}}
+@media (max-width:600px){body{padding:.7rem}.card{padding:1.8rem 1.15rem}h1{font-size:1.85rem}.cake-emoji{font-size:3.1rem}.names{font-size:1.35rem;padding:.5rem 1.7rem}.open-btn{font-size:1.05rem;padding:.9rem 1.8rem}.nav-btn{width:2.6rem;height:2.6rem;font-size:1.1rem}.nav-btn.prev{left:.5rem}.nav-btn.next{right:.5rem}.music-toggle{width:2.8rem;height:2.8rem;font-size:1.2rem;bottom:.7rem;right:.7rem}.lang-toggle{width:2.8rem;height:2.8rem;font-size:.92rem;bottom:4rem;right:4rem}.counter-time{font-size:.92rem}.gift-box .gift-emoji{font-size:3rem}.map-pin-popup{min-width:140px;max-width:200px}}
 @media (max-width:380px){h1{font-size:1.6rem}.message{font-size:.96rem}}
 @media (max-width:480px){.admin-content{padding:1.3rem .9rem 1rem}.admin-section{padding:.75rem .65rem}.admin-date-row{grid-template-columns:1fr}.admin-counter-grid{grid-template-columns:1fr}.admin-song-row{grid-template-columns:auto 1fr}.admin-song-row .admin-select{grid-column:1 / -1}.lang-tab{font-size:.72rem;padding:.5rem .3rem}.admin-slider-row label{flex:0 0 100px}}
 </style>
 </head>
 <body data-theme="romantic">
-
 
 <!-- LOCK SCREEN -->
 <div class="lock-screen" id="lockScreen">
@@ -542,7 +542,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div class="admin-section"><div class="admin-section-title">📅 Event Countdowns</div><div id="eventsRepeater"></div><button type="button" class="admin-repeat-add" id="addEventRow">➕ Add Event</button></div>
 <div class="admin-section"><div class="admin-section-title">🔊 Voice Messages</div><div id="voiceRepeater"></div><button type="button" class="admin-repeat-add" id="addVoiceRow">➕ Add Voice Message</button></div>
 <div class="admin-section"><div class="admin-section-title">🎬 Video Messages</div><div id="videoRepeater"></div><button type="button" class="admin-repeat-add" id="addVideoRow">➕ Add Video Message</button></div>
-<div class="admin-section"><div class="admin-section-title">🗺️ Map Pins</div><div id="pinsRepeater"></div><button type="button" class="admin-repeat-add" id="addPinRow">➕ Add Pin</button><div class="admin-lock-hint" style="text-align:left;margin-top:.5rem;">Mumbai example: lat 19.0760 / lng 72.8777</div></div>
+<div class="admin-section"><div class="admin-section-title">🗺️ Map Pins</div><div id="pinsRepeater"></div><button type="button" class="admin-repeat-add" id="addPinRow">➕ Add Pin</button><div class="admin-lock-hint" style="text-align:left;margin-top:.5rem;">Mumbai example: lat 19.0760 / lng 72.8777. Multiple photos: comma-separate Drive IDs.</div></div>
 <div class="admin-section"><div class="admin-section-title">📖 Story Pages</div><div id="storyRepeater"></div><button type="button" class="admin-repeat-add" id="addStoryRow">➕ Add Story Page</button></div>
 </div>
 
@@ -713,6 +713,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div class="info-content">
 <button class="info-close" id="mapClose">✕</button>
 <div class="info-title">🗺️ Our Memories Map</div>
+<div id="mapSelectedName" style="text-align:center;font-size:1.05rem;font-weight:800;color:var(--c-primary);font-style:italic;margin-bottom:.6rem;min-height:1.4rem;letter-spacing:.3px;"></div>
 <div class="map-canvas" id="mapCanvas"></div>
 </div>
 </div>
@@ -730,7 +731,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 </div>
 </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
@@ -1069,7 +1069,6 @@ function toggleMusic(){
   }
   updateMusicButton();
 }
-/* Stop all music */
 function stopAllMusic(){
   musicEnabled = false;
   try{
@@ -1120,7 +1119,6 @@ function revealMain(){
     openingScreen.classList.add('hidden');
     setTimeout(()=>{ openingScreen.classList.remove('active'); openingScreen.style.display='none'; }, 900);
   }
-  /* Force music on when card opens */
   musicEnabled = true;
   startMusicFor('card');
   updateMusicButton();
@@ -1166,7 +1164,6 @@ document.addEventListener('touchstart', (e)=>{
   fireworksBurst(t.clientX, t.clientY);
 }, { passive: true });
 
-
 /* SLIDESHOW */
 const slidesTrack=document.getElementById('slidesTrack');
 const prevBtn=document.getElementById('prevBtn');
@@ -1192,9 +1189,9 @@ function updateSlideshow(){
   slides.forEach((s,i)=>{ if(i!==currentIndex){ const v=s.querySelector('video'); if(v) resetVideoEl(v); const b=s.querySelector('.unmute-btn'); if(b) b.classList.remove('show'); const h=s.querySelector('.video-paused-hint'); if(h) h.classList.remove('show'); } });
   const a=slides[currentIndex]; if(!a) return;
   if(a.classList.contains('video-slide')){
-    /* Duck background music while video plays */
     if(musicEnabled && audioPlayer.src){
       audioPlayer.volume = getVolume('video_bg');
+      if(audioPlayer.paused){ audioPlayer.play().catch(()=>{}); }
     }
     const v=a.querySelector('video'); const b=a.querySelector('.unmute-btn'); const h=a.querySelector('.video-paused-hint');
     if(v){ v.volume = getVolume('video');
@@ -1206,9 +1203,9 @@ function updateSlideshow(){
       if(v.readyState >= 1) tryPlay(); else v.addEventListener('loadedmetadata', tryPlay, { once:true });
     }
   } else {
-    /* Restore background music to normal on photo slide */
     if(musicEnabled && audioPlayer.src){
       audioPlayer.volume = getVolume(currentContext);
+      if(audioPlayer.paused){ audioPlayer.play().catch(()=>{}); }
     }
     schedulePhotoAdvance();
   }
@@ -1284,14 +1281,12 @@ async function mergeSupabaseIntoSlideshow(force){
 setInterval(()=>{ mergeSupabaseIntoSlideshow(false); }, SYNC_INTERVAL_MS);
 setTimeout(()=>{ mergeSupabaseIntoSlideshow(false); }, 1500);
 
-/* OPEN MODAL — force slideshow music on */
 function openModal(){
   finishTypewriterNow();
   isModalOpen=true; currentIndex=0;
   modalOverlay.classList.add('active');
   document.body.style.overflow='hidden';
   mergeSupabaseIntoSlideshow(true);
-  /* Force slideshow music on */
   const slidePl = buildPlaylistFor('slideshow');
   if(slidePl.length){
     musicEnabled = true;
@@ -1320,13 +1315,11 @@ function confettiBurst(){
   }
 }
 
-/* CLOSE MODAL — back to card music */
 function closeModal(){
   isModalOpen=false; clearTimers();
   slides.forEach(s=>{ const v=s.querySelector('video'); if(v) resetVideoEl(v); });
   modalOverlay.classList.remove('active');
   document.body.style.overflow='';
-  /* Switch back to card music */
   const cardPl = buildPlaylistFor('card');
   if(cardPl.length){
     musicEnabled = true;
@@ -1346,7 +1339,6 @@ function closeModal(){
 function closeClosingModal(){
   closingModalOverlay.classList.remove('active');
   document.body.style.overflow='';
-  /* Stop ALL music when closing modal is closed */
   stopAllMusic();
 }
 openBtn.addEventListener('click', openModal);
@@ -1537,7 +1529,7 @@ document.getElementById('storyClose').addEventListener('click', ()=>{ document.g
 document.getElementById('storyPrev').addEventListener('click', ()=>{ if(storyPage > 0){ storyPage--; drawStoryPage(); } });
 document.getElementById('storyNext').addEventListener('click', ()=>{ if(storyPage < STORY.length-1){ storyPage++; drawStoryPage(); } });
 
-/* MAP */
+/* MAP — with heading bar + close button + multi-photo */
 function renderMap(){
   const btn = document.getElementById('mapBtn');
   const enabled = String(CURRENT.shared.enableMap) === 'true' && PINS.length > 0;
@@ -1545,6 +1537,8 @@ function renderMap(){
 }
 function openMap(){
   const canvas = document.getElementById('mapCanvas');
+  const nameBar = document.getElementById('mapSelectedName');
+  if(nameBar) nameBar.textContent = '';
   canvas.innerHTML = '';
   if(!PINS.length){ canvas.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--c-text-muted);">No pins yet.</div>'; return; }
   const lats = PINS.map(p => parseFloat(p.lat)).filter(v => !isNaN(v));
@@ -1560,18 +1554,46 @@ function openMap(){
     const pin = document.createElement('div');
     pin.className = 'map-pin'; pin.style.left = xPct + '%'; pin.style.top = yPct + '%';
     pin.textContent = '📍';
+
     const popup = document.createElement('div');
     popup.className = 'map-pin-popup';
+
+    /* Close button in popup */
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕';
+    closeBtn.style.cssText = 'position:absolute;top:4px;right:6px;background:transparent;border:none;color:var(--c-primary-2);font-size:.9rem;font-weight:900;cursor:pointer;padding:2px 4px;line-height:1;';
+    closeBtn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      popup.classList.remove('show');
+      if(nameBar) nameBar.textContent = '';
+    });
+    popup.appendChild(closeBtn);
+
     let ph = '';
-    if(p.photo_drive_id){ const urls = buildImageUrls(p.photo_drive_id); ph += `<img src="${urls[0]}" onerror="this.src='${urls[1]}'">`; }
-    if(p.label) ph += `<strong style="font-size:.8rem;">${p.label}</strong>`;
+    if(p.photo_drive_id){
+      const ids = String(p.photo_drive_id).split(',').map(s=>s.trim()).filter(Boolean);
+      ids.forEach(id => {
+        const urls = buildImageUrls(id);
+        ph += `<img src="${urls[0]}" onerror="this.src='${urls[1]}'">`;
+      });
+    }
+    if(p.label) ph += `<strong>${p.label}</strong>`;
     if(p.story) ph += `<p>${p.story}</p>`;
-    popup.innerHTML = ph;
+    popup.insertAdjacentHTML('beforeend', ph);
+
     pin.appendChild(popup);
-    pin.addEventListener('click', (e)=>{ e.stopPropagation(); document.querySelectorAll('.map-pin-popup').forEach(x=>x.classList.remove('show')); popup.classList.add('show'); });
+    pin.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      document.querySelectorAll('.map-pin-popup').forEach(x=>x.classList.remove('show'));
+      popup.classList.add('show');
+      if(nameBar) nameBar.textContent = p.label || '';
+    });
     canvas.appendChild(pin);
   });
-  canvas.addEventListener('click', ()=>document.querySelectorAll('.map-pin-popup').forEach(x=>x.classList.remove('show')));
+  canvas.addEventListener('click', ()=>{
+    document.querySelectorAll('.map-pin-popup').forEach(x=>x.classList.remove('show'));
+    if(nameBar) nameBar.textContent = '';
+  });
 }
 document.getElementById('mapBtn').addEventListener('click', ()=>{ openMap(); document.getElementById('mapModal').classList.add('active'); });
 document.getElementById('mapClose').addEventListener('click', ()=>{ document.getElementById('mapModal').classList.remove('active'); });
@@ -1765,7 +1787,6 @@ const adminCancel = document.getElementById('adminCancel');
 const adminStatus = document.getElementById('adminStatus');
 function setAdminStatus(msg, kind){ adminStatus.textContent = msg || ''; adminStatus.className = 'admin-status' + (kind ? ' ' + kind : ''); }
 
-/* ADMIN TAB SWITCHER */
 document.querySelectorAll('.admin-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
     document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
@@ -1777,7 +1798,6 @@ document.querySelectorAll('.admin-tab').forEach(tab=>{
   });
 });
 
-/* Triple-tap cake */
 const mainCakeEmoji = document.getElementById('mainCakeEmoji');
 let tapCount = 0, tapResetTimer = null;
 if(mainCakeEmoji){
@@ -1803,7 +1823,6 @@ adminPwConfirm.addEventListener('click', tryAdminLogin);
 adminPwCancel.addEventListener('click', closeAdminLogin);
 adminPwInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); tryAdminLogin(); } });
 
-/* THEME PICKER */
 let pendingTheme = 'romantic';
 document.querySelectorAll('.theme-swatch').forEach(sw=>{
   sw.addEventListener('click', ()=>{
@@ -1813,7 +1832,6 @@ document.querySelectorAll('.theme-swatch').forEach(sw=>{
   });
 });
 
-/* LANGUAGE TABS */
 document.querySelectorAll('.lang-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
     document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
@@ -1965,7 +1983,7 @@ function renderPinRepeater(){
         <div><label class="admin-label">Latitude</label><input class="admin-input" data-g="lat" data-i="${i}" value="${p.lat || ''}"></div>
         <div><label class="admin-label">Longitude</label><input class="admin-input" data-g="lng" data-i="${i}" value="${p.lng || ''}"></div>
       </div>
-      <div class="admin-field"><label class="admin-label">Photo Drive ID</label><input class="admin-input" data-g="photo_drive_id" data-i="${i}" value="${p.photo_drive_id || ''}"></div>
+      <div class="admin-field"><label class="admin-label">Photo Drive IDs (comma-separated for multiple)</label><input class="admin-input" data-g="photo_drive_id" data-i="${i}" value="${p.photo_drive_id || ''}"></div>
       <div class="admin-field"><label class="admin-label">Story</label><textarea class="admin-textarea" data-g="story" data-i="${i}">${p.story || ''}</textarea></div>`;
     wrap.appendChild(row);
   });
@@ -2081,7 +2099,6 @@ function readSharedFields(){
   return shared;
 }
 
-/* SAVE */
 adminSave.addEventListener('click', async ()=>{
   setAdminStatus('⏳ Saving…');
   try{
@@ -2112,7 +2129,6 @@ adminSave.addEventListener('click', async ()=>{
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
 
-/* CLEAR ALL */
 adminReset.addEventListener('click', async ()=>{
   const ok = confirm('🧹 CLEAR ALL\n\nThis deletes ALL text, media, and settings from cloud. Everything will be blank.\n\nAdmin fallback password still works.\n\nContinue?');
   if(!ok) return;
