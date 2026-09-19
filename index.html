@@ -868,6 +868,11 @@ const TEXT_FIELDS = [
 /* All text fields start BLANK — nothing hardcoded in the card */
 const BLANK_LANG = {};
 TEXT_FIELDS.forEach(f => BLANK_LANG[f] = '');
+/* Defaults for counter labels (admin can still edit) */
+BLANK_LANG.countersTitle = '💕 Our Journey Together 💕';
+BLANK_LANG.ct1_label = "💬 Days We've Been Together";
+BLANK_LANG.ct2_label = '💕 Days of Us';
+BLANK_LANG.ct3_label = '💍 Days Married to My Queen';
 
 /* Blank defaults — nothing hardcoded except the admin fallback password */
 const DEFAULTS = {
