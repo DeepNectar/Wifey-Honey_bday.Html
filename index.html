@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>Happy Birthday Honey! 💕</title>
+<title>Happy Birthday! 🎂 A surprise awaits — click to reveal it! 💕</title>
 <style>
 :root{--c-primary:#8b0028;--c-primary-2:#c41e3a;--c-deep:#4a0016;--c-accent:#ffd700;--c-accent-2:#ffed4e;--c-bg-1:#fff8f0;--c-bg-2:#ffe0e6;--c-bg-3:#f8c8d0;--c-bg-4:#d4a373;--c-card-1:rgba(255,250,245,.97);--c-card-2:rgba(255,240,240,.95);--c-text:#3a1a20;--c-text-muted:#a06c7a;--font-main:'Georgia','Times New Roman',serif;--radius-card:2rem;--radius-btn:50px;--c-hero-grad:linear-gradient(160deg,#c41e3a 0%,#8b0028 50%,#4a0016 100%)}
 body[data-theme="family"]{--c-primary:#0d5c4a;--c-primary-2:#158a6d;--c-deep:#04291f;--c-accent:#ffb703;--c-accent-2:#ffd166;--c-bg-1:#e8f5f0;--c-bg-2:#d3ede1;--c-bg-3:#b8dfd0;--c-bg-4:#8ec7b4;--c-card-1:rgba(240,255,250,.97);--c-card-2:rgba(220,245,235,.95);--c-text:#0a2e25;--c-text-muted:#4a8477;--c-hero-grad:linear-gradient(160deg,#158a6d 0%,#0d5c4a 50%,#04291f 100%)}
@@ -100,7 +100,7 @@ body[data-theme="festive"]{--c-primary:#7b2cbf;--c-primary-2:#9d4edd;--c-deep:#3
 .admin-song-row .admin-input{font-size:.82rem;padding:.5rem .6rem}
 .admin-song-label{font-size:.72rem;font-weight:800;color:var(--c-primary-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.25rem}
 .admin-slider-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem}
-.admin-slider-row label{flex:0 0 90px;font-size:.75rem;font-weight:800;color:var(--c-primary-2);text-transform:uppercase}
+.admin-slider-row label{flex:0 0 130px;font-size:.75rem;font-weight:800;color:var(--c-primary-2);text-transform:uppercase}
 .admin-slider-row input[type="range"]{flex:1;accent-color:var(--c-primary-2)}
 .admin-slider-row .admin-slider-val{flex:0 0 42px;text-align:right;font-size:.82rem;font-weight:700;color:var(--c-primary)}
 .admin-repeat-row{padding:.6rem .5rem;border:1px dashed rgba(196,30,58,.3);border-radius:.7rem;margin-bottom:.5rem;background:#fffdf8;position:relative}
@@ -265,20 +265,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 @keyframes fxt{0%{transform:translateY(-90%);opacity:0}100%{transform:translateY(0);opacity:1}}
 .slide.fx-6.active img{animation:fxd 1s cubic-bezier(.2,.9,.3,1) forwards}
 @keyframes fxd{0%{transform:translateY(90%);opacity:0}100%{transform:translateY(0);opacity:1}}
-.slide.fx-7.active img{animation:fx7 1s ease-out forwards}
-@keyframes fx7{0%{transform:rotate(-15deg) scale(.5);opacity:0}100%{transform:rotate(0) scale(1);opacity:1}}
-.slide.fx-8.active img{animation:fx8 1s ease-out forwards}
-@keyframes fx8{0%{transform:perspective(800px) rotateY(90deg);opacity:0}100%{transform:perspective(800px) rotateY(0);opacity:1}}
-.slide.fx-9.active img{animation:fx9 1s ease-out forwards}
-@keyframes fx9{0%{transform:perspective(800px) rotateX(90deg);opacity:0}100%{transform:perspective(800px) rotateX(0);opacity:1}}
-.slide.fx-10.active img{animation:fx10 1s ease-out forwards}
-@keyframes fx10{0%{filter:blur(20px);opacity:0;transform:scale(1.1)}100%{filter:blur(0);opacity:1;transform:scale(1)}}
-.slide.fx-11.active img{animation:fx11 1s ease-out forwards}
-@keyframes fx11{0%{filter:brightness(3);opacity:0}100%{filter:brightness(1);opacity:1}}
-.slide.fx-12.active img{animation:fx12 1.1s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes fx12{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
-.slide.fx-13.active img{animation:fx13 1.2s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes fx13{0%{transform:scale(2.5);opacity:0}70%{transform:scale(.9)}100%{transform:scale(1);opacity:1}}
 .closing-modal-overlay{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;background:rgba(30,0,10,.9);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s}
 .closing-modal-overlay.active{opacity:1;visibility:visible}
 .closing-modal-content{background:linear-gradient(160deg,#fffaf5 0%,#fff0f0 45%,#ffe0e6 100%);border-radius:2rem;border:2px solid var(--c-accent);padding:2rem 1.5rem;max-width:640px;width:100%;max-height:92vh;overflow-y:auto;text-align:center;position:relative;box-shadow:0 35px 70px -20px rgba(139,0,40,.7)}
@@ -312,10 +298,11 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 .sync-badge.syncing{background:rgba(196,30,58,.15);color:var(--c-primary-2)}
 @media (max-width:600px){body{padding:.7rem}.card{padding:1.8rem 1.15rem}h1{font-size:1.85rem}.cake-emoji{font-size:3.1rem}.names{font-size:1.35rem;padding:.5rem 1.7rem}.open-btn{font-size:1.05rem;padding:.9rem 1.8rem}.nav-btn{width:2.6rem;height:2.6rem;font-size:1.1rem}.nav-btn.prev{left:.5rem}.nav-btn.next{right:.5rem}.music-toggle{width:2.8rem;height:2.8rem;font-size:1.2rem;bottom:.7rem;right:.7rem}.lang-toggle{width:2.8rem;height:2.8rem;font-size:.92rem;bottom:.7rem;right:4rem}.counter-time{font-size:.92rem}.gift-box .gift-emoji{font-size:3rem}}
 @media (max-width:380px){h1{font-size:1.6rem}.message{font-size:.96rem}}
-@media (max-width:480px){.admin-content{padding:1.3rem .9rem 1rem}.admin-section{padding:.75rem .65rem}.admin-date-row{grid-template-columns:1fr}.admin-counter-grid{grid-template-columns:1fr}.admin-song-row{grid-template-columns:auto 1fr}.admin-song-row .admin-select{grid-column:1 / -1}.lang-tab{font-size:.72rem;padding:.5rem .3rem}}
+@media (max-width:480px){.admin-content{padding:1.3rem .9rem 1rem}.admin-section{padding:.75rem .65rem}.admin-date-row{grid-template-columns:1fr}.admin-counter-grid{grid-template-columns:1fr}.admin-song-row{grid-template-columns:auto 1fr}.admin-song-row .admin-select{grid-column:1 / -1}.lang-tab{font-size:.72rem;padding:.5rem .3rem}.admin-slider-row label{flex:0 0 100px}}
 </style>
 </head>
 <body data-theme="romantic">
+
 
 <!-- LOCK SCREEN -->
 <div class="lock-screen" id="lockScreen">
@@ -544,56 +531,25 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div class="admin-song-label" style="margin-top:.8rem;">🔊 Volume</div>
 <div class="admin-slider-row"><label>Card</label><input type="range" id="f_vol_card" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_card_val">0.45</span></div>
 <div class="admin-slider-row"><label>Slideshow</label><input type="range" id="f_vol_slide" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_slide_val">0.85</span></div>
-<div class="admin-slider-row"><label>Video</label><input type="range" id="f_vol_video" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_video_val">0.20</span></div>
+<div class="admin-slider-row"><label>Video Audio</label><input type="range" id="f_vol_video" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_video_val">1.00</span></div>
+<div class="admin-slider-row"><label>BG Music (during video)</label><input type="range" id="f_vol_bg_video" min="0" max="1" step="0.05" /><span class="admin-slider-val" id="f_vol_bg_video_val">0.10</span></div>
 </div>
 </div>
 
-<!-- PANE 4: EXTRAS (REPEATERS) -->
+<!-- PANE 4: EXTRAS -->
 <div class="admin-pane" id="pane-extras">
-<div class="admin-section">
-<div class="admin-section-title">🎁 Gift Boxes</div>
-<div id="giftsRepeater"></div>
-<button type="button" class="admin-repeat-add" id="addGiftRow">➕ Add Gift Box</button>
-</div>
-<div class="admin-section">
-<div class="admin-section-title">📅 Event Countdowns</div>
-<div id="eventsRepeater"></div>
-<button type="button" class="admin-repeat-add" id="addEventRow">➕ Add Event</button>
-</div>
-<div class="admin-section">
-<div class="admin-section-title">🔊 Voice Messages</div>
-<div id="voiceRepeater"></div>
-<button type="button" class="admin-repeat-add" id="addVoiceRow">➕ Add Voice Message</button>
-</div>
-<div class="admin-section">
-<div class="admin-section-title">🎬 Video Messages</div>
-<div id="videoRepeater"></div>
-<button type="button" class="admin-repeat-add" id="addVideoRow">➕ Add Video Message</button>
-</div>
-<div class="admin-section">
-<div class="admin-section-title">🗺️ Map Pins</div>
-<div id="pinsRepeater"></div>
-<button type="button" class="admin-repeat-add" id="addPinRow">➕ Add Pin</button>
-<div class="admin-lock-hint" style="text-align:left;margin-top:.5rem;">Mumbai example: lat 19.0760 / lng 72.8777</div>
-</div>
-<div class="admin-section">
-<div class="admin-section-title">📖 Story Pages</div>
-<div id="storyRepeater"></div>
-<button type="button" class="admin-repeat-add" id="addStoryRow">➕ Add Story Page</button>
-</div>
+<div class="admin-section"><div class="admin-section-title">🎁 Gift Boxes</div><div id="giftsRepeater"></div><button type="button" class="admin-repeat-add" id="addGiftRow">➕ Add Gift Box</button></div>
+<div class="admin-section"><div class="admin-section-title">📅 Event Countdowns</div><div id="eventsRepeater"></div><button type="button" class="admin-repeat-add" id="addEventRow">➕ Add Event</button></div>
+<div class="admin-section"><div class="admin-section-title">🔊 Voice Messages</div><div id="voiceRepeater"></div><button type="button" class="admin-repeat-add" id="addVoiceRow">➕ Add Voice Message</button></div>
+<div class="admin-section"><div class="admin-section-title">🎬 Video Messages</div><div id="videoRepeater"></div><button type="button" class="admin-repeat-add" id="addVideoRow">➕ Add Video Message</button></div>
+<div class="admin-section"><div class="admin-section-title">🗺️ Map Pins</div><div id="pinsRepeater"></div><button type="button" class="admin-repeat-add" id="addPinRow">➕ Add Pin</button><div class="admin-lock-hint" style="text-align:left;margin-top:.5rem;">Mumbai example: lat 19.0760 / lng 72.8777</div></div>
+<div class="admin-section"><div class="admin-section-title">📖 Story Pages</div><div id="storyRepeater"></div><button type="button" class="admin-repeat-add" id="addStoryRow">➕ Add Story Page</button></div>
 </div>
 
-<!-- PANE 5: MEDIA & UPLOADS -->
+<!-- PANE 5: MEDIA -->
 <div class="admin-pane" id="pane-media">
-<div class="admin-section">
-<div class="admin-section-title">📥 Pending Guest Uploads</div>
-<div id="pendingUploadsList" style="font-size:.85rem;color:var(--c-text-muted);text-align:center;">No pending uploads.</div>
-<button type="button" class="admin-repeat-add" id="refreshUploads" style="margin-top:.4rem;">🔄 Refresh Pending</button>
-</div>
-<div class="admin-section">
-<div class="admin-section-title">ℹ️ Media Note</div>
-<div class="admin-lock-hint" style="text-align:left;">Photos and videos are managed from the main page's "Manage Media (Excel)" panel — not from here.</div>
-</div>
+<div class="admin-section"><div class="admin-section-title">📥 Pending Guest Uploads</div><div id="pendingUploadsList" style="font-size:.85rem;color:var(--c-text-muted);text-align:center;">No pending uploads.</div><button type="button" class="admin-repeat-add" id="refreshUploads" style="margin-top:.4rem;">🔄 Refresh Pending</button></div>
+<div class="admin-section"><div class="admin-section-title">ℹ️ Media Note</div><div class="admin-lock-hint" style="text-align:left;">Photos and videos are managed from the main page's "Manage Media (Excel)" panel — not from here.</div></div>
 </div>
 
 <!-- PANE 6: BACKUP -->
@@ -775,6 +731,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <script>
@@ -847,7 +804,7 @@ const DEFAULTS = {
     ct1_show: 'true', ct1_dispdate: '', ct1_datetime: '',
     ct2_show: 'true', ct2_dispdate: '', ct2_datetime: '',
     ct3_show: 'true', ct3_dispdate: '', ct3_datetime: '',
-    music_mode: 'both', vol_card: '0.45', vol_slide: '0.85', vol_video: '0.20',
+    music_mode: 'both', vol_card: '0.45', vol_slide: '0.85', vol_video: '1.0', vol_bg_video: '0.10',
     song1_on: 'false', song1_url: '', song1_where: 'both',
     song2_on: 'false', song2_url: '', song2_where: 'both',
     song3_on: 'false', song3_url: '', song3_where: 'both',
@@ -910,7 +867,7 @@ const openEarlyBtn = document.getElementById('openEarlyBtn');
 function unlockPage(){
   lockScreen.classList.remove('active');
   const op = document.getElementById('openingScreen');
-  if(op){ op.classList.add('active'); op.classList.remove('hidden'); }
+  if(op){ op.classList.add('active'); op.classList.remove('hidden'); op.style.display = ''; }
 }
 function checkTimeAndUnlock(){ if(!UNLOCK_DATE) return false; const now = new Date(); if(now >= UNLOCK_DATE){ unlockPage(); return true; } return false; }
 function updateCountdown(){
@@ -927,7 +884,6 @@ let countdownInterval = null;
 function startCountdown(){ if(countdownInterval) clearInterval(countdownInterval); updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
 function stopCountdown(){ if(countdownInterval){ clearInterval(countdownInterval); countdownInterval = null; } }
 
-/* Force the input field to clear any browser-autofilled value */
 function hardClearInput(el){
   if(!el) return;
   el.value = '';
@@ -1063,7 +1019,8 @@ const musicToggle = document.getElementById('musicToggle');
 let musicEnabled = false, currentSongIndex = -1, currentPlaylist = [], currentContext = 'card';
 function getVolume(ctx){
   const s = CURRENT.shared;
-  if(ctx === 'video') return parseFloat(s.vol_video) || 0.20;
+  if(ctx === 'video') return parseFloat(s.vol_video) || 1.0;
+  if(ctx === 'video_bg') return parseFloat(s.vol_bg_video) || 0.10;
   if(ctx === 'slideshow') return parseFloat(s.vol_slide) || 0.85;
   return parseFloat(s.vol_card) || 0.45;
 }
@@ -1110,6 +1067,17 @@ function toggleMusic(){
     if(audioPlayer.src && currentPlaylist.indexOf(audioPlayer.src) !== -1){ audioPlayer.play().then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); }); }
     else { currentSongIndex = -1; playNextFromPlaylist(); }
   }
+  updateMusicButton();
+}
+/* Stop all music */
+function stopAllMusic(){
+  musicEnabled = false;
+  try{
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+    audioPlayer.removeAttribute('src');
+    audioPlayer.load();
+  }catch(e){}
   updateMusicButton();
 }
 musicToggle.addEventListener('click', toggleMusic);
@@ -1198,6 +1166,7 @@ document.addEventListener('touchstart', (e)=>{
   fireworksBurst(t.clientX, t.clientY);
 }, { passive: true });
 
+
 /* SLIDESHOW */
 const slidesTrack=document.getElementById('slidesTrack');
 const prevBtn=document.getElementById('prevBtn');
@@ -1223,6 +1192,10 @@ function updateSlideshow(){
   slides.forEach((s,i)=>{ if(i!==currentIndex){ const v=s.querySelector('video'); if(v) resetVideoEl(v); const b=s.querySelector('.unmute-btn'); if(b) b.classList.remove('show'); const h=s.querySelector('.video-paused-hint'); if(h) h.classList.remove('show'); } });
   const a=slides[currentIndex]; if(!a) return;
   if(a.classList.contains('video-slide')){
+    /* Duck background music while video plays */
+    if(musicEnabled && audioPlayer.src){
+      audioPlayer.volume = getVolume('video_bg');
+    }
     const v=a.querySelector('video'); const b=a.querySelector('.unmute-btn'); const h=a.querySelector('.video-paused-hint');
     if(v){ v.volume = getVolume('video');
       const tryPlay = () => { if(!isModalOpen || slides[currentIndex]!==a) return;
@@ -1232,7 +1205,13 @@ function updateSlideshow(){
       };
       if(v.readyState >= 1) tryPlay(); else v.addEventListener('loadedmetadata', tryPlay, { once:true });
     }
-  } else schedulePhotoAdvance();
+  } else {
+    /* Restore background music to normal on photo slide */
+    if(musicEnabled && audioPlayer.src){
+      audioPlayer.volume = getVolume(currentContext);
+    }
+    schedulePhotoAdvance();
+  }
   resetProgress();
 }
 function resetProgress(){
@@ -1367,8 +1346,8 @@ function closeModal(){
 function closeClosingModal(){
   closingModalOverlay.classList.remove('active');
   document.body.style.overflow='';
-  if(musicEnabled) audioPlayer.pause();
-  musicEnabled=false; updateMusicButton();
+  /* Stop ALL music when closing modal is closed */
+  stopAllMusic();
 }
 openBtn.addEventListener('click', openModal);
 modalClose.addEventListener('click', closeModal);
@@ -1882,7 +1861,8 @@ function populateSharedFields(){
   for(let i=1; i<=5; i++){ q('f_song'+i+'_on').checked = String(CURRENT.shared['song'+i+'_on']) === 'true'; q('f_song'+i+'_url').value = CURRENT.shared['song'+i+'_url'] || ''; q('f_song'+i+'_where').value = CURRENT.shared['song'+i+'_where'] || 'both'; }
   q('f_vol_card').value = CURRENT.shared.vol_card || '0.45'; q('f_vol_card_val').textContent = q('f_vol_card').value;
   q('f_vol_slide').value = CURRENT.shared.vol_slide || '0.85'; q('f_vol_slide_val').textContent = q('f_vol_slide').value;
-  q('f_vol_video').value = CURRENT.shared.vol_video || '0.20'; q('f_vol_video_val').textContent = q('f_vol_video').value;
+  q('f_vol_video').value = CURRENT.shared.vol_video || '1.0'; q('f_vol_video_val').textContent = q('f_vol_video').value;
+  q('f_vol_bg_video').value = CURRENT.shared.vol_bg_video || '0.10'; q('f_vol_bg_video_val').textContent = q('f_vol_bg_video').value;
   pendingTheme = CURRENT.shared.theme || 'romantic';
   document.querySelectorAll('.theme-swatch').forEach(x=>x.classList.toggle('selected', x.dataset.themePick === pendingTheme));
   renderGiftRepeater();
@@ -1896,6 +1876,7 @@ document.addEventListener('input', (e)=>{
   if(e.target && e.target.id === 'f_vol_card') document.getElementById('f_vol_card_val').textContent = e.target.value;
   if(e.target && e.target.id === 'f_vol_slide') document.getElementById('f_vol_slide_val').textContent = e.target.value;
   if(e.target && e.target.id === 'f_vol_video') document.getElementById('f_vol_video_val').textContent = e.target.value;
+  if(e.target && e.target.id === 'f_vol_bg_video') document.getElementById('f_vol_bg_video_val').textContent = e.target.value;
 });
 
 /* REPEATERS */
@@ -2094,7 +2075,7 @@ function readSharedFields(){
     ct1_show: q('f_ct1_show').checked ? 'true' : 'false', ct1_dispdate: q('f_ct1_dispdate').value.trim(), ct1_datetime: dt1,
     ct2_show: q('f_ct2_show').checked ? 'true' : 'false', ct2_dispdate: q('f_ct2_dispdate').value.trim(), ct2_datetime: dt2,
     ct3_show: q('f_ct3_show').checked ? 'true' : 'false', ct3_dispdate: q('f_ct3_dispdate').value.trim(), ct3_datetime: dt3,
-    music_mode, vol_card: q('f_vol_card').value, vol_slide: q('f_vol_slide').value, vol_video: q('f_vol_video').value
+    music_mode, vol_card: q('f_vol_card').value, vol_slide: q('f_vol_slide').value, vol_video: q('f_vol_video').value, vol_bg_video: q('f_vol_bg_video').value
   };
   for(let i=1; i<=5; i++){ shared['song'+i+'_on'] = q('f_song'+i+'_on').checked ? 'true' : 'false'; shared['song'+i+'_url'] = q('f_song'+i+'_url').value.trim(); shared['song'+i+'_where'] = q('f_song'+i+'_where').value || 'both'; }
   return shared;
