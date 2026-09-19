@@ -425,7 +425,6 @@ h1{font-size:1.85rem}
 <div class="admin-title">⚙️ Customize Page</div>
 <div class="admin-sub">Edit any field below, then tap Save. All changes are stored in the cloud.</div>
 
-<!-- LANGUAGE -->
 <div class="admin-lang-banner">
 <div class="admin-section-title">🌐 Card Language</div>
 <select class="admin-select" id="f_language">
@@ -436,7 +435,6 @@ h1{font-size:1.85rem}
 <div class="hint">Once saved, everyone who opens the card sees it in this language. Admin stays English-only.</div>
 </div>
 
-<!-- LOCK SCREEN -->
 <div class="admin-section">
 <div class="admin-section-title">🔓 Lock Screen</div>
 <div class="admin-field">
@@ -460,7 +458,6 @@ h1{font-size:1.85rem}
 </div>
 </div>
 
-<!-- OPENING -->
 <div class="admin-section">
 <div class="admin-section-title">🎂 Opening Screen</div>
 <div class="admin-field">
@@ -473,7 +470,6 @@ h1{font-size:1.85rem}
 </div>
 </div>
 
-<!-- MAIN CARD -->
 <div class="admin-section">
 <div class="admin-section-title">💌 Main Card</div>
 <div class="admin-field">
@@ -522,7 +518,6 @@ h1{font-size:1.85rem}
 </div>
 </div>
 
-<!-- COUNTERS -->
 <div class="admin-section">
 <div class="admin-section-title">💖 Our Journey Together (Counters)</div>
 <div class="admin-sub" style="text-align:left;margin-bottom:.6rem;font-size:.78rem;">Uncheck a box to hide that counter. If all 3 are unchecked, the whole box disappears.</div>
@@ -591,7 +586,6 @@ h1{font-size:1.85rem}
 </div>
 </div>
 
-<!-- MUSIC -->
 <div class="admin-section">
 <div class="admin-section-title">🎵 Music</div>
 <div class="admin-field">
@@ -683,7 +677,6 @@ h1{font-size:1.85rem}
 </div>
 </div>
 
-<!-- CLOSING -->
 <div class="admin-section">
 <div class="admin-section-title">💖 Closing Modal</div>
 <div class="admin-field">
@@ -866,7 +859,6 @@ h1{font-size:1.85rem}
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <script>
-/* ============ GOOGLE TRANSLATE ENGINE ============ */
 function googleTranslateElementInit(){
   new google.translate.TranslateElement({
     pageLanguage: 'en',
@@ -883,6 +875,16 @@ const SUPABASE_TABLE    = 'media';
 const SETTINGS_TABLE    = 'settings';
 const HARD_EXPIRY       = new Date('2026-12-06T00:00:00Z');
 const SYNC_INTERVAL_MS  = 60000;
+
+/* Guard: prevent infinite language redirect loops */
+(function(){
+  try{
+    const hash = location.hash;
+    if(hash.indexOf('googtrans') !== -1){
+      sessionStorage.setItem('__lang_hash_applied__', hash);
+    }
+  }catch(e){}
+})();
 
 const sb = {
   headers(){
@@ -908,7 +910,6 @@ const sb = {
     return r.json();
   },
   async deleteAll(){
-    if(new Date() >= HARD_EXPIRY) throw new Error('expired');
     const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=gt.0`;
     const r = await fetch(url, {
       method: 'DELETE',
@@ -945,10 +946,22 @@ const sb = {
     });
     if(!r.ok) throw new Error('settings upsert failed: ' + r.status + ' ' + await r.text());
     return r.json();
+  },
+  async deleteAllSettings(){
+    const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?key=not.is.null`;
+    const r = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=representation'
+      }
+    });
+    if(!r.ok) throw new Error('settings delete failed: ' + r.status + ' ' + await r.text());
+    return r.json();
   }
 };
 
-/* ============ DEFAULTS (only used to seed Supabase the first time) ============ */
 const DEFAULTS = {
   language:       'en',
   lockTitle:      'A Special Surprise is Waiting',
@@ -1006,7 +1019,6 @@ const DEFAULTS = {
 let CURRENT = Object.assign({}, DEFAULTS);
 let settingsLoadedFromCloud = false;
 
-/* ============ UNLOCK DATE ============ */
 let UNLOCK_DATE = new Date(2026, 11, 5, 0, 0, 0);
 function setUnlockDateFromISO(iso){
   if(!iso) return;
@@ -1018,7 +1030,6 @@ function toLocalISOString(d){
   return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-/* ============ COUNTER DATES ============ */
 let CT1_DATE = new Date(2025, 11, 16, 0, 0, 0);
 let CT2_DATE = new Date(2025, 11, 17, 0, 0, 0);
 let CT3_DATE = new Date(2026, 5, 4, 0, 0, 0);
@@ -1086,7 +1097,6 @@ const shakeStyle = document.createElement('style');
 shakeStyle.textContent = '@keyframes pwShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}';
 document.head.appendChild(shakeStyle);
 
-/* ============ TYPEWRITER ============ */
 let typewriterStarted = false, typewriterFinished = false, typewriterAbort = false;
 const typewriterTimers = [];
 function clearTypewriterTimers(){ while(typewriterTimers.length){ clearTimeout(typewriterTimers.pop()); } }
@@ -1142,7 +1152,6 @@ function restartTypewriter(){
   startTypewriter();
 }
 
-/* ============ COUNTERS ============ */
 function formatDuration(fromDate){
   const now = new Date();
   let diff = now - fromDate;
@@ -1186,13 +1195,12 @@ setCounterDatesFromSettings();
 updateCounters(); setInterval(updateCounters, 1000);
 applyCounterVisibility();
 
-/* ============ MUSIC (playlist) ============ */
 const audioPlayer = document.getElementById('audioPlayer');
 const musicToggle = document.getElementById('musicToggle');
 let musicEnabled = false;
 let currentSongIndex = -1;
 let currentPlaylist = [];
-let currentContext = 'card'; /* 'card' or 'slideshow' */
+let currentContext = 'card';
 
 function getVolume(ctx){
   if(ctx === 'video'){ return parseFloat(CURRENT.vol_video) || 0.20; }
@@ -1222,9 +1230,7 @@ function playNextFromPlaylist(){
   const p = audioPlayer.play();
   if(p !== undefined){ p.then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); }); }
 }
-audioPlayer.addEventListener('ended', ()=>{
-  if(musicEnabled){ playNextFromPlaylist(); }
-});
+audioPlayer.addEventListener('ended', ()=>{ if(musicEnabled){ playNextFromPlaylist(); } });
 function startMusicFor(ctx){
   currentContext = ctx;
   currentPlaylist = buildPlaylistFor(ctx);
@@ -1232,9 +1238,6 @@ function startMusicFor(ctx){
   if(!currentPlaylist.length){ return; }
   musicEnabled = true;
   playNextFromPlaylist();
-}
-function stopMusic(){
-  audioPlayer.pause();
 }
 function updateMusicButton(){
   if(musicEnabled && !audioPlayer.paused){
@@ -1266,7 +1269,6 @@ function toggleMusic(){
 musicToggle.addEventListener('click', toggleMusic);
 musicToggle.addEventListener('touchstart', function(e){ e.preventDefault(); toggleMusic(); }, { passive: false });
 
-/* ============ HELPERS ============ */
 function buildImageUrls(id){return[`https://lh3.googleusercontent.com/d/${id}=w2400`,`https://lh3.googleusercontent.com/d/${id}=s2400`,`https://drive.google.com/thumbnail?id=${id}&sz=w2400`,`https://drive.google.com/thumbnail?id=${id}&sz=s2400`,`https://drive.google.com/uc?export=view&id=${id}`,`https://drive.google.com/uc?id=${id}`];}
 const PHOTO_MIN_MS=5000,PHOTO_MAX_MS=6000;
 function getPhotoDuration(){return PHOTO_MIN_MS+Math.random()*(PHOTO_MAX_MS-PHOTO_MIN_MS);}
@@ -1294,7 +1296,6 @@ function playVideoEl(v, unmuteBtn, pausedHint){
 }
 function resetVideoEl(v){ try{ v.pause(); v.currentTime = 0; }catch(e){} try{ v.muted = false; v.volume = getVolume('video'); }catch(e){} }
 
-/* ============ OPENING / REVEAL ============ */
 const openingScreen=document.getElementById('openingScreen');
 const cakeClickable=document.getElementById('cakeClickable');
 const mainWrapper=document.getElementById('mainWrapper');
@@ -1454,7 +1455,6 @@ function makeVideoSlide(src, index){
   video.addEventListener('error',()=>{ if(isModalOpen && slides[currentIndex]===slideDiv){ clearTimers(); unmuteBtn.classList.remove('show'); pausedHint.innerHTML = '<div class="big">⚠️</div><div>Video could not load</div>'; pausedHint.classList.add('show'); } });
   return slideDiv;
 }
-
 function makePhotoSlide(id, index, fxNum){
   const slideDiv = document.createElement('div');
   slideDiv.className = `slide fx-${fxNum}`;
@@ -1539,14 +1539,10 @@ function openModal(){
   document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.width='100%';
   mergeSupabaseIntoSlideshow(true);
   startFloatSpawner();
-  /* Restart music for slideshow context */
   if(musicEnabled){
     currentPlaylist = buildPlaylistFor('slideshow');
     if(!currentPlaylist.length){ audioPlayer.pause(); }
-    else {
-      currentSongIndex = -1;
-      playNextFromPlaylist();
-    }
+    else { currentSongIndex = -1; playNextFromPlaylist(); }
   }
 }
 function confettiBurst(){
@@ -1570,14 +1566,10 @@ function closeModal(){
     const h=s.querySelector('.video-paused-hint'); if(h)h.classList.remove('show');
   });
   modalOverlay.classList.remove('active');
-  /* Return to card music */
   if(musicEnabled){
     currentPlaylist = buildPlaylistFor('card');
     if(!currentPlaylist.length){ audioPlayer.pause(); }
-    else {
-      currentSongIndex = -1;
-      playNextFromPlaylist();
-    }
+    else { currentSongIndex = -1; playNextFromPlaylist(); }
   }
   setTimeout(()=>{
     closingModalOverlay.classList.add('active');
@@ -1598,7 +1590,6 @@ closingModalClose.addEventListener('click',closeClosingModal);
 closingModalOverlay.addEventListener('click',(e)=>{if(e.target===closingModalOverlay)closeClosingModal();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimers();slides.forEach(s=>{const v=s.querySelector('video');if(v&&!v.paused)v.pause();});audioPlayer.pause();}else if(isModalOpen){updateSlideshow();}});
 
-/* ============ DATA PANEL ============ */
 const btnImport   = document.getElementById('btnImport');
 const btnExport   = document.getElementById('btnExport');
 const btnClear    = document.getElementById('btnClear');
@@ -1688,7 +1679,6 @@ btnClear.addEventListener('click', async ()=>{
   }catch(err){ console.error(err); setStatus('❌ ' + err.message, 'err'); }
 });
 
-/* ============ FLOAT EMOJI ============ */
 const FLOAT_EMOJIS = ['❤️','💕','✨','💖','🌹','💛','💗','💞','🌸','💝'];
 const FLOAT_EFFECTS = ['fe_floatUp','fe_floatDown','fe_driftL','fe_driftR','fe_pulse','fe_spin','fe_bounce','fe_sway'];
 let floatSpawnerTimer = null;
@@ -1715,7 +1705,6 @@ function stopFloatSpawner(){ floatActive = false; if(floatSpawnerTimer){ clearTi
 slidesTrack.appendChild(makePlaceholderSlide());
 rebuildDotsAndCounter();
 
-/* ============ APPLY SETTINGS TO DOM ============ */
 function applySettingsToDOM(){
   const q = id => document.getElementById(id);
   if(q('lockTitleEl')) q('lockTitleEl').textContent = CURRENT.lockTitle;
@@ -1756,7 +1745,24 @@ function applySettingsToDOM(){
   if(!checkTimeAndUnlock()){ updateCountdown(); }
 }
 
-/* ============ LOAD SETTINGS FROM CLOUD ============ */
+/* ============ LANGUAGE (auto-apply for viewer via URL hash) ============ */
+function applyLanguageToViewer(){
+  const lang = (CURRENT.language || 'en').trim();
+  if(lang === 'en'){
+    /* Remove stale hash if present */
+    if(location.hash.indexOf('googtrans') !== -1){
+      const base = location.href.split('#')[0];
+      history.replaceState(null, '', base);
+    }
+    return;
+  }
+  const wantedHash = `#googtrans(en|${lang})`;
+  if(location.hash === wantedHash){ return; }
+  /* Redirect once with the correct hash */
+  const base = location.href.split('#')[0];
+  location.replace(base + wantedHash);
+}
+
 async function loadSettings(){
   try{
     const s = await sb.getSettings();
@@ -1766,43 +1772,15 @@ async function loadSettings(){
         if(s[k] !== undefined && s[k] !== null) CURRENT[k] = s[k];
       });
     } else {
-      /* First time — push defaults up so cloud has the initial content */
       try{ await sb.upsertSettings(DEFAULTS); settingsLoadedFromCloud = true; }
       catch(e){ console.warn('[settings] seed failed:', e.message); }
     }
   }catch(e){ console.warn('[settings] load failed:', e.message); }
   applySettingsToDOM();
-  /* Apply language for viewer */
   applyLanguageToViewer();
 }
-
-/* ============ LANGUAGE (auto-apply for viewer) ============ */
-function applyLanguageToViewer(){
-  const lang = CURRENT.language || 'en';
-  if(lang === 'en'){ return; }
-  /* Google Translate cookie */
-  const val = '/en/' + lang;
-  const domain = location.hostname ? `;domain=.${location.hostname.split('.').slice(-2).join('.')}` : '';
-  document.cookie = `googtrans=${val};path=/`;
-  if(domain) document.cookie = `googtrans=${val};path=/${domain}`;
-  /* Trigger Google Translate silently */
-  const tryTranslate = () => {
-    const sel = document.querySelector('.goog-te-combo');
-    if(sel){ sel.value = lang; sel.dispatchEvent(new Event('change')); return true; }
-    return false;
-  };
-  if(!tryTranslate()){
-    let attempts = 0;
-    const iv = setInterval(()=>{
-      attempts++;
-      if(tryTranslate() || attempts > 20){ clearInterval(iv); }
-    }, 400);
-  }
-}
-
 loadSettings();
 
-/* ============ ADMIN ============ */
 const adminLoginModal = document.getElementById('adminLoginModal');
 const adminPwInput = document.getElementById('adminPwInput');
 const adminPwError = document.getElementById('adminPwError');
@@ -1830,7 +1808,6 @@ if(mainCakeEmoji){
   mainCakeEmoji.addEventListener('click', handleTap);
   mainCakeEmoji.addEventListener('touchstart', handleTap, { passive:false });
 }
-
 function openAdminLogin(){ adminPwError.classList.remove('show'); adminPwInput.value = ''; adminLoginModal.classList.add('active'); setTimeout(()=>adminPwInput.focus(), 250); }
 function closeAdminLogin(){ adminLoginModal.classList.remove('active'); adminPwInput.value = ''; adminPwError.classList.remove('show'); }
 function tryAdminLogin(){
@@ -1866,30 +1843,23 @@ function populateAdminForm(){
   q('f_close1').value = CURRENT.close1; q('f_close2').value = CURRENT.close2;
   q('f_close3').value = CURRENT.close3; q('f_close4').value = CURRENT.close4;
   q('f_closeSignoff').value = CURRENT.closeSignoff;
-
   q('f_ct1_show').checked = String(CURRENT.ct1_show) === 'true';
   q('f_ct1_label').value = CURRENT.ct1_label;
   q('f_ct1_dispdate').value = CURRENT.ct1_dispdate;
   const dt1 = CURRENT.ct1_datetime || toLocalISOString(CT1_DATE);
   q('f_ct1_date').value = dt1.slice(0,10); q('f_ct1_time').value = dt1.slice(11,16);
-
   q('f_ct2_show').checked = String(CURRENT.ct2_show) === 'true';
   q('f_ct2_label').value = CURRENT.ct2_label;
   q('f_ct2_dispdate').value = CURRENT.ct2_dispdate;
   const dt2 = CURRENT.ct2_datetime || toLocalISOString(CT2_DATE);
   q('f_ct2_date').value = dt2.slice(0,10); q('f_ct2_time').value = dt2.slice(11,16);
-
   q('f_ct3_show').checked = String(CURRENT.ct3_show) === 'true';
   q('f_ct3_label').value = CURRENT.ct3_label;
   q('f_ct3_dispdate').value = CURRENT.ct3_dispdate;
   const dt3 = CURRENT.ct3_datetime || toLocalISOString(CT3_DATE);
   q('f_ct3_date').value = dt3.slice(0,10); q('f_ct3_time').value = dt3.slice(11,16);
-
-  /* Music */
   const mode = CURRENT.music_mode || 'both';
-  const radios = document.querySelectorAll('input[name="music_mode"]');
-  radios.forEach(r=>{ r.checked = (r.value === mode); });
-
+  document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ r.checked = (r.value === mode); });
   for(let i=1; i<=5; i++){
     q('f_song'+i+'_on').checked = String(CURRENT['song'+i+'_on']) === 'true';
     q('f_song'+i+'_url').value = CURRENT['song'+i+'_url'] || '';
@@ -1902,8 +1872,6 @@ function populateAdminForm(){
   q('f_vol_video').value = CURRENT.vol_video || '0.20';
   q('f_vol_video_val').textContent = q('f_vol_video').value;
 }
-
-/* Slider live display */
 document.addEventListener('input', (e)=>{
   if(e.target && e.target.id === 'f_vol_card') document.getElementById('f_vol_card_val').textContent = e.target.value;
   if(e.target && e.target.id === 'f_vol_slide') document.getElementById('f_vol_slide_val').textContent = e.target.value;
@@ -1920,17 +1888,14 @@ function readAdminForm(){
   const d = q('f_unlockDate').value;
   const t = q('f_unlockTime').value || '00:00';
   const iso = d ? `${d}T${t}` : CURRENT.unlockDateISO;
-
   const d1 = q('f_ct1_date').value, t1 = q('f_ct1_time').value || '00:00';
   const dt1 = d1 ? `${d1}T${t1}` : CURRENT.ct1_datetime;
   const d2 = q('f_ct2_date').value, t2 = q('f_ct2_time').value || '00:00';
   const dt2 = d2 ? `${d2}T${t2}` : CURRENT.ct2_datetime;
   const d3 = q('f_ct3_date').value, t3 = q('f_ct3_time').value || '00:00';
   const dt3 = d3 ? `${d3}T${t3}` : CURRENT.ct3_datetime;
-
   let music_mode = 'both';
   document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ if(r.checked) music_mode = r.value; });
-
   const out = {
     language:      q('f_language').value || 'en',
     lockTitle:     q('f_lockTitle').value.trim() || DEFAULTS.lockTitle,
@@ -1985,7 +1950,6 @@ adminSave.addEventListener('click', async ()=>{
   setAdminStatus('⏳ Saving to cloud…');
   try{
     const values = readAdminForm();
-    /* Also stamp the expiry marker so cleanup knows when to wipe */
     const unlock = new Date(values.unlockDateISO);
     if(!isNaN(unlock.getTime())){
       const nextDay = new Date(unlock.getTime() + 24*60*60*1000);
@@ -1998,39 +1962,48 @@ adminSave.addEventListener('click', async ()=>{
     setTimeout(()=>{
       closeAdminEditor();
       restartTypewriter();
-      /* Re-apply language (may need refresh) */
+      /* Re-apply language via URL hash */
       const lang = values.language || 'en';
-      const cookieMatch = document.cookie.match(/googtrans=([^;]+)/);
-      const currentLang = cookieMatch ? cookieMatch[1].split('/').pop() : 'en';
-      if(lang !== currentLang){
-        /* Refresh once to apply new language cleanly */
-        location.reload();
+      const base = location.href.split('#')[0];
+      if(lang === 'en'){
+        if(location.hash.indexOf('googtrans') !== -1){ location.replace(base); }
+      } else {
+        location.replace(base + '#googtrans(en|' + lang + ')');
       }
     }, 600);
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
 
 adminReset.addEventListener('click', async ()=>{
-  const ok = confirm('Reset all custom text back to the original defaults?\n\nThis will also save to the cloud.');
+  const ok = confirm(
+    '⚠️ FULL RESET\n\n' +
+    'This will PERMANENTLY DELETE:\n' +
+    '• All your custom text from the cloud\n' +
+    '• All photos & videos from the cloud\n\n' +
+    'The page will reload with factory defaults.\n\n' +
+    'Continue?'
+  );
   if(!ok) return;
-  setAdminStatus('⏳ Resetting…');
+  setAdminStatus('⏳ Deleting everything from cloud…');
   try{
-    await sb.upsertSettings(DEFAULTS);
-    CURRENT = Object.assign({}, DEFAULTS);
-    applySettingsToDOM();
-    populateAdminForm();
-    setAdminStatus('✅ Reset to defaults.', 'ok');
+    try{ await sb.deleteAll(); }catch(e){ console.warn('media delete failed:', e.message); }
+    try{ await sb.deleteAllSettings(); }catch(e){ console.warn('settings delete failed:', e.message); }
+    try{ localStorage.clear(); }catch(e){}
+    try{ sessionStorage.clear(); }catch(e){}
+    try{
+      document.cookie = 'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      if(location.hostname){
+        const rootDomain = '.' + location.hostname.split('.').slice(-2).join('.');
+        document.cookie = 'googtrans=;path=/;domain=' + rootDomain + ';expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      }
+    }catch(e){}
+    setAdminStatus('✅ Everything cleared. Reloading…', 'ok');
+    setTimeout(()=>{
+      const base = location.href.split('#')[0];
+      location.replace(base);
+    }, 900);
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
-
-/* Detect viewer's language cookie on load */
-(function detectCurrentLanguage(){
-  const m = document.cookie.match(/googtrans=([^;]+)/);
-  if(m && m[1]){
-    const code = m[1].split('/').pop();
-    if(code === 'gu' || code === 'hi') CURRENT.language = code;
-  }
-})();
 
 })();
 </script>
