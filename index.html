@@ -115,7 +115,6 @@ body[data-theme="festive"]{--c-primary:#7b2cbf;--c-primary-2:#9d4edd;--c-deep:#3
 .theme-swatch.birthday{background:linear-gradient(135deg,#ff4d6d,#590d22)}
 .theme-swatch.elegant{background:linear-gradient(135deg,#6b4a2b,#1a0f08)}
 .theme-swatch.festive{background:linear-gradient(135deg,#9d4edd,#3c096c)}
-/* ADMIN TABS */
 .admin-tabs{display:flex;gap:.3rem;margin-bottom:1rem;background:#fff5e0;padding:.35rem;border-radius:.9rem;border:1.5px solid rgba(196,30,58,.25);overflow-x:auto;-webkit-overflow-scrolling:touch}
 .admin-tab{flex:0 0 auto;padding:.55rem .8rem;border:none;border-radius:.6rem;font-size:.78rem;font-weight:800;cursor:pointer;background:transparent;color:var(--c-primary);font-family:inherit;font-style:italic;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .admin-tab.active{background:linear-gradient(135deg,var(--c-primary),var(--c-primary-2));color:var(--c-accent);box-shadow:0 4px 12px rgba(139,0,40,.4)}
@@ -352,7 +351,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div class="pw-icon">🔐</div>
 <div class="pw-title" id="pwTitleEl"></div>
 <div class="pw-sub" id="pwSubEl"></div>
-<input type="password" class="pw-input" id="pwInput" placeholder="" autocomplete="off">
+<input type="password" class="pw-input" id="pwInput" placeholder="" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" name="viewer-pw-xyz" data-lpignore="true" data-form-type="other">
 <div class="pw-error" id="pwError"></div>
 <div class="pw-buttons"><button class="pw-btn cancel" id="pwCancel"></button><button class="pw-btn confirm" id="pwConfirm"></button></div>
 </div>
@@ -364,7 +363,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div class="pw-icon">⚙️</div>
 <div class="pw-title">Admin Access</div>
 <div class="pw-sub">Enter the admin password.</div>
-<input type="password" class="pw-input" id="adminPwInput" placeholder="Admin password" autocomplete="off">
+<input type="password" class="pw-input" id="adminPwInput" placeholder="Admin password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" name="admin-pw-xyz" data-lpignore="true" data-form-type="other">
 <div class="pw-error" id="adminPwError">❌ Incorrect password. Try again.</div>
 <div class="pw-buttons"><button class="pw-btn cancel" id="adminPwCancel">Cancel</button><button class="pw-btn confirm" id="adminPwConfirm">Enter</button></div>
 </div>
@@ -377,7 +376,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div class="admin-title">⚙️ Customize Page</div>
 <div class="admin-sub">Switch tabs to edit different parts.</div>
 
-<!-- TAB BAR -->
 <div class="admin-tabs" id="adminTabs">
 <button class="admin-tab active" data-pane="pane-theme">🎨 Theme</button>
 <button class="admin-tab" data-pane="pane-text">📝 Text</button>
@@ -421,7 +419,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 </div>
 </div>
 
-<!-- PANE 2: TEXT (LANGUAGE TABS) -->
+<!-- PANE 2: TEXT -->
 <div class="admin-pane" id="pane-text">
 <div class="lang-tabs">
 <button class="lang-tab active" data-lang="en">🇬🇧 English</button>
@@ -612,7 +610,6 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 </div>
 </div>
 
-<!-- ACTIONS (always visible) -->
 <div class="admin-actions">
 <button class="admin-btn save" id="adminSave">💾 Save</button>
 <button class="admin-btn reset" id="adminReset">🧹 Clear All</button>
@@ -627,7 +624,7 @@ h1{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25rem;margin-b
 <div id="confettiContainer"></div>
 
 <audio id="audioPlayer" preload="auto" crossorigin="anonymous"></audio>
-<button class="music-toggle muted" id="musicToggle" aria-label="Toggle music">🔇</button>
+<button class="music-toggle" id="musicToggle" aria-label="Toggle music">🔊</button>
 <button class="lang-toggle" id="langToggle" aria-label="Change language" data-state="en">EN</button>
 
 <div class="wrapper" id="mainWrapper">
@@ -901,6 +898,7 @@ function applyTheme(theme){
 }
 applyTheme('romantic');
 
+/* LOCK SCREEN */
 const lockScreen = document.getElementById('lockScreen');
 const pwModal = document.getElementById('pwModal');
 const pwInput = document.getElementById('pwInput');
@@ -911,7 +909,6 @@ const openEarlyBtn = document.getElementById('openEarlyBtn');
 
 function unlockPage(){
   lockScreen.classList.remove('active');
-  /* Show cake opening screen after unlock */
   const op = document.getElementById('openingScreen');
   if(op){ op.classList.add('active'); op.classList.remove('hidden'); }
 }
@@ -930,13 +927,41 @@ let countdownInterval = null;
 function startCountdown(){ if(countdownInterval) clearInterval(countdownInterval); updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
 function stopCountdown(){ if(countdownInterval){ clearInterval(countdownInterval); countdownInterval = null; } }
 
-openEarlyBtn.addEventListener('click', ()=>{ pwModal.classList.add('active'); setTimeout(()=>pwInput.focus(), 250); });
+/* Force the input field to clear any browser-autofilled value */
+function hardClearInput(el){
+  if(!el) return;
+  el.value = '';
+  try{
+    const t = el.type;
+    el.type = 'text';
+    el.type = t;
+  }catch(e){}
+}
+
+openEarlyBtn.addEventListener('click', ()=>{
+  hardClearInput(pwInput);
+  pwError.classList.remove('show');
+  pwModal.classList.add('active');
+  setTimeout(()=>{ pwInput.focus(); }, 250);
+});
 pwCancel.addEventListener('click', ()=>{ pwModal.classList.remove('active'); pwInput.value = ''; pwError.classList.remove('show'); });
 pwModal.addEventListener('click', (e)=>{ if(e.target === pwModal){ pwModal.classList.remove('active'); pwInput.value = ''; pwError.classList.remove('show'); } });
 function tryUnlock(){
-  const entered = pwInput.value; const pw = CURRENT.shared.viewerPassword || '';
-  if(pw && entered === pw){ pwError.classList.remove('show'); pwModal.classList.remove('active'); unlockPage(); }
-  else { pwError.classList.add('show'); pwInput.value = ''; pwInput.focus(); pwInput.style.animation = 'none'; void pwInput.offsetWidth; pwInput.style.animation = 'pwShake .4s ease'; }
+  const entered = pwInput.value;
+  const pw = CURRENT.shared.viewerPassword || '';
+  if(pw && entered === pw){
+    pwError.classList.remove('show');
+    pwModal.classList.remove('active');
+    pwInput.value = '';
+    unlockPage();
+  } else {
+    pwError.classList.add('show');
+    pwInput.value = '';
+    pwInput.focus();
+    pwInput.style.animation = 'none';
+    void pwInput.offsetWidth;
+    pwInput.style.animation = 'pwShake .4s ease';
+  }
 }
 pwConfirm.addEventListener('click', tryUnlock);
 pwInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); tryUnlock(); } });
@@ -1065,7 +1090,15 @@ function playNextFromPlaylist(){
   if(p !== undefined){ p.then(updateMusicButton).catch(()=>{ musicEnabled = false; updateMusicButton(); }); }
 }
 audioPlayer.addEventListener('ended', ()=>{ if(musicEnabled) playNextFromPlaylist(); });
-function startMusicFor(ctx){ currentContext = ctx; currentPlaylist = buildPlaylistFor(ctx); currentSongIndex = -1; if(!currentPlaylist.length) return; musicEnabled = true; playNextFromPlaylist(); }
+
+function startMusicFor(ctx){
+  currentContext = ctx;
+  currentPlaylist = buildPlaylistFor(ctx);
+  currentSongIndex = -1;
+  if(!currentPlaylist.length){ updateMusicButton(); return; }
+  musicEnabled = true;
+  playNextFromPlaylist();
+}
 function updateMusicButton(){ if(musicEnabled && !audioPlayer.paused){ musicToggle.classList.remove('muted'); musicToggle.textContent = '🔊'; } else { musicToggle.classList.add('muted'); musicToggle.textContent = '🔇'; } }
 function toggleMusic(){
   if(musicEnabled && !audioPlayer.paused){ musicEnabled = false; audioPlayer.pause(); }
@@ -1119,7 +1152,10 @@ function revealMain(){
     openingScreen.classList.add('hidden');
     setTimeout(()=>{ openingScreen.classList.remove('active'); openingScreen.style.display='none'; }, 900);
   }
+  /* Force music on when card opens */
+  musicEnabled = true;
   startMusicFor('card');
+  updateMusicButton();
   if(!typewriterStarted) startTypewriter();
 }
 if(cakeClickable){
@@ -1268,22 +1304,66 @@ async function mergeSupabaseIntoSlideshow(force){
 }
 setInterval(()=>{ mergeSupabaseIntoSlideshow(false); }, SYNC_INTERVAL_MS);
 setTimeout(()=>{ mergeSupabaseIntoSlideshow(false); }, 1500);
+
+/* OPEN MODAL — force slideshow music on */
 function openModal(){
   finishTypewriterNow();
   isModalOpen=true; currentIndex=0;
   modalOverlay.classList.add('active');
   document.body.style.overflow='hidden';
   mergeSupabaseIntoSlideshow(true);
-  if(musicEnabled){ currentPlaylist = buildPlaylistFor('slideshow'); if(!currentPlaylist.length){ audioPlayer.pause(); } else { currentSongIndex = -1; playNextFromPlaylist(); } }
+  /* Force slideshow music on */
+  const slidePl = buildPlaylistFor('slideshow');
+  if(slidePl.length){
+    musicEnabled = true;
+    currentContext = 'slideshow';
+    currentPlaylist = slidePl;
+    currentSongIndex = -1;
+    playNextFromPlaylist();
+    updateMusicButton();
+  } else {
+    audioPlayer.pause();
+    musicEnabled = false;
+    updateMusicButton();
+  }
 }
+
+function confettiBurst(){
+  const centerX = window.innerWidth / 2; const centerY = window.innerHeight / 2;
+  const colors = ['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6','#ff69b4'];
+  for(let i = 0; i < 60; i++){
+    const p = document.createElement('div'); p.className = 'burst'; p.style.left = centerX + 'px'; p.style.top = centerY + 'px'; p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    const size = 6 + Math.random() * 8; p.style.width = size + 'px'; p.style.height = size + 'px'; p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    const angle = Math.random() * Math.PI * 2; const distance = 120 + Math.random() * 260;
+    p.style.setProperty('--tx', Math.cos(angle) * distance + 'px'); p.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+    p.style.animationDuration = (1.2 + Math.random() * 0.8) + 's';
+    document.body.appendChild(p); setTimeout(() => p.remove(), 2200);
+  }
+}
+
+/* CLOSE MODAL — back to card music */
 function closeModal(){
   isModalOpen=false; clearTimers();
   slides.forEach(s=>{ const v=s.querySelector('video'); if(v) resetVideoEl(v); });
   modalOverlay.classList.remove('active');
   document.body.style.overflow='';
-  if(musicEnabled){ currentPlaylist = buildPlaylistFor('card'); if(!currentPlaylist.length){ audioPlayer.pause(); } else { currentSongIndex = -1; playNextFromPlaylist(); } }
+  /* Switch back to card music */
+  const cardPl = buildPlaylistFor('card');
+  if(cardPl.length){
+    musicEnabled = true;
+    currentContext = 'card';
+    currentPlaylist = cardPl;
+    currentSongIndex = -1;
+    playNextFromPlaylist();
+    updateMusicButton();
+  } else {
+    audioPlayer.pause();
+    musicEnabled = false;
+    updateMusicButton();
+  }
   setTimeout(()=>{ closingModalOverlay.classList.add('active'); }, 400);
 }
+
 function closeClosingModal(){
   closingModalOverlay.classList.remove('active');
   document.body.style.overflow='';
@@ -1646,12 +1726,10 @@ function applyAllSettings(){
   const op = document.getElementById('openingScreen');
 
   if(showLock && hasUnlockDate){
-    /* Lock ON → show lock, then cake after unlock, then card */
     lockScreen.classList.add('active');
     if(op) op.classList.remove('active');
     if(!checkTimeAndUnlock()) startCountdown();
   } else {
-    /* Lock OFF → show cake directly, tap → card */
     lockScreen.classList.remove('active');
     stopCountdown();
     if(op){
@@ -1716,7 +1794,6 @@ document.querySelectorAll('.admin-tab').forEach(tab=>{
     document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active'));
     const target = document.getElementById(tab.dataset.pane);
     if(target) target.classList.add('active');
-    /* Refresh pending uploads when opening Media tab */
     if(tab.dataset.pane === 'pane-media') loadPendingUploads();
   });
 });
@@ -1729,7 +1806,12 @@ if(mainCakeEmoji){
   mainCakeEmoji.addEventListener('click', handleTap);
   mainCakeEmoji.addEventListener('touchstart', handleTap, { passive:false });
 }
-function openAdminLogin(){ adminPwError.classList.remove('show'); adminPwInput.value = ''; adminLoginModal.classList.add('active'); setTimeout(()=>adminPwInput.focus(), 250); }
+function openAdminLogin(){
+  adminPwError.classList.remove('show');
+  hardClearInput(adminPwInput);
+  adminLoginModal.classList.add('active');
+  setTimeout(()=>adminPwInput.focus(), 250);
+}
 function closeAdminLogin(){ adminLoginModal.classList.remove('active'); adminPwInput.value = ''; }
 function tryAdminLogin(){
   const entered = adminPwInput.value;
@@ -1971,7 +2053,6 @@ document.getElementById('refreshUploads').addEventListener('click', loadPendingU
 function openAdminEditor(){
   adminEditLang = 'en';
   document.querySelectorAll('.lang-tab').forEach(t=>t.classList.toggle('active', t.dataset.lang === 'en'));
-  /* Reset to first tab */
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.toggle('active', t.dataset.pane === 'pane-theme'));
   document.querySelectorAll('.admin-pane').forEach(p=>p.classList.toggle('active', p.id === 'pane-theme'));
   populateLangFields('en');
