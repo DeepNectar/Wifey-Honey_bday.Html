@@ -350,7 +350,7 @@ h1{font-size:1.85rem}
 </head>
 <body>
 
-<!-- LOCK SCREEN (only shown if admin enables) -->
+<!-- LOCK SCREEN -->
 <div class="lock-screen" id="lockScreen">
 <div class="lock-content">
 <div class="lock-icon">🔒</div>
@@ -419,7 +419,7 @@ h1{font-size:1.85rem}
 </div>
 
 <div class="admin-section">
-<div class="admin-section-title">🔓 Lock Screen (only used if enabled above)</div>
+<div class="admin-section-title">🔓 Lock Screen</div>
 <div class="admin-field"><label class="admin-label">Lock Title</label><input type="text" class="admin-input" id="f_lockTitle" /></div>
 <div class="admin-field"><label class="admin-label">Lock Subtitle</label><input type="text" class="admin-input" id="f_lockSubtitle" /></div>
 <div class="admin-field"><label class="admin-label">Unlock Date Display Text</label><input type="text" class="admin-input" id="f_lockDateText" /></div>
@@ -546,7 +546,7 @@ h1{font-size:1.85rem}
 
 <div class="admin-actions">
 <button class="admin-btn save" id="adminSave">💾 Save</button>
-<button class="admin-btn reset" id="adminReset">↺ Reset to Default</button>
+<button class="admin-btn reset" id="adminReset">🧹 Clear All</button>
 <button class="admin-btn cancel" id="adminCancel">Cancel</button>
 </div>
 <div class="admin-status" id="adminStatus"></div>
@@ -645,7 +645,7 @@ const SUPABASE_TABLE    = 'media';
 const SETTINGS_TABLE    = 'settings';
 const SYNC_INTERVAL_MS  = 60000;
 
-/* Fallback admin password — always works, even if cloud is empty */
+/* Fallback admin password — always works, even if cloud is cleared */
 const FALLBACK_ADMIN_PASSWORD = 'Deepnectar@@1617@@';
 
 const sb = {
@@ -658,7 +658,7 @@ const sb = {
   async deleteAllSettings(){ const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?key=not.is.null`; const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } }); if(!r.ok) throw new Error('settings delete failed: ' + r.status + ' ' + await r.text()); return r.json(); }
 };
 
-/* Editable text fields (admin panel) — everything else stays hardcoded in HTML/CSS */
+/* Editable text fields (admin panel) — everything else stays hardcoded */
 const TEXT_FIELDS = [
   'lockTitle','lockSubtitle','lockDateText','countdownLabel','daysLabel','hoursLabel','minsLabel','secsLabel',
   'openEarlyText','pwTitle','pwSub','pwPlaceholder','pwError','pwCancel','pwConfirm',
@@ -667,66 +667,33 @@ const TEXT_FIELDS = [
   'closeTitle','close1','close2','close3','close4','closeSignoff','closeBtn'
 ];
 
-/* DEFAULTS — the original hardcoded content.
-   Used on first load (to seed cloud) and can be restored via admin Reset. */
+/* All text fields start BLANK — nothing hardcoded in the card. */
+const BLANK_LANG = {};
+TEXT_FIELDS.forEach(f => BLANK_LANG[f] = '');
+
+/* Blank defaults — nothing is hardcoded except the admin fallback password */
 const DEFAULTS = {
-  en: {
-    lockTitle: 'A Special Surprise is Waiting',
-    lockSubtitle: 'This birthday surprise will unlock automatically on',
-    lockDateText: '5 December 2026 at 00:00 hrs',
-    countdownLabel: '⏳ Unlocks in',
-    daysLabel: 'Days', hoursLabel: 'Hours', minsLabel: 'Mins', secsLabel: 'Secs',
-    openEarlyText: 'Open Early (Password)',
-    pwTitle: 'Enter Password',
-    pwSub: 'Enter the secret password to unlock the surprise early.',
-    pwPlaceholder: 'Enter password',
-    pwError: '❌ Incorrect password. Try again.',
-    pwCancel: 'Cancel', pwConfirm: 'Unlock',
-    mainHeadline: 'Happy Birthday, Honey!',
-    subhead1: 'To my beautiful wife —', subhead2: 'my everything, my forever 💕',
-    greeting: 'Dear Honey,',
-    msg1: '✨ Today is all about you — the woman who makes every day brighter just by being in it. Wishing you the happiest of birthdays, my love. 💕',
-    msg2: '🌸 From the moment you came into my life, everything changed for the better. Your smile, your laugh, your kindness — they light up every room. I\'m so lucky to call you mine. 💖',
-    msg3: '💖 Thank you for being my wife, my best friend, and my greatest blessing. Every day with you feels like a gift, and I cherish every moment we share. 🌹',
-    msg4: '🎉 May this new year of your life bring you endless joy, good health, beautiful adventures, and every dream your heart holds. You deserve all the love and happiness in the world. ✨',
-    msg5: '🥂 Here\'s to more memories, more laughter, and a lifetime of birthdays together. Happy Birthday, my love — today and always! 💕🎂✨',
-    signoff: '— With all my love, Deep 💕',
-    namesBadge: 'Deep 💖',
-    fromLabel: 'Lots of love from',
-    countersTitle: '💖 Our Journey Together',
-    ct1_label: 'Since we first talked',
-    ct2_label: 'Since you said yes',
-    ct3_label: 'Since we got engaged',
-    openMemoriesBtn: 'Open Our Memories',
-    closeTitle: 'You Are My Greatest Gift 💖',
-    close1: 'Every photo we\'ve made together is a memory I\'ll treasure forever — and you\'re at the heart of every single one. 🥂',
-    close2: 'You\'re not just my wife; you\'re my best friend, my partner, and my whole world. 💕 Every day with you reminds me how lucky I am.',
-    close3: 'I may not always have the words or the grandest gifts — but please know, you mean everything to me. A very special surprise is on its way to you soon. 🎁✨',
-    close4: 'Until then, please accept this little gift made with all my love. Now go enjoy your special day — you deserve every bit of it, my love! 🎂',
-    closeSignoff: '— Forever yours, Deep 💖',
-    closeBtn: '💖 Close'
-  },
-  gu: {}, hi: {},
+  en: Object.assign({}, BLANK_LANG),
+  gu: Object.assign({}, BLANK_LANG),
+  hi: Object.assign({}, BLANK_LANG),
   shared: {
     showLockScreen: 'false',
     defaultLanguage: 'en',
-    unlockDateISO: '2026-12-05T00:00',
-    viewerPassword: 'Deepnectar@@1617@@',
+    unlockDateISO: '',
+    viewerPassword: '',
     adminPassword: FALLBACK_ADMIN_PASSWORD,
-    hardExpiryISO: '2026-12-06T00:00',
-    ct1_show: 'true', ct1_dispdate: '16 December 2025', ct1_datetime: '2025-12-16T00:00',
-    ct2_show: 'true', ct2_dispdate: '17 December 2025', ct2_datetime: '2025-12-17T00:00',
-    ct3_show: 'true', ct3_dispdate: '04 June 2026',     ct3_datetime: '2026-06-04T00:00',
+    hardExpiryISO: '',
+    ct1_show: 'true', ct1_dispdate: '', ct1_datetime: '',
+    ct2_show: 'true', ct2_dispdate: '', ct2_datetime: '',
+    ct3_show: 'true', ct3_dispdate: '', ct3_datetime: '',
     music_mode: 'both', vol_card: '0.45', vol_slide: '0.85', vol_video: '0.20',
-    song1_on: 'true', song1_url: 'https://files.catbox.moe/f6o9vc.mp3', song1_where: 'card',
-    song2_on: 'true', song2_url: 'https://files.catbox.moe/ziuz1a.mp3', song2_where: 'slideshow',
+    song1_on: 'false', song1_url: '', song1_where: 'both',
+    song2_on: 'false', song2_url: '', song2_where: 'both',
     song3_on: 'false', song3_url: '', song3_where: 'both',
     song4_on: 'false', song4_url: '', song4_where: 'both',
     song5_on: 'false', song5_url: '', song5_where: 'both'
   }
 };
-DEFAULTS.gu = Object.assign({}, DEFAULTS.en);
-DEFAULTS.hi = Object.assign({}, DEFAULTS.en);
 
 let CURRENT = {
   en: Object.assign({}, DEFAULTS.en),
@@ -998,13 +965,9 @@ function revealMain(){
   revealed=true;
   startMusicFor('card');
 }
-function celebrate(){const cc=document.getElementById('confettiContainer');for(let i=0;i<40;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';const colors=['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6'];c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];c.style.width=(6+Math.random()*8)+'px';c.style.height=(6+Math.random()*8)+'px';c.style.borderRadius=Math.random()>.5?'50%':'2px';c.style.animationDuration=(3+Math.random()*4)+'s';c.style.opacity=0.75+Math.random()*0.25;cc.appendChild(c);setTimeout(()=>c.remove(),7000);}}
 const fbg=document.getElementById('floatingBg');
 const fe=['❤️','💛','🌹','💕','✨','💗','🌺','💝','🌸','💞','🍷','💐'];
 for(let i=0;i<18;i++){const s=document.createElement('span');s.className='float-item';s.textContent=fe[Math.floor(Math.random()*fe.length)];s.style.left=Math.random()*100+'%';s.style.fontSize=(1.2+Math.random()*1.4)+'rem';s.style.animationDuration=(9+Math.random()*9)+'s';s.style.animationDelay=(Math.random()*8)+'s';fbg.appendChild(s);}
-const cc2=document.getElementById('confettiContainer');
-const ccCol=['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6'];
-for(let i=0;i<22;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';c.style.backgroundColor=ccCol[Math.floor(Math.random()*ccCol.length)];c.style.width=(6+Math.random()*8)+'px';c.style.height=(6+Math.random()*8)+'px';c.style.borderRadius=Math.random()>.5?'50%':'2px';c.style.animationDuration=(5+Math.random()*6)+'s';c.style.animationDelay=(Math.random()*8)+'s';c.style.opacity=0.6+Math.random()*0.4;cc2.appendChild(c);}
 
 /* SLIDESHOW */
 const slidesTrack=document.getElementById('slidesTrack');
@@ -1231,7 +1194,7 @@ function applyLanguageTextToDOM(){
 
   setText('lockTitleEl','lockTitle');
   const lockSubEl = q('lockSubtitleEl');
-  if(lockSubEl){ lockSubEl.innerHTML = (T('lockSubtitle') || '') + '<br><strong id="lockDateText">' + (T('lockDateText') || '') + '</strong>'; }
+  if(lockSubEl){ lockSubEl.innerHTML = (T('lockSubtitle') || '') + (T('lockDateText') ? '<br><strong id="lockDateText">' + T('lockDateText') + '</strong>' : ''); }
   setText('countdownLabelEl','countdownLabel');
   setText('cdDaysLabel','daysLabel');
   setText('cdHoursLabel','hoursLabel');
@@ -1245,7 +1208,7 @@ function applyLanguageTextToDOM(){
   setText('pwCancel','pwCancel');
   setText('pwConfirm','pwConfirm');
   setText('mainHeadlineEl','mainHeadline');
-  const subEl = q('subheadEl'); if(subEl) subEl.innerHTML = (T('subhead1') || '') + '<br>' + (T('subhead2') || '');
+  const subEl = q('subheadEl'); if(subEl) subEl.innerHTML = (T('subhead1') || '') + (T('subhead2') ? '<br>' + T('subhead2') : '');
   setText('namesBadgeEl','namesBadge');
   setText('fromLabel','fromLabel');
   setText('openMemoriesBtnTextEl','openMemoriesBtn');
@@ -1284,28 +1247,23 @@ function applyAllSettings(){
   } else {
     lockScreen.classList.remove('active');
     stopCountdown();
-    /* Card is already visible — just start music & typewriter */
     revealMain();
     if(!typewriterStarted) startTypewriter();
   }
 }
 
-/* LOAD */
+/* LOAD — no auto-seed. Cloud is source of truth.
+   If cloud is empty, everything stays blank (blank DEFAULTS). */
 async function loadSettings(){
-  let loaded = false;
   try{
     const s = await sb.getSettings();
     if(s && Object.keys(s).length){
-      loaded = true;
       ['en','gu','hi'].forEach(lang=>{ TEXT_FIELDS.forEach(f=>{ const key = lang + '__' + f; if(s[key] !== undefined && s[key] !== null) CURRENT[lang][f] = s[key]; }); });
       Object.keys(CURRENT.shared).forEach(k=>{ const key = 'shared__' + k; if(s[key] !== undefined && s[key] !== null) CURRENT.shared[k] = s[key]; });
     }
   }catch(e){ console.warn('[settings] load failed:', e.message); }
-  /* Admin password always has a fallback so you can always get in */
+  /* Admin password always has the fallback so you can always get in */
   if(!CURRENT.shared.adminPassword){ CURRENT.shared.adminPassword = FALLBACK_ADMIN_PASSWORD; }
-  if(!loaded){
-    try{ await sb.upsertSettings(buildSettingsObject()); }catch(e){ console.warn('[settings] seed failed:', e.message); }
-  }
   currentLang = CURRENT.shared.defaultLanguage || 'en';
   updateLangButton();
   applyAllSettings();
@@ -1458,17 +1416,44 @@ adminSave.addEventListener('click', async ()=>{
     setTimeout(()=>{ closeAdminEditor(); }, 600);
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
+
+/* CLEAR ALL — wipes cloud + blanks every field on the page */
 adminReset.addEventListener('click', async ()=>{
-  const ok = confirm('⚠️ FULL RESET\n\nThis will PERMANENTLY DELETE:\n• All custom text (all 3 languages) from cloud\n• All photos & videos from cloud\n• All shared settings (passwords, dates, music)\n\nThe page will reload with factory defaults.\n\nContinue?');
+  const ok = confirm('🧹 CLEAR ALL\n\nThis will PERMANENTLY DELETE:\n• All custom text (all 3 languages) from cloud\n• All photos & videos from cloud\n• All shared settings (passwords, dates, music)\n\nEverything on the page will become blank. You can then fill in new content and Save.\n\nThe admin fallback password still works.\n\nContinue?');
   if(!ok) return;
-  setAdminStatus('⏳ Deleting everything from cloud…');
+  setAdminStatus('⏳ Clearing cloud & page…');
   try{
+    /* 1. Wipe cloud media + settings */
     try{ await sb.deleteAll(); }catch(e){ console.warn('media delete failed:', e.message); }
     try{ await sb.deleteAllSettings(); }catch(e){ console.warn('settings delete failed:', e.message); }
+
+    /* 2. Wipe local storage */
     try{ localStorage.clear(); }catch(e){}
     try{ sessionStorage.clear(); }catch(e){}
-    setAdminStatus('✅ Cleared. Reloading…', 'ok');
-    setTimeout(()=>{ location.reload(); }, 900);
+
+    /* 3. Blank in-memory state — start fresh */
+    CURRENT = {
+      en: Object.assign({}, BLANK_LANG),
+      gu: Object.assign({}, BLANK_LANG),
+      hi: Object.assign({}, BLANK_LANG),
+      shared: Object.assign({}, DEFAULTS.shared)
+    };
+    /* Keep the fallback admin password so you can get back in */
+    CURRENT.shared.adminPassword = FALLBACK_ADMIN_PASSWORD;
+
+    /* 4. Blank every field in the admin form right now */
+    populateLangFields(adminEditLang);
+    populateSharedFields();
+
+    /* 5. Re-apply to the page (everything goes blank) */
+    applyAllSettings();
+    restartTypewriter();
+
+    /* 6. Clear the slideshow */
+    lastSyncHash = '';
+    await mergeSupabaseIntoSlideshow(true);
+
+    setAdminStatus('✅ Everything cleared. Fill new content and Save.', 'ok');
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
 
