@@ -378,7 +378,7 @@ h1{font-size:1.85rem}
 <!-- LOCK SCREEN -->
 <div class="lock-screen" id="lockScreen">
 <div class="lock-content">
-<div class="lock-icon">🔒</div>
+<div class="lock-icon" id="lockIconEl">🔒</div>
 <div class="lock-title" id="lockTitleEl"></div>
 <div class="lock-subtitle" id="lockSubtitleEl"></div>
 <div class="countdown-label" id="countdownLabelEl"></div>
@@ -389,16 +389,16 @@ h1{font-size:1.85rem}
 <div class="cd-box"><div class="cd-num" id="cdSecs">00</div><div class="cd-label" id="cdSecsLabel">Secs</div></div>
 </div>
 <button class="open-early-btn" id="openEarlyBtn">
-<span>🔓</span><span id="openEarlyTextEl"></span>
+<span id="openEarlyIconEl">🔓</span><span id="openEarlyTextEl"></span>
 </button>
-<div class="lock-hearts">❤️ 💕 🌹 ✨ 💖</div>
+<div class="lock-hearts" id="lockHeartsEl">❤️ 💕 🌹 ✨ 💖</div>
 </div>
 </div>
 
 <!-- PASSWORD MODAL -->
 <div class="pw-modal" id="pwModal">
 <div class="pw-content">
-<div class="pw-icon">🔐</div>
+<div class="pw-icon" id="pwIconEl">🔐</div>
 <div class="pw-title" id="pwTitleEl"></div>
 <div class="pw-sub" id="pwSubEl"></div>
 <input type="password" class="pw-input" id="pwInput" placeholder="" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
@@ -432,13 +432,11 @@ h1{font-size:1.85rem}
 <div class="admin-title">⚙️ Customize Page</div>
 <div class="admin-sub">Fill in each language tab. Then tap Save.</div>
 
-<!-- LOCK SCREEN MASTER TOGGLE -->
 <div class="admin-toggle-box">
 <label><input type="checkbox" id="f_showLockScreen" /> 🔒 Show Lock Screen (countdown + password)</label>
 <div class="hint">When unchecked, the page skips the lock screen and goes directly to the cake reveal.</div>
 </div>
 
-<!-- Language tabs -->
 <div class="lang-tabs">
 <button class="lang-tab active" data-lang="en">🇬🇧 English</button>
 <button class="lang-tab" data-lang="gu">🇮🇳 ગુજરાતી</button>
@@ -447,6 +445,7 @@ h1{font-size:1.85rem}
 
 <div class="admin-section">
 <div class="admin-section-title">🔓 Lock Screen</div>
+<div class="admin-field"><label class="admin-label">Lock Icon (emoji)</label><input type="text" class="admin-input" id="f_lockIcon" /></div>
 <div class="admin-field"><label class="admin-label">Lock Title</label><input type="text" class="admin-input" id="f_lockTitle" /></div>
 <div class="admin-field"><label class="admin-label">Lock Subtitle</label><input type="text" class="admin-input" id="f_lockSubtitle" /></div>
 <div class="admin-field"><label class="admin-label">Unlock Date Display Text</label><input type="text" class="admin-input" id="f_lockDateText" /></div>
@@ -455,7 +454,10 @@ h1{font-size:1.85rem}
 <div class="admin-field"><label class="admin-label">Hours Label</label><input type="text" class="admin-input" id="f_hoursLabel" /></div>
 <div class="admin-field"><label class="admin-label">Mins Label</label><input type="text" class="admin-input" id="f_minsLabel" /></div>
 <div class="admin-field"><label class="admin-label">Secs Label</label><input type="text" class="admin-input" id="f_secsLabel" /></div>
-<div class="admin-field"><label class="admin-label">"Open Early" Button</label><input type="text" class="admin-input" id="f_openEarlyText" /></div>
+<div class="admin-field"><label class="admin-label">"Open Early" Icon (emoji)</label><input type="text" class="admin-input" id="f_openEarlyIcon" /></div>
+<div class="admin-field"><label class="admin-label">"Open Early" Button Text</label><input type="text" class="admin-input" id="f_openEarlyText" /></div>
+<div class="admin-field"><label class="admin-label">Lock Screen Hearts Row</label><input type="text" class="admin-input" id="f_lockHearts" /></div>
+<div class="admin-field"><label class="admin-label">Password Modal Icon (emoji)</label><input type="text" class="admin-input" id="f_pwIcon" /></div>
 <div class="admin-field"><label class="admin-label">Password Modal Title</label><input type="text" class="admin-input" id="f_pwTitle" /></div>
 <div class="admin-field"><label class="admin-label">Password Modal Subtitle</label><input type="text" class="admin-input" id="f_pwSub" /></div>
 <div class="admin-field"><label class="admin-label">Password Input Placeholder</label><input type="text" class="admin-input" id="f_pwPlaceholder" /></div>
@@ -468,11 +470,13 @@ h1{font-size:1.85rem}
 <div class="admin-section-title">🎂 Opening Screen</div>
 <div class="admin-field"><label class="admin-label">Line 1</label><input type="text" class="admin-input" id="f_openLine1" /></div>
 <div class="admin-field"><label class="admin-label">Line 2</label><input type="text" class="admin-input" id="f_openLine2" /></div>
+<div class="admin-field"><label class="admin-label">Cake Emoji</label><input type="text" class="admin-input" id="f_openCakeEmoji" /></div>
 <div class="admin-field"><label class="admin-label">Cake Tap Hint</label><input type="text" class="admin-input" id="f_cakeHint" /></div>
 </div>
 
 <div class="admin-section">
 <div class="admin-section-title">💌 Main Card</div>
+<div class="admin-field"><label class="admin-label">Main Cake Emoji</label><input type="text" class="admin-input" id="f_mainCakeEmoji" /></div>
 <div class="admin-field"><label class="admin-label">Headline</label><input type="text" class="admin-input" id="f_mainHeadline" /></div>
 <div class="admin-field"><label class="admin-label">Subhead Line 1</label><input type="text" class="admin-input" id="f_subhead1" /></div>
 <div class="admin-field"><label class="admin-label">Subhead Line 2</label><input type="text" class="admin-input" id="f_subhead2" /></div>
@@ -485,22 +489,42 @@ h1{font-size:1.85rem}
 <div class="admin-field"><label class="admin-label">Sign-off</label><input type="text" class="admin-input" id="f_signoff" /></div>
 <div class="admin-field"><label class="admin-label">Names Badge</label><input type="text" class="admin-input" id="f_namesBadge" /></div>
 <div class="admin-field"><label class="admin-label">"Lots of love from" Label</label><input type="text" class="admin-input" id="f_fromLabel" /></div>
+<div class="admin-field"><label class="admin-label">Heart Row (card)</label><input type="text" class="admin-input" id="f_heartRow" /></div>
+<div class="admin-field"><label class="admin-label">"Open Memories" Button Icon (emoji)</label><input type="text" class="admin-input" id="f_openMemoriesIcon" /></div>
+<div class="admin-field"><label class="admin-label">"Open Memories" Button Text</label><input type="text" class="admin-input" id="f_openMemoriesBtn" /></div>
 <div class="admin-field"><label class="admin-label">Counters Box Title</label><input type="text" class="admin-input" id="f_countersTitle" /></div>
 <div class="admin-field"><label class="admin-label">Counter 1 Label</label><input type="text" class="admin-input" id="f_ct1_label" /></div>
 <div class="admin-field"><label class="admin-label">Counter 2 Label</label><input type="text" class="admin-input" id="f_ct2_label" /></div>
 <div class="admin-field"><label class="admin-label">Counter 3 Label</label><input type="text" class="admin-input" id="f_ct3_label" /></div>
-<div class="admin-field"><label class="admin-label">"Open Memories" Button</label><input type="text" class="admin-input" id="f_openMemoriesBtn" /></div>
+<div class="admin-field"><label class="admin-label">Counter 1 Icon (emoji)</label><input type="text" class="admin-input" id="f_ct1_icon" /></div>
+<div class="admin-field"><label class="admin-label">Counter 2 Icon (emoji)</label><input type="text" class="admin-input" id="f_ct2_icon" /></div>
+<div class="admin-field"><label class="admin-label">Counter 3 Icon (emoji)</label><input type="text" class="admin-input" id="f_ct3_icon" /></div>
+</div>
+
+<div class="admin-section">
+<div class="admin-section-title">📸 Slideshow Header</div>
+<div class="admin-field"><label class="admin-label">Slideshow Modal Title</label><input type="text" class="admin-input" id="f_slideshowTitle" /></div>
 </div>
 
 <div class="admin-section">
 <div class="admin-section-title">💖 Closing Modal</div>
+<div class="admin-field"><label class="admin-label">Closing Cake Emoji</label><input type="text" class="admin-input" id="f_closeCakeEmoji" /></div>
 <div class="admin-field"><label class="admin-label">Closing Title</label><input type="text" class="admin-input" id="f_closeTitle" /></div>
 <div class="admin-field"><label class="admin-label">Closing Paragraph 1</label><textarea class="admin-textarea" id="f_close1"></textarea></div>
 <div class="admin-field"><label class="admin-label">Closing Paragraph 2</label><textarea class="admin-textarea" id="f_close2"></textarea></div>
 <div class="admin-field"><label class="admin-label">Closing Paragraph 3</label><textarea class="admin-textarea" id="f_close3"></textarea></div>
 <div class="admin-field"><label class="admin-label">Closing Paragraph 4</label><textarea class="admin-textarea" id="f_close4"></textarea></div>
 <div class="admin-field"><label class="admin-label">Closing Sign-off</label><input type="text" class="admin-input" id="f_closeSignoff" /></div>
+<div class="admin-field"><label class="admin-label">Closing Emoji Row</label><input type="text" class="admin-input" id="f_closeEmojiRow" /></div>
 <div class="admin-field"><label class="admin-label">Close Button</label><input type="text" class="admin-input" id="f_closeBtn" /></div>
+</div>
+
+<div class="admin-section">
+<div class="admin-section-title">📊 Manage Memories Panel</div>
+<div class="admin-field"><label class="admin-label">Panel Title</label><input type="text" class="admin-input" id="f_dataPanelTitle" /></div>
+<div class="admin-field"><label class="admin-label">Import Button</label><input type="text" class="admin-input" id="f_importBtn" /></div>
+<div class="admin-field"><label class="admin-label">Export Button</label><input type="text" class="admin-input" id="f_exportBtn" /></div>
+<div class="admin-field"><label class="admin-label">Clear Button</label><input type="text" class="admin-input" id="f_clearBtn" /></div>
 </div>
 
 <div class="admin-section">
@@ -518,6 +542,21 @@ h1{font-size:1.85rem}
 <div class="admin-date-row">
 <input type="date" class="admin-input" id="f_unlockDate" />
 <input type="time" class="admin-input" id="f_unlockTime" />
+</div>
+</div>
+<div class="admin-field">
+<label class="admin-label">Viewer Password (to unlock early)</label>
+<input type="text" class="admin-input" id="f_viewerPassword" />
+</div>
+<div class="admin-field">
+<label class="admin-label">Admin Password (triple-tap cake)</label>
+<input type="text" class="admin-input" id="f_adminPassword" />
+</div>
+<div class="admin-field">
+<label class="admin-label">Cloud Expiry Date (media stops loading after)</label>
+<div class="admin-date-row">
+<input type="date" class="admin-input" id="f_hardExpiryDate" />
+<input type="time" class="admin-input" id="f_hardExpiryTime" />
 </div>
 </div>
 </div>
@@ -606,21 +645,21 @@ h1{font-size:1.85rem}
 
 <div class="counters-box" id="countersMain">
 <div class="counters-title" id="countersMainTitle"></div>
-<div class="counter-item" id="ctMain1"><div class="counter-icon">💬</div><div class="counter-body"><div class="counter-label" id="ctMain1_label"></div><div class="counter-time" id="counterTalkMain">…</div><div class="counter-date" id="ctMain1_date"></div></div></div>
-<div class="counter-item" id="ctMain2"><div class="counter-icon">💕</div><div class="counter-body"><div class="counter-label" id="ctMain2_label"></div><div class="counter-time" id="counterYesMain">…</div><div class="counter-date" id="ctMain2_date"></div></div></div>
-<div class="counter-item" id="ctMain3"><div class="counter-icon">💍</div><div class="counter-body"><div class="counter-label" id="ctMain3_label"></div><div class="counter-time" id="counterEngagedMain">…</div><div class="counter-date" id="ctMain3_date"></div></div></div>
+<div class="counter-item" id="ctMain1"><div class="counter-icon" id="ctMain1_icon">💬</div><div class="counter-body"><div class="counter-label" id="ctMain1_label"></div><div class="counter-time" id="counterTalkMain">…</div><div class="counter-date" id="ctMain1_date"></div></div></div>
+<div class="counter-item" id="ctMain2"><div class="counter-icon" id="ctMain2_icon">💕</div><div class="counter-body"><div class="counter-label" id="ctMain2_label"></div><div class="counter-time" id="counterYesMain">…</div><div class="counter-date" id="ctMain2_date"></div></div></div>
+<div class="counter-item" id="ctMain3"><div class="counter-icon" id="ctMain3_icon">💍</div><div class="counter-body"><div class="counter-label" id="ctMain3_label"></div><div class="counter-time" id="counterEngagedMain">…</div><div class="counter-date" id="ctMain3_date"></div></div></div>
 </div>
 
 <div class="from"><span id="fromLabel"></span><div class="names" id="namesBadgeEl"></div></div>
-<div class="heart-row"><span>❤️</span><span>💛</span><span>💕</span><span>🌹</span><span>✨</span></div>
-<button class="open-btn" id="openBtn"><span>📸</span><span id="openMemoriesBtnTextEl"></span></button>
+<div class="heart-row" id="heartRowEl"></div>
+<button class="open-btn" id="openBtn"><span id="openMemoriesIconEl">📸</span><span id="openMemoriesBtnTextEl"></span></button>
 
 <div class="data-panel" id="dataPanel">
-<div class="data-panel-title">🗂️ Manage Memories (Excel)<span class="sync-badge" id="syncBadge">● live</span></div>
+<div class="data-panel-title"><span id="dataPanelTitleEl">🗂️ Manage Memories (Excel)</span><span class="sync-badge" id="syncBadge">● live</span></div>
 <div class="data-panel-row">
-<button class="data-btn" id="btnImport" type="button">📥 Import Excel</button>
-<button class="data-btn ghost" id="btnExport" type="button">📤 Export Excel</button>
-<button class="data-btn danger" id="btnClear" type="button">🗑️ Clear Cloud Data</button>
+<button class="data-btn" id="btnImport" type="button"><span id="importBtnTextEl">📥 Import Excel</span></button>
+<button class="data-btn ghost" id="btnExport" type="button"><span id="exportBtnTextEl">📤 Export Excel</span></button>
+<button class="data-btn danger" id="btnClear" type="button"><span id="clearBtnTextEl">🗑️ Clear Cloud Data</span></button>
 </div>
 <input type="file" id="excelInput" accept=".xlsx,.xls" style="display:none">
 <div class="data-status" id="dataStatus"></div>
@@ -631,7 +670,7 @@ h1{font-size:1.85rem}
 <div class="modal-overlay" id="modalOverlay">
 <div class="modal-content">
 <div class="modal-header">
-<div class="modal-title"><span class="pulse-dot"></span><span>📸 Our Beautiful Memories Together</span></div>
+<div class="modal-title"><span class="pulse-dot"></span><span id="slideshowTitleEl">📸 Our Beautiful Memories Together</span></div>
 <button class="modal-close" id="modalClose">✕</button>
 </div>
 <div class="slideshow-container">
@@ -647,18 +686,18 @@ h1{font-size:1.85rem}
 
 <div class="closing-modal-overlay" id="closingModalOverlay">
 <div class="closing-modal-content">
-<div class="closing-modal-cake">💕🌹</div>
+<div class="closing-modal-cake" id="closeCakeEmojiEl">💕🌹</div>
 <div class="closing-modal-title" id="closeTitleEl"></div>
 <div class="closing-modal-message" id="closeMessageEl"></div>
 
 <div class="counters-box" id="countersClosing" style="text-align:left;">
 <div class="counters-title" id="countersClosingTitle"></div>
-<div class="counter-item" id="ctClose1"><div class="counter-icon">💬</div><div class="counter-body"><div class="counter-label" id="ctClose1_label"></div><div class="counter-time" id="counterTalkClosing">…</div><div class="counter-date" id="ctClose1_date"></div></div></div>
-<div class="counter-item" id="ctClose2"><div class="counter-icon">💕</div><div class="counter-body"><div class="counter-label" id="ctClose2_label"></div><div class="counter-time" id="counterYesClosing">…</div><div class="counter-date" id="ctClose2_date"></div></div></div>
-<div class="counter-item" id="ctClose3"><div class="counter-icon">💍</div><div class="counter-body"><div class="counter-label" id="ctClose3_label"></div><div class="counter-time" id="counterEngagedClosing">…</div><div class="counter-date" id="ctClose3_date"></div></div></div>
+<div class="counter-item" id="ctClose1"><div class="counter-icon" id="ctClose1_icon">💬</div><div class="counter-body"><div class="counter-label" id="ctClose1_label"></div><div class="counter-time" id="counterTalkClosing">…</div><div class="counter-date" id="ctClose1_date"></div></div></div>
+<div class="counter-item" id="ctClose2"><div class="counter-icon" id="ctClose2_icon">💕</div><div class="counter-body"><div class="counter-label" id="ctClose2_label"></div><div class="counter-time" id="counterYesClosing">…</div><div class="counter-date" id="ctClose2_date"></div></div></div>
+<div class="counter-item" id="ctClose3"><div class="counter-icon" id="ctClose3_icon">💍</div><div class="counter-body"><div class="counter-label" id="ctClose3_label"></div><div class="counter-time" id="counterEngagedClosing">…</div><div class="counter-date" id="ctClose3_date"></div></div></div>
 </div>
 
-<div class="closing-modal-emoji">💕❤️✨</div>
+<div class="closing-modal-emoji" id="closeEmojiRowEl">💕❤️✨</div>
 <button class="closing-modal-close" id="closingModalClose"></button>
 </div>
 </div>
@@ -671,86 +710,56 @@ const SUPABASE_URL      = 'https://ueuxnkrvvnvldfwgiyqy.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVldXhua3J2dm52bGRmd2dpeXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3MjM0ODUsImV4cCI6MjEwNTI5OTQ4NX0.DwDSWdnVK1-eWLvSuXpsf22PLtMVq_ZJ-1Kq39AoOSI';
 const SUPABASE_TABLE    = 'media';
 const SETTINGS_TABLE    = 'settings';
-const HARD_EXPIRY       = new Date('2026-12-06T00:00:00Z');
 const SYNC_INTERVAL_MS  = 60000;
 
 const sb = {
   headers(){ return { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }; },
-  async select(){ if(new Date() >= HARD_EXPIRY) return []; const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=*&order=sort_order.asc,id.asc`; const r = await fetch(url, { headers: this.headers(), cache: 'no-store' }); if(!r.ok) throw new Error('select failed: ' + r.status); return r.json(); },
-  async insert(rows){ if(new Date() >= HARD_EXPIRY) throw new Error('expired'); const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`; const r = await fetch(url, { method:'POST', headers:this.headers(), body: JSON.stringify(rows) }); if(!r.ok) throw new Error('insert failed: ' + r.status + ' ' + await r.text()); return r.json(); },
+  async select(){ const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=*&order=sort_order.asc,id.asc`; const r = await fetch(url, { headers: this.headers(), cache: 'no-store' }); if(!r.ok) throw new Error('select failed: ' + r.status); return r.json(); },
+  async insert(rows){ const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`; const r = await fetch(url, { method:'POST', headers:this.headers(), body: JSON.stringify(rows) }); if(!r.ok) throw new Error('insert failed: ' + r.status + ' ' + await r.text()); return r.json(); },
   async deleteAll(){ const url = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=gt.0`; const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } }); if(!r.ok) throw new Error('delete failed: ' + r.status + ' ' + await r.text()); return r.json(); },
   async getSettings(){ const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?select=key,value`; const r = await fetch(url, { headers: this.headers(), cache: 'no-store' }); if(!r.ok) throw new Error('settings select failed: ' + r.status); const rows = await r.json(); const out = {}; rows.forEach(row => { out[row.key] = row.value; }); return out; },
   async upsertSettings(obj){ const rows = Object.keys(obj).map(k => ({ key: k, value: String(obj[k]) })); const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}`; const r = await fetch(url, { method: 'POST', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify(rows) }); if(!r.ok) throw new Error('settings upsert failed: ' + r.status + ' ' + await r.text()); return r.json(); },
   async deleteAllSettings(){ const url = `${SUPABASE_URL}/rest/v1/${SETTINGS_TABLE}?key=not.is.null`; const r = await fetch(url, { method: 'DELETE', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=representation' } }); if(!r.ok) throw new Error('settings delete failed: ' + r.status + ' ' + await r.text()); return r.json(); }
 };
 
+/* TEXT_FIELDS — every per-language field. All are empty by default; admin fills them. */
 const TEXT_FIELDS = [
-  'lockTitle','lockSubtitle','lockDateText','countdownLabel','daysLabel','hoursLabel','minsLabel','secsLabel',
-  'openEarlyText','pwTitle','pwSub','pwPlaceholder','pwError','pwCancel','pwConfirm',
-  'openLine1','openLine2','cakeHint',
-  'mainHeadline','subhead1','subhead2','greeting','msg1','msg2','msg3','msg4','msg5','signoff','namesBadge',
-  'fromLabel','countersTitle','ct1_label','ct2_label','ct3_label','openMemoriesBtn',
-  'closeTitle','close1','close2','close3','close4','closeSignoff','closeBtn'
+  'lockIcon','lockTitle','lockSubtitle','lockDateText','countdownLabel','daysLabel','hoursLabel','minsLabel','secsLabel',
+  'openEarlyIcon','openEarlyText','lockHearts','pwIcon','pwTitle','pwSub','pwPlaceholder','pwError','pwCancel','pwConfirm',
+  'openLine1','openLine2','openCakeEmoji','cakeHint',
+  'mainCakeEmoji','mainHeadline','subhead1','subhead2','greeting','msg1','msg2','msg3','msg4','msg5','signoff','namesBadge',
+  'fromLabel','heartRow','openMemoriesIcon','openMemoriesBtn','countersTitle','ct1_label','ct2_label','ct3_label','ct1_icon','ct2_icon','ct3_icon',
+  'slideshowTitle',
+  'closeCakeEmoji','closeTitle','close1','close2','close3','close4','closeSignoff','closeEmojiRow','closeBtn',
+  'dataPanelTitle','importBtn','exportBtn','clearBtn'
 ];
 
-/* DEFAULTS — only used to seed cloud the very first time. After that, cloud is source of truth. */
+/* Defaults — blank so admin fills everything. Only structural/fallback values here. */
+const BLANK_LANG = {};
+TEXT_FIELDS.forEach(f => BLANK_LANG[f] = '');
+
 const DEFAULTS = {
-  en: {
-    lockTitle: 'A Special Surprise is Waiting',
-    lockSubtitle: 'This birthday surprise will unlock automatically on',
-    lockDateText: '5 December 2026 at 00:00 hrs',
-    countdownLabel: '⏳ Unlocks in',
-    daysLabel: 'Days', hoursLabel: 'Hours', minsLabel: 'Mins', secsLabel: 'Secs',
-    openEarlyText: 'Open Early (Password)',
-    pwTitle: 'Enter Password',
-    pwSub: 'Enter the secret password to unlock the surprise early.',
-    pwPlaceholder: 'Enter password',
-    pwError: '❌ Incorrect password. Try again.',
-    pwCancel: 'Cancel', pwConfirm: 'Unlock',
-    openLine1: 'Happy Birthday', openLine2: 'to You, Honey!',
-    cakeHint: '👆 Tap the cake to open your surprise',
-    mainHeadline: 'Happy Birthday, Honey!',
-    subhead1: 'To my beautiful wife —', subhead2: 'my everything, my forever 💕',
-    greeting: 'Dear Honey,',
-    msg1: '✨ Today is all about you — the woman who makes every day brighter just by being in it. Wishing you the happiest of birthdays, my love. 💕',
-    msg2: '🌸 From the moment you came into my life, everything changed for the better. Your smile, your laugh, your kindness — they light up every room. I\'m so lucky to call you mine. 💖',
-    msg3: '💖 Thank you for being my wife, my best friend, and my greatest blessing. Every day with you feels like a gift, and I cherish every moment we share. 🌹',
-    msg4: '🎉 May this new year of your life bring you endless joy, good health, beautiful adventures, and every dream your heart holds. You deserve all the love and happiness in the world. ✨',
-    msg5: '🥂 Here\'s to more memories, more laughter, and a lifetime of birthdays together. Happy Birthday, my love — today and always! 💕🎂✨',
-    signoff: '— With all my love, Deep 💕',
-    namesBadge: 'Deep 💖',
-    fromLabel: 'Lots of love from',
-    countersTitle: '💖 Our Journey Together',
-    ct1_label: 'Since we first talked',
-    ct2_label: 'Since you said yes',
-    ct3_label: 'Since we got engaged',
-    openMemoriesBtn: 'Open Our Memories',
-    closeTitle: 'You Are My Greatest Gift 💖',
-    close1: 'Every photo we\'ve made together is a memory I\'ll treasure forever — and you\'re at the heart of every single one. 🥂',
-    close2: 'You\'re not just my wife; you\'re my best friend, my partner, and my whole world. 💕 Every day with you reminds me how lucky I am.',
-    close3: 'I may not always have the words or the grandest gifts — but please know, you mean everything to me. A very special surprise is on its way to you soon. 🎁✨',
-    close4: 'Until then, please accept this little gift made with all my love. Now go enjoy your special day — you deserve every bit of it, my love! 🎂',
-    closeSignoff: '— Forever yours, Deep 💖',
-    closeBtn: '💖 Close'
-  },
-  gu: {}, hi: {},
+  en: Object.assign({}, BLANK_LANG),
+  gu: Object.assign({}, BLANK_LANG),
+  hi: Object.assign({}, BLANK_LANG),
   shared: {
     showLockScreen: 'true',
     defaultLanguage: 'en',
-    unlockDateISO:  '2026-12-05T00:00',
-    ct1_show: 'true', ct1_dispdate: '16 December 2025', ct1_datetime: '2025-12-16T00:00',
-    ct2_show: 'true', ct2_dispdate: '17 December 2025', ct2_datetime: '2025-12-17T00:00',
-    ct3_show: 'true', ct3_dispdate: '04 June 2026',     ct3_datetime: '2026-06-04T00:00',
+    unlockDateISO: '',
+    viewerPassword: '',
+    adminPassword: '',
+    hardExpiryISO: '',
+    ct1_show: 'true', ct1_dispdate: '', ct1_datetime: '',
+    ct2_show: 'true', ct2_dispdate: '', ct2_datetime: '',
+    ct3_show: 'true', ct3_dispdate: '', ct3_datetime: '',
     music_mode: 'both', vol_card: '0.45', vol_slide: '0.85', vol_video: '0.20',
-    song1_on: 'true', song1_url: 'https://files.catbox.moe/f6o9vc.mp3', song1_where: 'card',
-    song2_on: 'true', song2_url: 'https://files.catbox.moe/ziuz1a.mp3', song2_where: 'slideshow',
+    song1_on: 'false', song1_url: '', song1_where: 'both',
+    song2_on: 'false', song2_url: '', song2_where: 'both',
     song3_on: 'false', song3_url: '', song3_where: 'both',
     song4_on: 'false', song4_url: '', song4_where: 'both',
     song5_on: 'false', song5_url: '', song5_where: 'both'
   }
 };
-DEFAULTS.gu = Object.assign({}, DEFAULTS.en);
-DEFAULTS.hi = Object.assign({}, DEFAULTS.en);
 
 let CURRENT = {
   en: Object.assign({}, DEFAULTS.en),
@@ -763,22 +772,22 @@ let currentLang = 'en';
 let adminEditLang = 'en';
 function T(field){ return (CURRENT[currentLang] && CURRENT[currentLang][field]) || CURRENT.en[field] || ''; }
 
-let UNLOCK_DATE = new Date(2026, 11, 5, 0, 0, 0);
-function setUnlockDateFromISO(iso){ if(!iso) return; const d = new Date(iso); if(!isNaN(d.getTime())) UNLOCK_DATE = d; }
+let UNLOCK_DATE = null;
+let HARD_EXPIRY = null;
+function setUnlockDateFromISO(iso){ if(!iso){ UNLOCK_DATE = null; return; } const d = new Date(iso); if(!isNaN(d.getTime())) UNLOCK_DATE = d; else UNLOCK_DATE = null; }
+function setHardExpiryFromISO(iso){ if(!iso){ HARD_EXPIRY = null; return; } const d = new Date(iso); if(!isNaN(d.getTime())) HARD_EXPIRY = d; else HARD_EXPIRY = null; }
 function toLocalISOString(d){ const pad = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; }
 
-let CT1_DATE = new Date(2025, 11, 16, 0, 0, 0);
-let CT2_DATE = new Date(2025, 11, 17, 0, 0, 0);
-let CT3_DATE = new Date(2026, 5, 4, 0, 0, 0);
+let CT1_DATE = null, CT2_DATE = null, CT3_DATE = null;
 function setCounterDatesFromSettings(){
   const s = CURRENT.shared;
-  if(s.ct1_datetime){ const d = new Date(s.ct1_datetime); if(!isNaN(d.getTime())) CT1_DATE = d; }
-  if(s.ct2_datetime){ const d = new Date(s.ct2_datetime); if(!isNaN(d.getTime())) CT2_DATE = d; }
-  if(s.ct3_datetime){ const d = new Date(s.ct3_datetime); if(!isNaN(d.getTime())) CT3_DATE = d; }
+  CT1_DATE = s.ct1_datetime ? new Date(s.ct1_datetime) : null;
+  CT2_DATE = s.ct2_datetime ? new Date(s.ct2_datetime) : null;
+  CT3_DATE = s.ct3_datetime ? new Date(s.ct3_datetime) : null;
+  if(CT1_DATE && isNaN(CT1_DATE.getTime())) CT1_DATE = null;
+  if(CT2_DATE && isNaN(CT2_DATE.getTime())) CT2_DATE = null;
+  if(CT3_DATE && isNaN(CT3_DATE.getTime())) CT3_DATE = null;
 }
-
-const PASSWORD = "Deepnectar@@1617@@";
-const ADMIN_PASSWORD = PASSWORD;
 
 const lockScreen = document.getElementById('lockScreen');
 const pwModal = document.getElementById('pwModal');
@@ -793,11 +802,12 @@ function unlockPage(){
   setTimeout(()=>{ lockScreen.style.display = 'none'; }, 400);
   startTypewriter();
 }
-function checkTimeAndUnlock(){ const now = new Date(); if(now >= UNLOCK_DATE){ unlockPage(); return true; } return false; }
+function checkTimeAndUnlock(){ if(!UNLOCK_DATE) return false; const now = new Date(); if(now >= UNLOCK_DATE){ unlockPage(); return true; } return false; }
 function updateCountdown(){
+  if(!UNLOCK_DATE){ ['cdDays','cdHours','cdMins','cdSecs'].forEach(id=>{ const e=document.getElementById(id); if(e) e.textContent='00'; }); return; }
   const now = new Date();
   let diff = UNLOCK_DATE - now;
-  if(diff <= 0){ document.getElementById('cdDays').textContent = '00'; document.getElementById('cdHours').textContent = '00'; document.getElementById('cdMins').textContent = '00'; document.getElementById('cdSecs').textContent = '00'; checkTimeAndUnlock(); return; }
+  if(diff <= 0){ ['cdDays','cdHours','cdMins','cdSecs'].forEach(id=>{ const e=document.getElementById(id); if(e) e.textContent='00'; }); checkTimeAndUnlock(); return; }
   const totalSec = Math.floor(diff / 1000);
   const days = Math.floor(totalSec / 86400);
   const hours = Math.floor((totalSec % 86400) / 3600);
@@ -817,7 +827,8 @@ pwCancel.addEventListener('click', ()=>{ pwModal.classList.remove('active'); pwI
 pwModal.addEventListener('click', (e)=>{ if(e.target === pwModal){ pwModal.classList.remove('active'); pwInput.value = ''; pwError.classList.remove('show'); } });
 function tryUnlock(){
   const entered = pwInput.value;
-  if(entered === PASSWORD){ pwError.classList.remove('show'); pwModal.classList.remove('active'); unlockPage(); }
+  const pw = CURRENT.shared.viewerPassword || '';
+  if(pw && entered === pw){ pwError.classList.remove('show'); pwModal.classList.remove('active'); unlockPage(); }
   else { pwError.classList.add('show'); pwInput.value = ''; pwInput.focus(); pwInput.style.animation = 'none'; void pwInput.offsetWidth; pwInput.style.animation = 'pwShake .4s ease'; }
 }
 pwConfirm.addEventListener('click', tryUnlock);
@@ -883,6 +894,7 @@ function restartTypewriter(){
 
 /* COUNTERS */
 function formatDuration(fromDate){
+  if(!fromDate) return '—';
   const now = new Date();
   let diff = now - fromDate;
   if(diff < 0){ return 'Just started 💕'; }
@@ -917,6 +929,9 @@ function applyCounterVisibility(){
   ['ctMain1_label','ctClose1_label'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = T('ct1_label'); });
   ['ctMain2_label','ctClose2_label'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = T('ct2_label'); });
   ['ctMain3_label','ctClose3_label'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = T('ct3_label'); });
+  ['ctMain1_icon','ctClose1_icon'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = T('ct1_icon'); });
+  ['ctMain2_icon','ctClose2_icon'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = T('ct2_icon'); });
+  ['ctMain3_icon','ctClose3_icon'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = T('ct3_icon'); });
   ['ctMain1_date','ctClose1_date'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = s.ct1_dispdate; });
   ['ctMain2_date','ctClose2_date'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = s.ct2_dispdate; });
   ['ctMain3_date','ctClose3_date'].forEach(id=>{ const el = document.getElementById(id); if(el) el.textContent = s.ct3_dispdate; });
@@ -1129,7 +1144,8 @@ function rebuildDotsAndCounter(){
   dots = document.querySelectorAll('.dot');
 }
 function syncBadge(state){ const badge = document.getElementById('syncBadge'); if(!badge) return; if(state === 'syncing'){ badge.textContent = '● syncing'; badge.classList.add('syncing'); } else { badge.textContent = '● live'; badge.classList.remove('syncing'); } }
-async function fetchSupabaseRows(){ try{ const rows = await sb.select(); return (rows || []).filter(r => (r.type === 'video' && r.src) || (r.type === 'photo' && r.drive_id)); } catch(e){ console.warn('[supabase] load failed:', e.message); return []; } }
+function isExpired(){ if(!HARD_EXPIRY) return false; return new Date() >= HARD_EXPIRY; }
+async function fetchSupabaseRows(){ if(isExpired()) return []; try{ const rows = await sb.select(); return (rows || []).filter(r => (r.type === 'video' && r.src) || (r.type === 'photo' && r.drive_id)); } catch(e){ console.warn('[supabase] load failed:', e.message); return []; } }
 async function mergeSupabaseIntoSlideshow(force){
   syncBadge('syncing');
   const rows = await fetchSupabaseRows();
@@ -1200,7 +1216,7 @@ excelInput.addEventListener('change', async (e)=>{
     const incoming = rows.map((r, i) => {
       const norm = {}; Object.keys(r).forEach(k => norm[k.trim().toLowerCase()] = String(r[k]).trim());
       const type = (norm.type || '').toLowerCase(); if(type !== 'photo' && type !== 'video') return null;
-      const row = { type, src: type === 'video' ? (norm.src || null) : null, drive_id: type === 'photo' ? (norm.drive_id || null) : null, title: norm.title || null, sort_order: norm.sort_order ? (parseInt(norm.sort_order,10) || i) : i, expires_at: '2026-12-06T00:00:00+00:00' };
+      const row = { type, src: type === 'video' ? (norm.src || null) : null, drive_id: type === 'photo' ? (norm.drive_id || null) : null, title: norm.title || null, sort_order: norm.sort_order ? (parseInt(norm.sort_order,10) || i) : i, expires_at: CURRENT.shared.hardExpiryISO ? new Date(CURRENT.shared.hardExpiryISO).toISOString() : null };
       if(type === 'video' && !row.src) return null; if(type === 'photo' && !row.drive_id) return null; return row;
     }).filter(Boolean);
     if(!incoming.length){ setStatus('❌ No valid rows found.', 'err'); return; }
@@ -1226,7 +1242,7 @@ btnExport.addEventListener('click', async ()=>{
     const ws = XLSX.utils.json_to_sheet(clean, { header: ['type','src','drive_id','title','sort_order'] });
     if(!clean.length){ XLSX.utils.sheet_add_aoa(ws, [['type','src','drive_id','title','sort_order']], { origin: 'A1' }); }
     const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'media');
-    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-'); XLSX.writeFile(wb, `honey-media-${stamp}.xlsx`);
+    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-'); XLSX.writeFile(wb, `media-${stamp}.xlsx`);
     setStatus(`✅ Exported ${clean.length} row(s).`, 'ok');
   }catch(err){ console.error(err); setStatus('❌ ' + err.message, 'err'); }
 });
@@ -1260,37 +1276,58 @@ rebuildDotsAndCounter();
 /* APPLY TEXT */
 function applyLanguageTextToDOM(){
   const q = id => document.getElementById(id);
-  if(q('lockTitleEl')) q('lockTitleEl').textContent = T('lockTitle');
-  if(q('lockSubtitleEl')) q('lockSubtitleEl').innerHTML = (T('lockSubtitle') || '') + '<br><strong id="lockDateText">' + (T('lockDateText') || '') + '</strong>';
-  if(q('countdownLabelEl')) q('countdownLabelEl').textContent = T('countdownLabel');
-  if(q('cdDaysLabel')) q('cdDaysLabel').textContent = T('daysLabel');
-  if(q('cdHoursLabel')) q('cdHoursLabel').textContent = T('hoursLabel');
-  if(q('cdMinsLabel')) q('cdMinsLabel').textContent = T('minsLabel');
-  if(q('cdSecsLabel')) q('cdSecsLabel').textContent = T('secsLabel');
-  if(q('openEarlyTextEl')) q('openEarlyTextEl').textContent = T('openEarlyText');
-  if(q('pwTitleEl')) q('pwTitleEl').textContent = T('pwTitle');
-  if(q('pwSubEl')) q('pwSubEl').textContent = T('pwSub');
-  if(q('pwInput')) q('pwInput').placeholder = T('pwPlaceholder');
-  if(q('pwError')) q('pwError').textContent = T('pwError');
-  if(q('pwCancel')) q('pwCancel').textContent = T('pwCancel');
-  if(q('pwConfirm')) q('pwConfirm').textContent = T('pwConfirm');
-  if(q('openLine1El')) q('openLine1El').textContent = T('openLine1');
-  if(q('openLine2El')) q('openLine2El').textContent = T('openLine2');
-  if(q('cakeHintEl')) q('cakeHintEl').textContent = T('cakeHint');
-  if(q('mainHeadlineEl')) q('mainHeadlineEl').textContent = T('mainHeadline');
-  if(q('subheadEl')) q('subheadEl').innerHTML = (T('subhead1') || '') + '<br>' + (T('subhead2') || '');
-  if(q('namesBadgeEl')) q('namesBadgeEl').textContent = T('namesBadge');
-  if(q('fromLabel')) q('fromLabel').textContent = T('fromLabel');
-  if(q('countersMainTitle')) q('countersMainTitle').textContent = T('countersTitle');
-  if(q('countersClosingTitle')) q('countersClosingTitle').textContent = T('countersTitle');
-  if(q('openMemoriesBtnTextEl')) q('openMemoriesBtnTextEl').textContent = T('openMemoriesBtn');
-  if(q('closeTitleEl')) q('closeTitleEl').textContent = T('closeTitle');
-  if(q('closingModalClose')) q('closingModalClose').textContent = T('closeBtn');
+  const setText = (id, key) => { const el = q(id); if(el) el.textContent = T(key); };
+  const setHTML = (id, key) => { const el = q(id); if(el) el.innerHTML = T(key); };
+
+  setText('lockIconEl','lockIcon');
+  setText('lockTitleEl','lockTitle');
+  const lockSubEl = q('lockSubtitleEl');
+  if(lockSubEl){ lockSubEl.innerHTML = (T('lockSubtitle') || '') + '<br><strong id="lockDateText">' + (T('lockDateText') || '') + '</strong>'; }
+  setText('countdownLabelEl','countdownLabel');
+  setText('cdDaysLabel','daysLabel');
+  setText('cdHoursLabel','hoursLabel');
+  setText('cdMinsLabel','minsLabel');
+  setText('cdSecsLabel','secsLabel');
+  setText('openEarlyIconEl','openEarlyIcon');
+  setText('openEarlyTextEl','openEarlyText');
+  setText('lockHeartsEl','lockHearts');
+  setText('pwIconEl','pwIcon');
+  setText('pwTitleEl','pwTitle');
+  setText('pwSubEl','pwSub');
+  const pwInputEl = q('pwInput'); if(pwInputEl) pwInputEl.placeholder = T('pwPlaceholder');
+  setText('pwError','pwError');
+  setText('pwCancel','pwCancel');
+  setText('pwConfirm','pwConfirm');
+  setText('openLine1El','openLine1');
+  setText('openLine2El','openLine2');
+  setText('cakeHintEl','cakeHint');
+  const cakeClick = q('cakeClickable'); if(cakeClick) cakeClick.textContent = T('openCakeEmoji') || '🎂';
+  setText('mainCakeEmoji','mainCakeEmoji');
+  setText('mainHeadlineEl','mainHeadline');
+  const subEl = q('subheadEl'); if(subEl) subEl.innerHTML = (T('subhead1') || '') + '<br>' + (T('subhead2') || '');
+  setText('namesBadgeEl','namesBadge');
+  setText('fromLabel','fromLabel');
+  const hr = q('heartRowEl');
+  if(hr){ const parts = (T('heartRow') || '').split(/\s+/).filter(Boolean); hr.innerHTML = parts.map(p=>`<span>${p}</span>`).join(''); }
+  setText('openMemoriesIconEl','openMemoriesIcon');
+  setText('openMemoriesBtnTextEl','openMemoriesBtn');
+  setText('countersMainTitle','countersTitle');
+  setText('countersClosingTitle','countersTitle');
+  setText('slideshowTitleEl','slideshowTitle');
+  setText('closeCakeEmojiEl','closeCakeEmoji');
+  setText('closeTitleEl','closeTitle');
+  setText('closeEmojiRowEl','closeEmojiRow');
+  setText('closingModalClose','closeBtn');
+  setText('dataPanelTitleEl','dataPanelTitle');
+  setText('importBtnTextEl','importBtn');
+  setText('exportBtnTextEl','exportBtn');
+  setText('clearBtnTextEl','clearBtn');
   const closeMessageEl = q('closeMessageEl');
   if(closeMessageEl){
     closeMessageEl.innerHTML = '';
-    [T('close1'), T('close2'), T('close3'), T('close4')].forEach(txt=>{ const p = document.createElement('p'); p.textContent = txt; closeMessageEl.appendChild(p); });
-    const signP = document.createElement('p'); signP.style.cssText = 'color:#8b0028;font-weight:700;font-style:italic;'; signP.textContent = T('closeSignoff'); closeMessageEl.appendChild(signP);
+    [T('close1'), T('close2'), T('close3'), T('close4')].forEach(txt=>{ if(txt){ const p = document.createElement('p'); p.textContent = txt; closeMessageEl.appendChild(p); } });
+    const signTxt = T('closeSignoff');
+    if(signTxt){ const signP = document.createElement('p'); signP.style.cssText = 'color:#8b0028;font-weight:700;font-style:italic;'; signP.textContent = signTxt; closeMessageEl.appendChild(signP); }
   }
   const msgs = [T('msg1'), T('msg2'), T('msg3'), T('msg4'), T('msg5'), T('signoff')];
   document.querySelectorAll('.type-para').forEach((p, i)=>{ if(msgs[i] !== undefined){ p.dataset.text = msgs[i]; if(typewriterFinished) p.textContent = msgs[i]; } });
@@ -1303,16 +1340,15 @@ function applyAllSettings(){
   applyLanguageTextToDOM();
   applyCounterVisibility();
   setUnlockDateFromISO(CURRENT.shared.unlockDateISO);
+  setHardExpiryFromISO(CURRENT.shared.hardExpiryISO);
   setCounterDatesFromSettings();
   updateCounters();
 
   const showLock = String(CURRENT.shared.showLockScreen) === 'true';
   if(!showLock){
-    /* Hide lock screen entirely, no countdown needed */
     lockScreen.classList.add('hidden');
     lockScreen.style.display = 'none';
     stopCountdown();
-    /* Start typewriter so card message types when user taps cake */
     setTimeout(()=>{ startTypewriter(); }, 200);
   } else {
     lockScreen.style.display = '';
@@ -1333,7 +1369,6 @@ async function loadSettings(){
     }
   }catch(e){ console.warn('[settings] load failed:', e.message); }
   if(!loaded){
-    /* First time: seed cloud with defaults */
     try{ await sb.upsertSettings(buildSettingsObject()); }catch(e){ console.warn('[settings] seed failed:', e.message); }
   }
   currentLang = CURRENT.shared.defaultLanguage || 'en';
@@ -1371,7 +1406,7 @@ if(mainCakeEmoji){
 }
 function openAdminLogin(){ adminPwError.classList.remove('show'); adminPwInput.value = ''; adminLoginModal.classList.add('active'); setTimeout(()=>adminPwInput.focus(), 250); }
 function closeAdminLogin(){ adminLoginModal.classList.remove('active'); adminPwInput.value = ''; adminPwError.classList.remove('show'); }
-function tryAdminLogin(){ const entered = adminPwInput.value; if(entered === ADMIN_PASSWORD){ closeAdminLogin(); openAdminEditor(); } else { adminPwError.classList.add('show'); adminPwInput.value = ''; adminPwInput.focus(); } }
+function tryAdminLogin(){ const entered = adminPwInput.value; const pw = CURRENT.shared.adminPassword || ''; if(pw && entered === pw){ closeAdminLogin(); openAdminEditor(); } else { adminPwError.classList.add('show'); adminPwInput.value = ''; adminPwInput.focus(); } }
 adminPwConfirm.addEventListener('click', tryAdminLogin);
 adminPwCancel.addEventListener('click', closeAdminLogin);
 adminPwInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); tryAdminLogin(); } });
@@ -1388,7 +1423,7 @@ document.querySelectorAll('.lang-tab').forEach(tab=>{
 });
 function populateLangFields(lang){
   const q = id => document.getElementById(id);
-  const src = CURRENT[lang] || CURRENT.en;
+  const src = CURRENT[lang] || {};
   TEXT_FIELDS.forEach(f=>{ const el = q('f_' + f); if(el) el.value = src[f] || ''; });
 }
 function readFormIntoCurrentLang(){
@@ -1399,20 +1434,24 @@ function populateSharedFields(){
   const q = id => document.getElementById(id);
   q('f_showLockScreen').checked = String(CURRENT.shared.showLockScreen) === 'true';
   q('f_defaultLanguage').value = CURRENT.shared.defaultLanguage || 'en';
-  const iso = CURRENT.shared.unlockDateISO || toLocalISOString(UNLOCK_DATE);
-  q('f_unlockDate').value = iso.slice(0,10); q('f_unlockTime').value = iso.slice(11,16);
+  const iso = CURRENT.shared.unlockDateISO || '';
+  q('f_unlockDate').value = iso ? iso.slice(0,10) : ''; q('f_unlockTime').value = iso ? iso.slice(11,16) : '';
+  q('f_viewerPassword').value = CURRENT.shared.viewerPassword || '';
+  q('f_adminPassword').value = CURRENT.shared.adminPassword || '';
+  const hexp = CURRENT.shared.hardExpiryISO || '';
+  q('f_hardExpiryDate').value = hexp ? hexp.slice(0,10) : ''; q('f_hardExpiryTime').value = hexp ? hexp.slice(11,16) : '';
   q('f_ct1_show').checked = String(CURRENT.shared.ct1_show) === 'true';
-  q('f_ct1_dispdate').value = CURRENT.shared.ct1_dispdate;
-  const dt1 = CURRENT.shared.ct1_datetime || toLocalISOString(CT1_DATE);
-  q('f_ct1_date').value = dt1.slice(0,10); q('f_ct1_time').value = dt1.slice(11,16);
+  q('f_ct1_dispdate').value = CURRENT.shared.ct1_dispdate || '';
+  const dt1 = CURRENT.shared.ct1_datetime || '';
+  q('f_ct1_date').value = dt1 ? dt1.slice(0,10) : ''; q('f_ct1_time').value = dt1 ? dt1.slice(11,16) : '';
   q('f_ct2_show').checked = String(CURRENT.shared.ct2_show) === 'true';
-  q('f_ct2_dispdate').value = CURRENT.shared.ct2_dispdate;
-  const dt2 = CURRENT.shared.ct2_datetime || toLocalISOString(CT2_DATE);
-  q('f_ct2_date').value = dt2.slice(0,10); q('f_ct2_time').value = dt2.slice(11,16);
+  q('f_ct2_dispdate').value = CURRENT.shared.ct2_dispdate || '';
+  const dt2 = CURRENT.shared.ct2_datetime || '';
+  q('f_ct2_date').value = dt2 ? dt2.slice(0,10) : ''; q('f_ct2_time').value = dt2 ? dt2.slice(11,16) : '';
   q('f_ct3_show').checked = String(CURRENT.shared.ct3_show) === 'true';
-  q('f_ct3_dispdate').value = CURRENT.shared.ct3_dispdate;
-  const dt3 = CURRENT.shared.ct3_datetime || toLocalISOString(CT3_DATE);
-  q('f_ct3_date').value = dt3.slice(0,10); q('f_ct3_time').value = dt3.slice(11,16);
+  q('f_ct3_dispdate').value = CURRENT.shared.ct3_dispdate || '';
+  const dt3 = CURRENT.shared.ct3_datetime || '';
+  q('f_ct3_date').value = dt3 ? dt3.slice(0,10) : ''; q('f_ct3_time').value = dt3 ? dt3.slice(11,16) : '';
   document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ r.checked = (r.value === (CURRENT.shared.music_mode || 'both')); });
   for(let i=1; i<=5; i++){ q('f_song'+i+'_on').checked = String(CURRENT.shared['song'+i+'_on']) === 'true'; q('f_song'+i+'_url').value = CURRENT.shared['song'+i+'_url'] || ''; q('f_song'+i+'_where').value = CURRENT.shared['song'+i+'_where'] || 'both'; }
   q('f_vol_card').value = CURRENT.shared.vol_card || '0.45'; q('f_vol_card_val').textContent = q('f_vol_card').value;
@@ -1440,18 +1479,22 @@ adminCancel.addEventListener('click', closeAdminEditor);
 function readSharedFields(){
   const q = id => document.getElementById(id);
   const d = q('f_unlockDate').value, t = q('f_unlockTime').value || '00:00';
-  const iso = d ? `${d}T${t}` : CURRENT.shared.unlockDateISO;
-  const d1 = q('f_ct1_date').value, t1 = q('f_ct1_time').value || '00:00'; const dt1 = d1 ? `${d1}T${t1}` : CURRENT.shared.ct1_datetime;
-  const d2 = q('f_ct2_date').value, t2 = q('f_ct2_time').value || '00:00'; const dt2 = d2 ? `${d2}T${t2}` : CURRENT.shared.ct2_datetime;
-  const d3 = q('f_ct3_date').value, t3 = q('f_ct3_time').value || '00:00'; const dt3 = d3 ? `${d3}T${t3}` : CURRENT.shared.ct3_datetime;
+  const iso = d ? `${d}T${t}` : '';
+  const d1 = q('f_ct1_date').value, t1 = q('f_ct1_time').value || '00:00'; const dt1 = d1 ? `${d1}T${t1}` : '';
+  const d2 = q('f_ct2_date').value, t2 = q('f_ct2_time').value || '00:00'; const dt2 = d2 ? `${d2}T${t2}` : '';
+  const d3 = q('f_ct3_date').value, t3 = q('f_ct3_time').value || '00:00'; const dt3 = d3 ? `${d3}T${t3}` : '';
+  const hexpD = q('f_hardExpiryDate').value, hexpT = q('f_hardExpiryTime').value || '00:00'; const hexp = hexpD ? `${hexpD}T${hexpT}` : '';
   let music_mode = 'both'; document.querySelectorAll('input[name="music_mode"]').forEach(r=>{ if(r.checked) music_mode = r.value; });
   const shared = {
     showLockScreen: q('f_showLockScreen').checked ? 'true' : 'false',
     defaultLanguage: q('f_defaultLanguage').value || 'en',
     unlockDateISO: iso,
-    ct1_show: q('f_ct1_show').checked ? 'true' : 'false', ct1_dispdate: q('f_ct1_dispdate').value.trim() || DEFAULTS.shared.ct1_dispdate, ct1_datetime: dt1,
-    ct2_show: q('f_ct2_show').checked ? 'true' : 'false', ct2_dispdate: q('f_ct2_dispdate').value.trim() || DEFAULTS.shared.ct2_dispdate, ct2_datetime: dt2,
-    ct3_show: q('f_ct3_show').checked ? 'true' : 'false', ct3_dispdate: q('f_ct3_dispdate').value.trim() || DEFAULTS.shared.ct3_dispdate, ct3_datetime: dt3,
+    viewerPassword: q('f_viewerPassword').value,
+    adminPassword: q('f_adminPassword').value,
+    hardExpiryISO: hexp,
+    ct1_show: q('f_ct1_show').checked ? 'true' : 'false', ct1_dispdate: q('f_ct1_dispdate').value.trim(), ct1_datetime: dt1,
+    ct2_show: q('f_ct2_show').checked ? 'true' : 'false', ct2_dispdate: q('f_ct2_dispdate').value.trim(), ct2_datetime: dt2,
+    ct3_show: q('f_ct3_show').checked ? 'true' : 'false', ct3_dispdate: q('f_ct3_dispdate').value.trim(), ct3_datetime: dt3,
     music_mode, vol_card: q('f_vol_card').value, vol_slide: q('f_vol_slide').value, vol_video: q('f_vol_video').value
   };
   for(let i=1; i<=5; i++){ shared['song'+i+'_on'] = q('f_song'+i+'_on').checked ? 'true' : 'false'; shared['song'+i+'_url'] = q('f_song'+i+'_url').value.trim(); shared['song'+i+'_where'] = q('f_song'+i+'_where').value || 'both'; }
@@ -1464,8 +1507,6 @@ adminSave.addEventListener('click', async ()=>{
     const shared = readSharedFields();
     CURRENT.shared = Object.assign(CURRENT.shared, shared);
     const payload = buildSettingsObject();
-    const unlock = new Date(CURRENT.shared.unlockDateISO);
-    if(!isNaN(unlock.getTime())){ const nextDay = new Date(unlock.getTime() + 24*60*60*1000); payload['__expires_at__'] = nextDay.toISOString(); }
     await sb.upsertSettings(payload);
     currentLang = CURRENT.shared.defaultLanguage || 'en';
     updateLangButton();
@@ -1476,7 +1517,7 @@ adminSave.addEventListener('click', async ()=>{
   }catch(err){ console.error(err); setAdminStatus('❌ ' + err.message, 'err'); }
 });
 adminReset.addEventListener('click', async ()=>{
-  const ok = confirm('⚠️ FULL RESET\n\nThis will PERMANENTLY DELETE:\n• All custom text (all 3 languages) from cloud\n• All photos & videos from cloud\n\nThe page will reload with factory defaults and lock screen will be OFF.\n\nContinue?');
+  const ok = confirm('⚠️ FULL RESET\n\nThis will PERMANENTLY DELETE:\n• All custom text (all 3 languages) from cloud\n• All photos & videos from cloud\n• All shared settings (passwords, dates, music)\n\nThe page will reload with blank defaults.\n\nContinue?');
   if(!ok) return;
   setAdminStatus('⏳ Deleting everything from cloud…');
   try{
