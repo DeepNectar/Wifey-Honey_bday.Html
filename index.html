@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,8 +122,6 @@ body{background:linear-gradient(145deg,var(--c-bg-1) 0%,var(--c-bg-2) 40%,var(--
 .contact-pill{display:inline-flex;align-items:center;gap:.3rem;background:#fff;color:#0d5c4a;font-size:.82rem;font-weight:700;padding:.35rem .7rem;border-radius:40px;border:1px solid #0d5c4a;text-decoration:none}
 .guest-draft{background:#fffaf0;border:1.5px dashed #d4af37;border-radius:.9rem;padding:1rem .9rem;font-size:.88rem;line-height:1.65;color:#3a1a20;margin-bottom:1rem}
 .guest-draft p{margin-bottom:.6rem}.guest-draft p:last-child{margin-bottom:0}
-.guest-draft ul,.guest-draft ol{margin-left:1.2rem;margin-bottom:.6rem}
-.guest-draft li{margin-bottom:.25rem}
 .share-preview-box{background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid #c9184a;border-radius:.9rem;padding:.9rem;margin-bottom:1rem}
 .share-preview-box .title{font-size:.85rem;font-weight:900;color:#c9184a;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:.55rem;text-align:center}
 .share-preview-box .line{font-size:.85rem;color:#3a1a20;line-height:1.7;margin-bottom:.35rem;word-break:break-word}
@@ -233,6 +233,9 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 .counter-edit-card .head .icon{font-size:1.3rem}
 .counter-edit-card .head label{display:flex;align-items:center;gap:.4rem;margin-left:auto;font-size:.8rem;color:var(--c-primary-2);cursor:pointer;text-transform:uppercase;letter-spacing:.8px}
 .counter-edit-card .head input[type="checkbox"]{width:20px;height:20px;accent-color:var(--c-primary-2);cursor:pointer}
+.tz-row{display:grid;grid-template-columns:1fr auto;gap:.4rem;align-items:end}
+.tz-row .tz-select{min-width:180px}
+@media (max-width:600px){.tz-row{grid-template-columns:1fr}.tz-row .tz-select{min-width:0}}
 </style>
 </head>
 <body data-theme="romantic">
@@ -484,7 +487,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 <div class="panel-pane" id="pane-people">
   <div class="panel-section">
     <div class="panel-section-title">👥 People — Complete List</div>
-    <div class="panel-sub" style="text-align:left;margin-bottom:.6rem;">Each person has their own unique ID. Set a <b>wipe date</b> to auto-delete only that person's data on that date.</div>
+    <div class="panel-sub" style="text-align:left;margin-bottom:.6rem;">Set a <b>wipe date &amp; time</b> (with timezone) to auto-delete that person's data and remove them from the home screen. Default timezone is <b>Asia/Dubai (UTC+4)</b>.</div>
     <div id="peopleRepeater"></div>
     <button type="button" class="repeat-add" id="addPersonRow">➕ Add Person</button>
   </div>
@@ -493,36 +496,43 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 <div class="panel-pane" id="pane-lock">
   <div class="panel-section">
     <div class="panel-section-title">💕 Counters — editable here AND in Guest panel</div>
-    <div class="panel-sub" style="text-align:left;">Toggle <b>Show</b> to display each counter on the card. The date drives a <b>live days · hours · minutes · seconds</b> counter. You can also edit the label and display date.</div>
-
+    <div class="panel-sub" style="text-align:left;">Toggle <b>Show</b> to display each counter on the card. The date drives a <b>live days · hours · minutes · seconds</b> counter. Pick the timezone you meant.</div>
     <div class="counter-edit-card">
       <div class="head"><span class="icon">💬</span><span>Counter 1</span><label><input type="checkbox" id="f_ct1_show"> Show</label></div>
       <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" id="f_ct1_label2" placeholder="💬 Days You've Been Our Family"></div>
-      <div class="panel-field"><label class="panel-label">Start date &amp; time (drives the live counter)</label><input type="datetime-local" class="panel-input" id="f_ct1_datetime"></div>
-      <div class="panel-field"><label class="panel-label">Display date text (shown under the counter)</label><input type="text" class="panel-input" id="f_ct1_dispdate"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time + timezone</label>
+        <div class="tz-row"><input type="datetime-local" class="panel-input" id="f_ct1_datetime"><select class="panel-select tz-select" id="f_ct1_datetime_tz"></select></div>
+      </div>
+      <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input" id="f_ct1_dispdate"></div>
     </div>
-
     <div class="counter-edit-card">
       <div class="head"><span class="icon">💕</span><span>Counter 2</span><label><input type="checkbox" id="f_ct2_show"> Show</label></div>
       <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" id="f_ct2_label2" placeholder="💕 Days of Your Love"></div>
-      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input" id="f_ct2_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time + timezone</label>
+        <div class="tz-row"><input type="datetime-local" class="panel-input" id="f_ct2_datetime"><select class="panel-select tz-select" id="f_ct2_datetime_tz"></select></div>
+      </div>
       <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input" id="f_ct2_dispdate"></div>
     </div>
-
     <div class="counter-edit-card">
       <div class="head"><span class="icon">💍</span><span>Counter 3</span><label><input type="checkbox" id="f_ct3_show"> Show</label></div>
       <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" id="f_ct3_label2" placeholder="💍 Days of Beautiful Memories"></div>
-      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input" id="f_ct3_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time + timezone</label>
+        <div class="tz-row"><input type="datetime-local" class="panel-input" id="f_ct3_datetime"><select class="panel-select tz-select" id="f_ct3_datetime_tz"></select></div>
+      </div>
       <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input" id="f_ct3_dispdate"></div>
     </div>
   </div>
   <div class="panel-section">
     <div class="panel-section-title">🔓 Unlock</div>
-    <div class="panel-field"><label class="panel-label">Unlock date &amp; time</label><input type="datetime-local" class="panel-input" id="f_unlockDateISO"></div>
+    <div class="panel-field"><label class="panel-label">Unlock date &amp; time + timezone</label>
+      <div class="tz-row"><input type="datetime-local" class="panel-input" id="f_unlockDateISO"><select class="panel-select tz-select" id="f_unlockDateISO_tz"></select></div>
+    </div>
   </div>
   <div class="panel-section">
     <div class="panel-section-title">⚠️ Danger Zone</div>
-    <div class="panel-field"><label class="panel-label">Cloud expiry (soft)</label><input type="datetime-local" class="panel-input" id="f_hardExpiryISO"></div>
+    <div class="panel-field"><label class="panel-label">Cloud expiry (soft) + timezone</label>
+      <div class="tz-row"><input type="datetime-local" class="panel-input" id="f_hardExpiryISO"><select class="panel-select tz-select" id="f_hardExpiryISO_tz"></select></div>
+    </div>
     <div class="panel-field"><label class="panel-label">Admin password</label><input type="text" class="panel-input" id="f_adminPassword"></div>
   </div>
   <div class="panel-section">
@@ -532,7 +542,6 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
       <label style="display:inline-flex;align-items:center;gap:.35rem;font-size:.88rem;"><input type="radio" name="music_mode" value="card"> Card</label>
       <label style="display:inline-flex;align-items:center;gap:.35rem;font-size:.88rem;"><input type="radio" name="music_mode" value="slideshow"> Slideshow</label>
     </div></div>
-    <div style="font-size:.72rem;font-weight:800;color:var(--c-primary-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.25rem;">🎶 Playlist (5 slots)</div>
     <div style="display:grid;grid-template-columns:auto 1fr auto;gap:.4rem;align-items:center;padding:.55rem .5rem;border:1px dashed rgba(196,30,58,.25);border-radius:.7rem;margin-bottom:.5rem;background:#fffdf8;">
       <input type="checkbox" id="f_song1_on"><input type="text" class="panel-input" id="f_song1_url" placeholder="https://... .mp3"><select class="panel-select" id="f_song1_where"><option value="both">Both</option><option value="card">Card</option><option value="slideshow">Slideshow</option></select>
     </div>
@@ -564,6 +573,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
   <div class="panel-section"><div class="panel-section-title">📸 Slideshow Photos</div>
     <div id="mediaRepeater"></div>
     <button type="button" class="repeat-add" id="addMediaRow">➕ Add Photo Row</button>
+    <div style="margin-top:.6rem;font-size:.78rem;color:var(--c-text-muted);font-style:italic;">Duplicate Drive IDs are removed automatically on Save.</div>
   </div>
 </div>
 
@@ -597,7 +607,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 <div class="panel-pane" id="pane-guests">
   <div class="panel-section">
     <div class="panel-section-title">✍️ Pending Guest Submissions</div>
-    <div class="panel-sub" style="text-align:left;">Approving CREATES A NEW PERSON, applies all imported Excel data (texts, gifts, story, events, voice, video, pins, media, counters), and lets you WhatsApp the credentials.</div>
+    <div class="panel-sub" style="text-align:left;">Approving CREATES A NEW PERSON, applies all imported Excel data, and lets you WhatsApp the credentials.</div>
     <div id="pendingGuestsList">Loading…</div>
     <button type="button" class="repeat-add" id="refreshGuests" style="margin-top:.6rem;">🔄 Refresh</button>
   </div>
@@ -667,11 +677,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 <div class="panel-section" style="padding:.75rem;background:linear-gradient(135deg,#e8f5f0,#d3ede1);border:2px solid #0d5c4a;">
   <div class="panel-section-title" style="color:#0d5c4a;">👤 About you (the requester) <span style="color:#c41e3a;">*all fields required</span></div>
   <div class="panel-field"><label class="panel-label">Your name *</label><input type="text" class="panel-input" id="guestName"></div>
-  <div class="panel-field">
-    <label class="panel-label" style="color:#0d5c4a;">Your WhatsApp number *</label>
-    <input type="tel" class="panel-input" id="guestWhatsapp">
-    <div style="font-size:.72rem;color:#0d5c4a;font-style:italic;margin-top:.35rem;">📲 We will send you the <strong>Login ID</strong>, <strong>Password</strong> and the <strong>card link</strong> on this WhatsApp number.</div>
-  </div>
+  <div class="panel-field"><label class="panel-label" style="color:#0d5c4a;">Your WhatsApp number *</label><input type="tel" class="panel-input" id="guestWhatsapp"></div>
   <div class="panel-field"><label class="panel-label">Your relation to them *</label>
     <select class="panel-select" id="guestRelation"><option value="">— Select —</option><option value="Friend">Friend</option><option value="Family">Family</option><option value="Partner">Partner</option><option value="Colleague">Colleague</option><option value="Other">Other</option></select>
   </div>
@@ -715,9 +721,9 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
     <div class="panel-field"><label class="panel-label">Names badge</label><input type="text" class="panel-input g-text" data-gt="namesBadge"></div>
     <div class="panel-field"><label class="panel-label">From label</label><input type="text" class="panel-input g-text" data-gt="fromLabel"></div>
     <div class="panel-field"><label class="panel-label">Counters title</label><input type="text" class="panel-input g-text" data-gt="countersTitle"></div>
-    <div class="panel-field"><label class="panel-label">Counter 1 label (fallback if not set in Counters tab)</label><input type="text" class="panel-input g-text" data-gt="ct1_label"></div>
-    <div class="panel-field"><label class="panel-label">Counter 2 label</label><input type="text" class="panel-input g-text" data-gt="ct2_label"></div>
-    <div class="panel-field"><label class="panel-label">Counter 3 label</label><input type="text" class="panel-input g-text" data-gt="ct3_label"></div>
+    <div class="panel-field"><label class="panel-label">Counter 1 label (text)</label><input type="text" class="panel-input g-text" data-gt="ct1_label"></div>
+    <div class="panel-field"><label class="panel-label">Counter 2 label (text)</label><input type="text" class="panel-input g-text" data-gt="ct2_label"></div>
+    <div class="panel-field"><label class="panel-label">Counter 3 label (text)</label><input type="text" class="panel-input g-text" data-gt="ct3_label"></div>
     <div class="panel-field"><label class="panel-label">"Open Memories" button</label><input type="text" class="panel-input g-text" data-gt="openMemoriesBtn"></div>
     <div class="panel-field"><label class="panel-label">Story button</label><input type="text" class="panel-input g-text" data-gt="storyBtnText"></div>
     <div class="panel-field"><label class="panel-label">Map button</label><input type="text" class="panel-input g-text" data-gt="mapBtnText"></div>
@@ -771,30 +777,31 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
   </div>
 </div>
 
-<!-- NEW: Guest Counter editor -->
 <div class="panel-pane" id="gpane-counters">
   <div class="panel-section">
     <div class="panel-section-title">💕 Counters — same as admin</div>
-    <div class="panel-sub" style="text-align:left;">Toggle <b>Show</b> to display each counter on the card. Set a start date — the counter shows live <b>days · hours · minutes · seconds</b>.</div>
-
     <div class="counter-edit-card">
       <div class="head"><span class="icon">💬</span><span>Counter 1</span><label><input type="checkbox" id="g_ct1_show"> Show</label></div>
-      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct1_label" placeholder="💬 Days You've Been Our Family"></div>
-      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input g-ctr" data-gc="ct1_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct1_label"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time + timezone</label>
+        <div class="tz-row"><input type="datetime-local" class="panel-input g-ctr" data-gc="ct1_datetime"><select class="panel-select tz-select g-ctr-tz" data-gc="ct1_datetime_tz"></select></div>
+      </div>
       <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input g-ctr" data-gc="ct1_dispdate"></div>
     </div>
-
     <div class="counter-edit-card">
       <div class="head"><span class="icon">💕</span><span>Counter 2</span><label><input type="checkbox" id="g_ct2_show"> Show</label></div>
-      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct2_label" placeholder="💕 Days of Your Love"></div>
-      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input g-ctr" data-gc="ct2_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct2_label"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time + timezone</label>
+        <div class="tz-row"><input type="datetime-local" class="panel-input g-ctr" data-gc="ct2_datetime"><select class="panel-select tz-select g-ctr-tz" data-gc="ct2_datetime_tz"></select></div>
+      </div>
       <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input g-ctr" data-gc="ct2_dispdate"></div>
     </div>
-
     <div class="counter-edit-card">
       <div class="head"><span class="icon">💍</span><span>Counter 3</span><label><input type="checkbox" id="g_ct3_show"> Show</label></div>
-      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct3_label" placeholder="💍 Days of Beautiful Memories"></div>
-      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input g-ctr" data-gc="ct3_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct3_label"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time + timezone</label>
+        <div class="tz-row"><input type="datetime-local" class="panel-input g-ctr" data-gc="ct3_datetime"><select class="panel-select tz-select g-ctr-tz" data-gc="ct3_datetime_tz"></select></div>
+      </div>
       <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input g-ctr" data-gc="ct3_dispdate"></div>
     </div>
   </div>
@@ -807,7 +814,12 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
   <div class="panel-section"><div class="panel-section-title">📖 Story Pages</div><div id="guestStoryRepeater"></div><button type="button" class="repeat-add" id="guestAddStoryRow">➕ Add Story Page</button></div>
 </div>
 <div class="panel-pane" id="gpane-events">
-  <div class="panel-section"><div class="panel-section-title">📅 Event Countdowns</div><div id="guestEventsRepeater"></div><button type="button" class="repeat-add" id="guestAddEventRow">➕ Add Event</button></div>
+  <div class="panel-section">
+    <div class="panel-section-title">📅 Event Countdowns</div>
+    <div id="guestEventsRepeater"></div>
+    <button type="button" class="repeat-add" id="guestAddEventRow">➕ Add Event</button>
+    <div style="margin-top:.5rem;font-size:.78rem;color:var(--c-text-muted);font-style:italic;">Target datetime + timezone. Default is Asia/Dubai.</div>
+  </div>
 </div>
 <div class="panel-pane" id="gpane-voice">
   <div class="panel-section"><div class="panel-section-title">🔊 Voice Messages</div><div id="guestVoiceRepeater"></div><button type="button" class="repeat-add" id="guestAddVoiceRow">➕ Add Voice</button></div>
@@ -823,7 +835,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
     <div class="panel-section-title">📸 Slideshow Photos &amp; Videos</div>
     <div id="guestMediaRepeater"></div>
     <button type="button" class="repeat-add" id="guestAddMediaRow">➕ Add Photo/Video Row</button>
-    <div style="margin-top:.5rem;font-size:.78rem;color:var(--c-text-muted);font-style:italic;">Or paste many Drive IDs below (comma-separated) to bulk-add.</div>
+    <div style="margin-top:.5rem;font-size:.78rem;color:var(--c-text-muted);font-style:italic;">Or paste many Drive IDs below (comma-separated) to bulk-add. Duplicates are removed automatically.</div>
     <div class="panel-field" style="margin-top:.4rem;"><textarea class="panel-textarea" id="g_mediaIds" placeholder="id1, id2, id3"></textarea></div>
     <button type="button" class="repeat-add" id="guestBulkAddMedia" style="background:#2a5fd1;">📥 Add all IDs above</button>
   </div>
@@ -920,6 +932,12 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
+/* =====================================================================
+   SURPRISE CARD APP — TIMEZONE-AWARE DATETIMES
+   - All datetime inputs have a timezone dropdown (default Asia/Dubai)
+   - Stored UTC for correctness, timezone name stored for round-trip
+   - No SQL change required (tz is just another settings key)
+   ===================================================================== */
 (function(){
 'use strict';
 
@@ -928,6 +946,54 @@ const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const T_PEOPLE='people',T_SETTINGS='settings',T_MEDIA='media',T_GIFTS='gifts',T_STORY='story_pages',T_EVENTS='event_countdowns',T_VOICE='voice_messages',T_VIDEO='video_messages',T_PINS='map_pins',T_GUEST='guest_submissions',T_UPLOADS='uploads';
 const FALLBACK_ADMIN_PW='Deepnectar@@1617@@';
 const PUBLIC_CARD_LINK='https://surprise-clickandcheck-your-surprise2.netlify.app/';
+const DEFAULT_TZ='Asia/Dubai';
+
+/* Timezone options — label + IANA name */
+const TZ_OPTIONS=[
+  {v:'Asia/Dubai',l:'🇦🇪 Dubai / UAE (UTC+4) — default'},
+  {v:'Asia/Kolkata',l:'🇮🇳 India (UTC+5:30)'},
+  {v:'Asia/Karachi',l:'🇵🇰 Pakistan (UTC+5)'},
+  {v:'Asia/Dhaka',l:'🇧🇩 Bangladesh (UTC+6)'},
+  {v:'Asia/Kathmandu',l:'🇳🇵 Nepal (UTC+5:45)'},
+  {v:'Asia/Colombo',l:'🇱🇰 Sri Lanka (UTC+5:30)'},
+  {v:'Asia/Riyadh',l:'🇸🇦 Riyadh (UTC+3)'},
+  {v:'Asia/Qatar',l:'🇶🇦 Qatar (UTC+3)'},
+  {v:'Asia/Kuwait',l:'🇰🇼 Kuwait (UTC+3)'},
+  {v:'Asia/Tehran',l:'🇮🇷 Tehran (UTC+3:30)'},
+  {v:'Asia/Istanbul',l:'🇹🇷 Istanbul (UTC+3)'},
+  {v:'Asia/Singapore',l:'🇸🇬 Singapore (UTC+8)'},
+  {v:'Asia/Kuala_Lumpur',l:'🇲🇾 Kuala Lumpur (UTC+8)'},
+  {v:'Asia/Shanghai',l:'🇨🇳 China (UTC+8)'},
+  {v:'Asia/Hong_Kong',l:'🇭🇰 Hong Kong (UTC+8)'},
+  {v:'Asia/Tokyo',l:'🇯🇵 Tokyo (UTC+9)'},
+  {v:'Asia/Seoul',l:'🇰🇷 Seoul (UTC+9)'},
+  {v:'Asia/Bangkok',l:'🇹🇭 Bangkok (UTC+7)'},
+  {v:'Asia/Jakarta',l:'🇮🇩 Jakarta (UTC+7)'},
+  {v:'Asia/Manila',l:'🇵🇭 Manila (UTC+8)'},
+  {v:'Australia/Sydney',l:'🇦🇺 Sydney (UTC+10/+11)'},
+  {v:'Australia/Perth',l:'🇦🇺 Perth (UTC+8)'},
+  {v:'Pacific/Auckland',l:'🇳🇿 Auckland (UTC+12/+13)'},
+  {v:'Europe/London',l:'🇬🇧 London (UTC+0/+1)'},
+  {v:'Europe/Paris',l:'🇫🇷 Paris / Berlin (UTC+1/+2)'},
+  {v:'Europe/Rome',l:'🇮🇹 Rome (UTC+1/+2)'},
+  {v:'Europe/Madrid',l:'🇪🇸 Madrid (UTC+1/+2)'},
+  {v:'Europe/Amsterdam',l:'🇳🇱 Amsterdam (UTC+1/+2)'},
+  {v:'Europe/Moscow',l:'🇷🇺 Moscow (UTC+3)'},
+  {v:'Europe/Athens',l:'🇬🇷 Athens (UTC+2/+3)'},
+  {v:'Africa/Cairo',l:'🇪🇬 Cairo (UTC+2)'},
+  {v:'Africa/Nairobi',l:'🇰🇪 Nairobi (UTC+3)'},
+  {v:'Africa/Johannesburg',l:'🇿🇦 Johannesburg (UTC+2)'},
+  {v:'Africa/Lagos',l:'🇳🇬 Lagos (UTC+1)'},
+  {v:'America/New_York',l:'🇺🇸 New York (UTC-5/-4)'},
+  {v:'America/Chicago',l:'🇺🇸 Chicago (UTC-6/-5)'},
+  {v:'America/Denver',l:'🇺🇸 Denver (UTC-7/-6)'},
+  {v:'America/Los_Angeles',l:'🇺🇸 Los Angeles (UTC-8/-7)'},
+  {v:'America/Toronto',l:'🇨🇦 Toronto (UTC-5/-4)'},
+  {v:'America/Mexico_City',l:'🇲🇽 Mexico City (UTC-6)'},
+  {v:'America/Sao_Paulo',l:'🇧🇷 São Paulo (UTC-3)'},
+  {v:'America/Argentina/Buenos_Aires',l:'🇦🇷 Buenos Aires (UTC-3)'},
+  {v:'UTC',l:'🌐 UTC (no offset)'}
+];
 
 const $=id=>document.getElementById(id);
 function txt(el,v){if(el)el.textContent=v||''}
@@ -950,21 +1016,73 @@ S.GUEST_TEXTS=S.GUEST_TEXTS||{en:{},gu:{},hi:{}};
 S.GUEST_EDIT_LANG='en';
 S.CARD_STARTED=false;
 
-/* Counters definition used everywhere */
 const COUNTERS=[
-  {id:'ct1',icon:'💬',labelKey:'ct1_label',dtKey:'ct1_datetime',dispKey:'ct1_dispdate',showKey:'ct1_show',mainLabel:'ctMain1_label',mainTime:'counterTalkMain',mainDate:'ctMain1_date',mainRow:'ctMain1'},
-  {id:'ct2',icon:'💕',labelKey:'ct2_label',dtKey:'ct2_datetime',dispKey:'ct2_dispdate',showKey:'ct2_show',mainLabel:'ctMain2_label',mainTime:'counterYesMain',mainDate:'ctMain2_date',mainRow:'ctMain2'},
-  {id:'ct3',icon:'💍',labelKey:'ct3_label',dtKey:'ct3_datetime',dispKey:'ct3_dispdate',showKey:'ct3_show',mainLabel:'ctMain3_label',mainTime:'counterEngagedMain',mainDate:'ctMain3_date',mainRow:'ctMain3'}
+  {id:'ct1',icon:'💬',labelKey:'ct1_label',dtKey:'ct1_datetime',tzKey:'ct1_datetime_tz',dispKey:'ct1_dispdate',showKey:'ct1_show',mainLabel:'ctMain1_label',mainDate:'ctMain1_date',mainRow:'ctMain1'},
+  {id:'ct2',icon:'💕',labelKey:'ct2_label',dtKey:'ct2_datetime',tzKey:'ct2_datetime_tz',dispKey:'ct2_dispdate',showKey:'ct2_show',mainLabel:'ctMain2_label',mainDate:'ctMain2_date',mainRow:'ctMain2'},
+  {id:'ct3',icon:'💍',labelKey:'ct3_label',dtKey:'ct3_datetime',tzKey:'ct3_datetime_tz',dispKey:'ct3_dispdate',showKey:'ct3_show',mainLabel:'ctMain3_label',mainDate:'ctMain3_date',mainRow:'ctMain3'}
 ];
 
-/* -------------------- SUPABASE -------------------- */
+/* ---------------- timezone helpers ---------------- */
+/* Convert "YYYY-MM-DDTHH:mm" + IANA tz to a UTC ISO string.
+   Uses Intl API to correctly resolve offsets including DST. */
+function zonedToUTC(localStr,tz){
+  if(!localStr)return null;
+  const m=localStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/);
+  if(!m)return null;
+  const y=+m[1],mo=+m[2]-1,d=+m[3],h=+m[4],mi=+m[5],s=+(m[6]||0);
+  tz=tz||DEFAULT_TZ;
+  /* Try to find the UTC instant that renders as (y,mo,d,h,mi) in tz */
+  const guess=Date.UTC(y,mo,d,h,mi,s);
+  const dtf=new Intl.DateTimeFormat('en-US',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  let parts=dtf.formatToParts(new Date(guess));
+  const get=k=>+parts.find(p=>p.type===k).value;
+  const yy=get('year'),mm=get('month')-1,dd=get('day'),hh=get('hour')%24,mn=get('minute'),ss=get('second');
+  const asZoned=Date.UTC(yy,mm,dd,hh,mn,ss);
+  const offset=guess-asZoned;
+  const corrected=new Date(guess+offset);
+  return corrected.toISOString();
+}
+/* Convert a UTC ISO string to "YYYY-MM-DDTHH:mm" as seen in the given tz */
+function utcToZonedLocal(iso,tz){
+  if(!iso)return'';
+  const d=new Date(iso);if(isNaN(d.getTime()))return'';
+  tz=tz||DEFAULT_TZ;
+  const dtf=new Intl.DateTimeFormat('en-US',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+  const parts=dtf.formatToParts(d);
+  const get=k=>parts.find(p=>p.type===k).value;
+  let hour=get('hour');if(hour==='24')hour='00';
+  return get('year')+'-'+get('month')+'-'+get('day')+'T'+hour+':'+get('minute');
+}
+/* Fill a <select> element with the TZ_OPTIONS */
+function fillTzSelect(el,current){
+  if(!el)return;
+  const cur=current||DEFAULT_TZ;
+  if(el.options.length===0){
+    TZ_OPTIONS.forEach(o=>{const opt=document.createElement('option');opt.value=o.v;opt.textContent=o.l;el.appendChild(opt)});
+  }
+  el.value=TZ_OPTIONS.find(o=>o.v===cur)?cur:DEFAULT_TZ;
+}
+/* Initialize every .tz-select on the page */
+function initAllTzSelects(){
+  document.querySelectorAll('.tz-select').forEach(el=>{
+    const cur=el.dataset.currentTz||DEFAULT_TZ;
+    fillTzSelect(el,cur);
+  });
+}
+/* Read all tz selects into a map keyed by their id/dataset key */
+function getTzFor(key){
+  const el=document.getElementById(key+'_tz')||document.querySelector('.tz-select[data-gc="'+key+'"]')||document.querySelector('.tz-select[data-gt="'+key+'"]');
+  return el?el.value:DEFAULT_TZ;
+}
+
+/* ---------------- Supabase ---------------- */
 const sb={
   h(){return{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=representation'}},
   hd(){return{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY}},
   async people(){try{const r=await fetch(`${SUPABASE_URL}/rest/v1/${T_PEOPLE}?select=*&order=sort_order.asc,id.asc`,{headers:this.h(),cache:'no-store'});if(!r.ok)return[];return r.json()}catch(e){return[]}},
   async insPerson(row){const r=await fetch(`${SUPABASE_URL}/rest/v1/${T_PEOPLE}`,{method:'POST',headers:this.h(),body:JSON.stringify(row)});if(!r.ok){const t=await r.text();throw new Error('insert person '+r.status+' '+t)}return r.json()},
   async updPerson(id,p){const r=await fetch(`${SUPABASE_URL}/rest/v1/${T_PEOPLE}?id=eq.${id}`,{method:'PATCH',headers:this.h(),body:JSON.stringify(p)});if(!r.ok){const t=await r.text();throw new Error('update person '+r.status+' '+t)}return r.json()},
-  async delPerson(id){await fetch(`${SUPABASE_URL}/rest/v1/${T_PEOPLE}?id=eq.${id}`,{method:'DELETE',headers:this.hd()})},
+  async delPerson(id){const r=await fetch(`${SUPABASE_URL}/rest/v1/${T_PEOPLE}?id=eq.${id}`,{method:'DELETE',headers:this.hd()});if(!r.ok){const t=await r.text();throw new Error('delete person '+r.status+' '+t)}},
   async rows(table,pid){try{let u=`${SUPABASE_URL}/rest/v1/${table}?select=*`;if(pid!=null)u+=`&person_id=eq.${pid}`;const r=await fetch(u,{headers:this.h(),cache:'no-store'});if(!r.ok)return[];return r.json()}catch(e){return[]}},
   async getSet(pid){try{let u=`${SUPABASE_URL}/rest/v1/${T_SETTINGS}?select=key,value`;if(pid===null)u+='&person_id=is.null';else if(pid!=null)u+=`&person_id=eq.${pid}`;const r=await fetch(u,{headers:this.h(),cache:'no-store'});if(!r.ok)return{};const rows=await r.json();const o={};rows.forEach(x=>o[x.key]=x.value);return o}catch(e){return{}}},
   async upSet(obj,pid){
@@ -981,15 +1099,28 @@ const sb={
     return r.json();
   },
   async insBatch(table,rows){if(!rows||!rows.length)return;const r=await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{method:'POST',headers:this.h(),body:JSON.stringify(rows)});if(!r.ok){const t=await r.text();throw new Error('batch insert '+table+' '+r.status+' '+t)}return r.json()},
-  async ins(table,row){return this.insBatch(table,[row])},
   async upd(table,id,patch){const r=await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`,{method:'PATCH',headers:this.h(),body:JSON.stringify(patch)});if(!r.ok){const t=await r.text();throw new Error('update '+table+' '+t)}return r.json()},
   async wipe(table,pid){try{await fetch(`${SUPABASE_URL}/rest/v1/${table}?person_id=eq.${pid}`,{method:'DELETE',headers:this.hd()})}catch(e){}},
   async wipeAll(table){try{await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=gt.0`,{method:'DELETE',headers:this.hd()})}catch(e){}},
   async guests(){try{const r=await fetch(`${SUPABASE_URL}/rest/v1/${T_GUEST}?select=*&order=created_at.desc`,{headers:this.h(),cache:'no-store'});if(!r.ok)return[];return r.json()}catch(e){return[]}},
-  async updGuest(id,patch){return this.upd(T_GUEST,id,patch)}
+  async updGuest(id,patch){return this.upd(T_GUEST,id,patch)},
+  async wipeExpired(){try{const r=await fetch(`${SUPABASE_URL}/rest/v1/rpc/wipe_expired_people`,{method:'POST',headers:this.h(),body:'{}'});if(!r.ok)return 0;const n=await r.json();return n||0}catch(e){return 0}}
 };
 
-/* -------------------- WIPE -------------------- */
+/* ---------------- dedupe ---------------- */
+function dedupeMedia(rows){
+  const seen=new Set();const out=[];
+  (rows||[]).forEach(r=>{
+    if(!r)return;
+    const key=((r.drive_id||'').trim().toLowerCase())||((r.src||'').trim().toLowerCase());
+    if(!key)return;
+    if(seen.has(key))return;
+    seen.add(key);out.push(r);
+  });
+  return out;
+}
+
+/* ---------------- wipe ---------------- */
 async function wipeOnePerson(pid){
   if(!pid)return;
   try{
@@ -1003,20 +1134,23 @@ async function wipeOnePerson(pid){
 }
 async function checkWipe(){
   try{
-    const all=await sb.people();if(!all||!all.length)return;
+    await sb.wipeExpired();
+    const all=await sb.people();
+    if(!all||!all.length)return;
     const now=Date.now();const toWipe=[];
     for(const p of all){
       if(!p.wipe_iso)continue;
-      const d=new Date(p.wipe_iso);if(isNaN(d.getTime()))continue;
+      const d=new Date(p.wipe_iso);
+      if(isNaN(d.getTime()))continue;
       if(now>=d.getTime())toWipe.push(p.id);
     }
-    if(!toWipe.length)return;
-    for(const id of toWipe)await wipeOnePerson(id);
-    S.PEOPLE=await sb.people()||[];if(window.buildHome)window.buildHome();
+    if(toWipe.length)for(const id of toWipe)await wipeOnePerson(id);
+    S.PEOPLE=await sb.people()||[];
+    if(window.buildHome)window.buildHome();
   }catch(e){}
 }
 
-/* -------------------- FIREWORKS / TOAST -------------------- */
+/* ---------------- fireworks / toast ---------------- */
 const FW_COLORS=['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6','#ff69b4','#ff8a3d','#2a5fd1','#9d4edd'];
 function getShared(k,def){const s=S.CURR.shared||{};return s[k]!==undefined?s[k]:def}
 function getText(k,def){const t=S.CURR.texts||{};return t[k]!==undefined?t[k]:def}
@@ -1047,7 +1181,7 @@ window.__showToast=function(msg,ok){
   t._tt=setTimeout(()=>t.classList.remove('show'),2400);
 };
 
-/* -------------------- HOME -------------------- */
+/* ---------------- HOME ---------------- */
 window.buildHome=function(){
   const g=$('homeGrid');if(!g)return;g.innerHTML='';
   const ep=S.PEOPLE.filter(p=>p.enabled!==false);
@@ -1102,7 +1236,7 @@ async function tryPersonPw(){
   openOpeningFull();
 }
 
-/* -------------------- LOCK -------------------- */
+/* ---------------- LOCK ---------------- */
 function renderLockFull(){
   txt($('lockTitleEl'),getText('lockTitle','The surprise is locked'));
   $('lockSubtitleEl').innerHTML=(getText('lockSubtitle','')||'')+(getText('lockDateText','')?('<br><strong>'+getText('lockDateText','')+'</strong>'):'');
@@ -1118,7 +1252,7 @@ function startCountdownFull(unlockDate){
   clearInterval(CD_T);
   function tick(){
     const diff=unlockDate-new Date();
-    if(diff<=0){clearInterval(CD_T);$('cdDays').textContent='00';$('cdHours').textContent='00';$('cdMins').textContent='00';$('cdSecs').textContent='00';return}
+    if(diff<=0){clearInterval(CD_T);['cdDays','cdHours','cdMins','cdSecs'].forEach(id=>$(id).textContent='00');return}
     const ts=Math.floor(diff/1000);
     $('cdDays').textContent=String(Math.floor(ts/86400)).padStart(2,'0');
     $('cdHours').textContent=String(Math.floor((ts%86400)/3600)).padStart(2,'0');
@@ -1135,7 +1269,7 @@ $('openEarlyBtn').onclick=()=>{
   clearInterval(CD_T);hide($('lockScreen'));openOpeningFull();
 };
 
-/* -------------------- OPENING / CAKE -------------------- */
+/* ---------------- OPENING / CAKE ---------------- */
 function openOpeningFull(){
   txt($('openLine1El'),getText('openLine1','A special day…'));
   txt($('openLine2El'),getText('openLine2','Happy Birthday!'));
@@ -1151,7 +1285,7 @@ $('cakeClickable').onclick=async()=>{
   showViewerFor(S.CURRENT_PERSON,true);
 };
 
-/* -------------------- VIEWER -------------------- */
+/* ---------------- VIEWER ---------------- */
 async function showViewerFor(person,startNow){
   if(!S.CURRENT_PERSON||S.CURRENT_PERSON.id!==person.id){
     await loadPersonIntoState(person);
@@ -1175,6 +1309,7 @@ function startCard(){
   updateCounters();
   startMusicFor('card');
 }
+window.__startCard__=startCard;
 
 function renderCardFull(){
   const t=S.CURR.texts||{},s=S.CURR.shared||{};
@@ -1192,8 +1327,6 @@ function renderCardFull(){
   txt($('voiceBtnTextEl'),t.voiceBtnText||'Play Voice Message');
   txt($('videoBtnTextEl'),t.videoBtnText||'Play Video Message');
   txt($('countersMainTitle'),t.countersTitle||'Our journey so far');
-
-  /* Counters — use shared overrides first (from admin/guest counter editor), fall back to text fields */
   COUNTERS.forEach(c=>{
     const label=s[c.labelKey]||t[c.labelKey]||'';
     txt($(c.mainLabel),label);
@@ -1203,7 +1336,6 @@ function renderCardFull(){
   });
   const anyVisible=COUNTERS.some(c=>String(s[c.showKey])!=='false');
   $('countersMain').classList.toggle('hidden-box',!anyVisible);
-
   $('storyBtn').style.display=(s.enableStory==='true'&&S.CURR.story.length)?'inline-flex':'none';
   $('mapBtn').style.display=(s.enableMap==='true'&&S.CURR.pins.length)?'inline-flex':'none';
   $('uploadBtn').style.display=(s.enableUpload==='true')?'inline-flex':'none';
@@ -1212,7 +1344,7 @@ function renderCardFull(){
   renderGifts();renderEvents();updateCounters();
 }
 
-/* -------------------- TYPEWRITER -------------------- */
+/* ---------------- TYPEWRITER ---------------- */
 let TW_TIMERS=[],TW_STARTED=false,TW_DONE=false,TW_ABORT=false;
 function clearTW(){while(TW_TIMERS.length)clearTimeout(TW_TIMERS.pop())}
 function graphemes(str){try{const seg=new Intl.Segmenter('en',{granularity:'grapheme'});return Array.from(seg.segment(str),x=>x.segment)}catch(e){return Array.from(str)}}
@@ -1249,7 +1381,7 @@ function startTypewriter(){
   next();
 }
 
-/* -------------------- COUNTERS (live) -------------------- */
+/* ---------------- COUNTERS ---------------- */
 function updateCounters(){
   const s=S.CURR.shared||{};
   const fmt=iso=>{
@@ -1259,9 +1391,7 @@ function updateCounters(){
     if(diff<0)return'Just started 💕';
     const sec=Math.floor(diff/1000);
     const days=Math.floor(sec/86400),hrs=Math.floor((sec%86400)/3600),mins=Math.floor((sec%3600)/60),ss=sec%60;
-    let o='';
-    o+=`<strong>${days}</strong> d <strong>${hrs}</strong> h <strong>${mins}</strong> m <strong>${ss}</strong> s`;
-    return o;
+    return `<strong>${days}</strong> d <strong>${hrs}</strong> h <strong>${mins}</strong> m <strong>${ss}</strong> s`;
   };
   $('counterTalkMain').innerHTML=fmt(s.ct1_datetime);
   $('counterYesMain').innerHTML=fmt(s.ct2_datetime);
@@ -1269,7 +1399,7 @@ function updateCounters(){
 }
 setInterval(()=>{if($('viewerScreen').classList.contains('active'))updateCounters()},1000);
 
-/* -------------------- GIFTS -------------------- */
+/* ---------------- GIFTS ---------------- */
 function renderGifts(){
   const w=$('giftRow'),sec=$('giftSection');
   const gifts=S.CURR.gifts||[];const s=S.CURR.shared||{};
@@ -1293,7 +1423,7 @@ function openGift(g){
   m.querySelector('#gmClose').onclick=()=>m.remove();
 }
 
-/* -------------------- EVENTS -------------------- */
+/* ---------------- EVENTS ---------------- */
 let EV_T=null;
 function renderEvents(){
   const sec=$('eventSection'),w=$('eventRow');
@@ -1311,11 +1441,10 @@ function renderEvents(){
     }).join('');
   }
   tick();
-  if(EV_T)clearInterval(EV_T);
-  EV_T=setInterval(tick,60000);
+  if(EV_T)clearInterval(EV_T);EV_T=setInterval(tick,60000);
 }
 
-/* -------------------- VOICE / VIDEO -------------------- */
+/* ---------------- VOICE / VIDEO ---------------- */
 $('voicePlayBtn').onclick=()=>{
   if(!S.CURR.voice||!S.CURR.voice.length)return;
   const a=$('audioPlayer');
@@ -1331,7 +1460,7 @@ $('videoMsgBtn').onclick=()=>{
   document.body.appendChild(m);m.querySelector('#vmClose').onclick=()=>m.remove();
 };
 
-/* -------------------- MUSIC -------------------- */
+/* ---------------- MUSIC ---------------- */
 let MUSIC_ON=false,CURR_CTX='card',CURR_LIST=[],CURR_IDX=-1;
 function getVol(ctx){const s=S.CURR.shared||{};if(ctx==='video')return parseFloat(s.vol_video)||1.0;if(ctx==='slideshow')return parseFloat(s.vol_slide)||0.85;return parseFloat(s.vol_card)||0.45}
 function buildPlaylistFor(ctx){
@@ -1369,7 +1498,7 @@ $('musicToggle').onclick=()=>{
   else{MUSIC_ON=true;a.play().catch(()=>{});$('musicToggle').textContent='🔊'}
 };
 
-/* -------------------- LANGUAGE -------------------- */
+/* ---------------- LANGUAGE ---------------- */
 $('langToggle').onclick=()=>{
   const order=['en','gu','hi'];const i=order.indexOf(S.CURR_LANG);
   S.CURR_LANG=order[(i+1)%order.length];
@@ -1383,7 +1512,7 @@ function applyLangFull(){
   if($('viewerScreen').classList.contains('active'))renderCardFull();
 }
 
-/* -------------------- ADMIN LOGIN -------------------- */
+/* ---------------- ADMIN LOGIN ---------------- */
 function openAdminLoginFull(){
   $('adminPwError').classList.remove('show');$('adminPwInput').value='';
   show($('adminLoginModal'));setTimeout(()=>$('adminPwInput').focus(),150);
@@ -1399,7 +1528,7 @@ async function tryAdminFull(){
   else{$('adminPwError').classList.add('show');$('adminPwInput').value=''}
 }
 
-/* -------------------- LOAD PERSON -------------------- */
+/* ---------------- LOAD PERSON ---------------- */
 async function loadPersonIntoState(p){
   S.CURRENT_PERSON=p;
   S.CURR={texts:{},textsByLang:{en:{},gu:{},hi:{}},shared:{},gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[]};
@@ -1435,7 +1564,6 @@ async function loadPersonIntoState(p){
   S.CURR.media=await sb.rows(T_MEDIA,p.id)||[];
 }
 window.__loadPersonIntoState__=loadPersonIntoState;
-window.__S__=S;
 
 $('viewerBackBtn').onclick=()=>{
   hide($('viewerScreen'));S.PREVIEW_MODE=false;S.CARD_STARTED=false;
@@ -1443,7 +1571,7 @@ $('viewerBackBtn').onclick=()=>{
   else $('homeScreen').classList.remove('hidden');
 };
 
-/* -------------------- SLIDESHOW -------------------- */
+/* ---------------- SLIDESHOW ---------------- */
 let SS=[],SS_IDX=0,SS_T=null;
 $('openBtn').onclick=async()=>{
   if(!S.CURRENT_PERSON){alert('No person selected.');return}
@@ -1484,7 +1612,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape')$('slideshowClose').click();
 });
 
-/* -------------------- STORY / MAP (unchanged behaviour) -------------------- */
+/* ---------------- STORY / MAP ---------------- */
 let STORY_IDX=0,STORY_T=null,ST_PAUSED=false;
 function getStoryDurationMs(){ const s=S.CURR.shared||{}; let sec=parseFloat(s.storySlideDuration); if(!isFinite(sec)||sec<=0){sec=parseFloat(s.storySlideDefaultSec);if(!isFinite(sec)||sec<=0)sec=4} return Math.round(sec*1000); }
 $('storyBtn').onclick=()=>{ if(!S.CURR.story||!S.CURR.story.length)return; STORY_IDX=0;ST_PAUSED=false;drawStory();show($('storyModal')); const s=S.CURR.shared||{}; if(s.storySlideshowEnabled==='true'){startStoryAuto()}else{$('storySlideUI').style.display='none'} };
@@ -1525,7 +1653,7 @@ function stopPinSlideshow(){ if(PIN_T){clearTimeout(PIN_T);PIN_T=null} const pb=
 function openPinByIndex(pinIdx){ PIN_FLAT=buildPinFlat(); const idx=PIN_FLAT.findIndex(x=>x.pinIdx===pinIdx); if(idx<0)return; PIN_PAUSED=false; show($('pinModal')); const ui=$('pinSlideUI');if(ui)ui.style.display='flex'; gotoPinFlat(idx); }
 document.addEventListener('click',(e)=>{ if(e.target&&e.target.id==='pinSlidePause'){ e.stopPropagation(); PIN_PAUSED=!PIN_PAUSED; e.target.textContent=PIN_PAUSED?'▶':'⏸'; if(!PIN_PAUSED)schedulePinNext(); } });
 
-/* -------------------- UPLOAD -------------------- */
+/* ---------------- UPLOAD ---------------- */
 $('uploadBtn').onclick=()=>{ $('uploadStatus').textContent='';$('uploadStatus').className='panel-status'; show($('uploadModal')); };
 $('uploadClose').onclick=()=>hide($('uploadModal'));
 $('uploadSubmit').onclick=async()=>{
@@ -1536,7 +1664,7 @@ $('uploadSubmit').onclick=async()=>{
   catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
 };
 
-/* -------------------- ADMIN PANEL -------------------- */
+/* ---------------- ADMIN PANEL ---------------- */
 const TEXT_FIELDS=[
   'pageTitle','mainHeadline','subhead1','subhead2','greeting','msg1','msg2','msg3','msg4','msg5',
   'signoff','namesBadge','fromLabel','countersTitle','ct1_label','ct2_label','ct3_label',
@@ -1609,15 +1737,19 @@ function buildAdminPersonDropdown(){
 function fillAdminFields(){
   const sh=S.CURR.shared||{};
   const set=(id,v)=>{const el=$(id);if(el)el.value=(v===undefined||v===null)?'':v};
-  /* counters */
-  set('f_ct1_datetime',sh.ct1_datetime);set('f_ct1_dispdate',sh.ct1_dispdate);
-  set('f_ct2_datetime',sh.ct2_datetime);set('f_ct2_dispdate',sh.ct2_dispdate);
-  set('f_ct3_datetime',sh.ct3_datetime);set('f_ct3_dispdate',sh.ct3_dispdate);
+  /* Timezone-aware datetime fields */
+  ['ct1','ct2','ct3','unlockDateISO','hardExpiryISO'].forEach(key=>{
+    const dtEl=$('f_'+key);const tzEl=$('f_'+key+'_tz');
+    if(!dtEl)return;
+    const tz=sh[key+'_tz']||DEFAULT_TZ;
+    if(tzEl){fillTzSelect(tzEl,tz);tzEl.value=tz;}
+    dtEl.value=sh[key]?utcToZonedLocal(sh[key],tz):'';
+  });
+  set('f_ct1_dispdate',sh.ct1_dispdate);set('f_ct2_dispdate',sh.ct2_dispdate);set('f_ct3_dispdate',sh.ct3_dispdate);
   set('f_ct1_label2',sh.ct1_label||'');set('f_ct2_label2',sh.ct2_label||'');set('f_ct3_label2',sh.ct3_label||'');
   const cb=(id,v)=>{const el=$(id);if(el)el.checked=(String(v)!=='false')};
   cb('f_ct1_show',sh.ct1_show);cb('f_ct2_show',sh.ct2_show);cb('f_ct3_show',sh.ct3_show);
-  set('f_unlockDateISO',sh.unlockDateISO);
-  set('f_hardExpiryISO',sh.hardExpiryISO);set('f_adminPassword',sh.adminPassword||FALLBACK_ADMIN_PW);
+  set('f_adminPassword',sh.adminPassword||FALLBACK_ADMIN_PW);
   const dl=$('f_defaultLang');if(dl)dl.value=sh.defaultLang||'en';
   const tgl=(id,v)=>{const el=$(id);if(el)el.checked=(v==='true')};
   tgl('f_enableFireworks',sh.enableFireworks);tgl('f_enableGiftBox',sh.enableGiftBox);
@@ -1638,16 +1770,23 @@ function fillAdminFields(){
 
 function readAdminFields(){
   const g=id=>{const el=$(id);return el?el.value:''};
+  const gTz=id=>{const el=$(id+'_tz');return el?el.value:DEFAULT_TZ};
   const sh=S.CURR.shared||{};
-  sh.ct1_datetime=g('f_ct1_datetime');sh.ct1_dispdate=g('f_ct1_dispdate');
-  sh.ct2_datetime=g('f_ct2_datetime');sh.ct2_dispdate=g('f_ct2_dispdate');
-  sh.ct3_datetime=g('f_ct3_datetime');sh.ct3_dispdate=g('f_ct3_dispdate');
+  /* Timezone-aware datetimes */
+  ['ct1_datetime','ct2_datetime','ct3_datetime','unlockDateISO','hardExpiryISO'].forEach(key=>{
+    const localVal=g('f_'+key);
+    const tz=gTz('f_'+key);
+    const idKey = key==='unlockDateISO'?'unlockDateISO':key==='hardExpiryISO'?'hardExpiryISO':key;
+    const baseKey = key==='ct1_datetime'?'ct1':key==='ct2_datetime'?'ct2':key==='ct3_datetime'?'ct3':key;
+    if(key.startsWith('ct')){ sh['ct'+key.charAt(2)+'_datetime']=localVal?zonedToUTC(localVal,tz):null; sh['ct'+key.charAt(2)+'_datetime_tz']=tz; }
+    else { sh[key]=localVal?zonedToUTC(localVal,tz):null; sh[key+'_tz']=tz; }
+  });
+  sh.ct1_dispdate=g('f_ct1_dispdate');sh.ct2_dispdate=g('f_ct2_dispdate');sh.ct3_dispdate=g('f_ct3_dispdate');
   sh.ct1_label=g('f_ct1_label2');sh.ct2_label=g('f_ct2_label2');sh.ct3_label=g('f_ct3_label2');
   sh.ct1_show=(($('f_ct1_show')||{}).checked)?'true':'false';
   sh.ct2_show=(($('f_ct2_show')||{}).checked)?'true':'false';
   sh.ct3_show=(($('f_ct3_show')||{}).checked)?'true':'false';
-  sh.unlockDateISO=g('f_unlockDateISO');
-  sh.hardExpiryISO=g('f_hardExpiryISO');sh.adminPassword=g('f_adminPassword')||FALLBACK_ADMIN_PW;
+  sh.adminPassword=g('f_adminPassword')||FALLBACK_ADMIN_PW;
   const tgl=id=>{const el=$(id);return el&&el.checked?'true':'false'};
   sh.enableFireworks=tgl('f_enableFireworks');sh.enableGiftBox=tgl('f_enableGiftBox');
   sh.enableVoiceMsg=tgl('f_enableVoiceMsg');sh.enableVideoMsg=tgl('f_enableVideoMsg');
@@ -1677,17 +1816,24 @@ function renderPeopleRepeater(){
   if(!S.PEOPLE.length){ w.innerHTML='<div style="padding:.8rem;text-align:center;color:var(--c-text-muted);font-style:italic;font-size:.85rem;">No people yet.</div>'; return; }
   S.PEOPLE.forEach((p,i)=>{
     const idPill='<span class="person-id-pill">#'+(p.id||'new')+'</span>';
-    const wipe=p.wipe_iso?'<span class="wipe-badge">🗓️ Wipe: '+p.wipe_iso.replace('T',' ').slice(0,16)+'</span>':'';
+    const wipeTz=p.wipe_iso_tz||DEFAULT_TZ;
+    const wipeLocal=p.wipe_iso?utcToZonedLocal(p.wipe_iso,wipeTz):'';
+    const wipeBadge=p.wipe_iso?('<span class="wipe-badge">🗓️ Wipe: '+wipeLocal.replace('T',' ')+' ('+wipeTz+')</span>'):'';
     const row=document.createElement('div');row.className='repeat-row';
+    const tzOptsHtml=TZ_OPTIONS.map(o=>`<option value="${o.v}"${o.v===wipeTz?' selected':''}>${o.l}</option>`).join('');
     row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button>
-      <div style="text-align:center;margin-bottom:.5rem;">${idPill} ${wipe}</div>
+      <div style="text-align:center;margin-bottom:.5rem;">${idPill} ${wipeBadge}</div>
       <div class="panel-field"><label class="panel-label">Display Name</label><input type="text" class="panel-input" data-pp="display_name" data-i="${i}" value="${(p.display_name||'').replace(/"/g,'&quot;')}"></div>
       <div class="panel-field"><label class="panel-label">Login ID / Slug</label><input type="text" class="panel-input" data-pp="slug" data-i="${i}" value="${(p.slug||'').replace(/"/g,'&quot;')}"></div>
       <div class="panel-field"><label class="panel-label">Birthday</label><input type="date" class="panel-input" data-pp="birthday" data-i="${i}" value="${(p.birthday||'').slice(0,10)}"></div>
       <div class="panel-field"><label class="panel-label">Password</label><input type="text" class="panel-input" data-pp="password" data-i="${i}" value="${(p.password||'').replace(/"/g,'&quot;')}"></div>
       <div class="panel-field" style="padding:.5rem;background:#fff0f0;border:1px dashed #8b0028;border-radius:.6rem;">
-        <label class="panel-label" style="color:#8b0028;">🗓️ Auto-wipe on</label>
-        <input type="datetime-local" class="panel-input" data-pp="wipe_iso" data-i="${i}" value="${(p.wipe_iso||'').slice(0,16)}">
+        <label class="panel-label" style="color:#8b0028;">🗓️ Auto-wipe this person on (date + time + timezone)</label>
+        <div class="tz-row">
+          <input type="datetime-local" class="panel-input" data-pp="wipe_local" data-i="${i}" value="${wipeLocal}">
+          <select class="panel-select tz-select" data-pp="wipe_tz" data-i="${i}">${tzOptsHtml}</select>
+        </div>
+        <div style="font-size:.7rem;color:#8b0028;font-style:italic;margin-top:.35rem;">Default timezone is <b>Asia/Dubai (UTC+4)</b>. Wipes that person's data on the chosen local time and removes the button from the home screen.</div>
       </div>
       <div class="panel-field" style="text-align:center;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;">
         <button type="button" class="repeat-add pw-gen" data-i="${i}" style="background:#2a5fd1;">🎲 Generate Password</button>
@@ -1696,15 +1842,33 @@ function renderPeopleRepeater(){
       </div>`;
     w.appendChild(row);
   });
-  w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{S.PEOPLE[+el.dataset.i][el.dataset.pp]=el.value}});
-  w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{if(confirm('Delete person?')){S.PEOPLE.splice(+b.dataset.i,1);renderPeopleRepeater();buildAdminPersonDropdown();if(window.buildHome)window.buildHome()}}});
+  w.querySelectorAll('input,select').forEach(el=>{
+    el.oninput=el.onchange=()=>{
+      const i=+el.dataset.i;
+      if(el.dataset.pp==='wipe_local'){
+        const tzEl=w.querySelector('.tz-select[data-pp="wipe_tz"][data-i="'+i+'"]');
+        const tz=tzEl?tzEl.value:DEFAULT_TZ;
+        S.PEOPLE[i].wipe_local=el.value;
+        S.PEOPLE[i].wipe_iso=el.value?zonedToUTC(el.value,tz):null;
+        S.PEOPLE[i].wipe_iso_tz=tz;
+      } else if(el.dataset.pp==='wipe_tz'){
+        const dtEl=w.querySelector('input[data-pp="wipe_local"][data-i="'+i+'"]');
+        const tz=el.value;
+        S.PEOPLE[i].wipe_iso_tz=tz;
+        if(dtEl&&dtEl.value)S.PEOPLE[i].wipe_iso=zonedToUTC(dtEl.value,tz);
+      } else if(el.dataset.pp){
+        S.PEOPLE[i][el.dataset.pp]=el.value;
+      }
+    };
+  });
+  w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{if(confirm('Delete person? Click Save to apply.')){S.PEOPLE.splice(+b.dataset.i,1);renderPeopleRepeater();buildAdminPersonDropdown()}}});
   w.querySelectorAll('.pw-gen').forEach(b=>{ b.onclick=()=>{ const p=S.PEOPLE[+b.dataset.i]; const nm=(p.display_name||'Friend').replace(/[^A-Za-z]/g,'').slice(0,10)||'Friend'; let dd='0000'; if(p.birthday){const d=new Date(p.birthday);if(!isNaN(d.getTime()))dd=String(d.getDate()).padStart(2,'0')+String(d.getMonth()+1).padStart(2,'0')} const words=['Sunshine','Rainbow','Blossom','Starlight','Rose','Lotus','Velvet','Amber','Crystal','Dream']; const wd=words[Math.floor(Math.random()*words.length)]; p.password=nm.charAt(0).toUpperCase()+nm.slice(1).toLowerCase()+'-'+dd+'-'+wd; renderPeopleRepeater(); }; });
   w.querySelectorAll('.share-btn').forEach(b=>{ b.onclick=()=>openShareModal(S.PEOPLE[+b.dataset.i],null); });
   w.querySelectorAll('[data-view-i]').forEach(b=>{ b.onclick=()=>openPersonDetails(S.PEOPLE[+b.dataset.viewI]); });
 }
-$('addPersonRow').onclick=()=>{S.PEOPLE.push({id:null,slug:'',display_name:'',birthday:'',password:'',wipe_iso:'',enabled:true,sort_order:S.PEOPLE.length});renderPeopleRepeater();buildAdminPersonDropdown()};
+$('addPersonRow').onclick=()=>{S.PEOPLE.push({id:null,slug:'',display_name:'',birthday:'',password:'',wipe_iso:null,wipe_iso_tz:DEFAULT_TZ,enabled:true,sort_order:S.PEOPLE.length});renderPeopleRepeater();buildAdminPersonDropdown()};
 
-/* -------------------- SHARE MODAL -------------------- */
+/* ---------------- SHARE MODAL ---------------- */
 let SHARE_CTX={person:null,guest:null};
 function openShareModal(person,guest){
   if(!person){__showToast('❌ No person to share',false);return}
@@ -1752,12 +1916,13 @@ function buildShareMessage(requesterName,person,link){
   return ['Hi '+name+' 💕','','Your surprise for *'+(person.display_name||person.slug)+'* is ready! 🎉','','🔑 Login ID: '+(person.slug||''),'🔒 Password: '+(person.password||''),'🌐 Open here: '+link,'','Steps:','1) Open the link above.','2) Tap the button with the person\'s name.','3) Enter the password.','4) Tap the 🎂 cake to reveal the surprise.','','Enjoy! 💖'].join('\n');
 }
 
-/* -------------------- VIEW DETAILS -------------------- */
+/* ---------------- VIEW DETAILS ---------------- */
 async function openPersonDetails(p){
   if(!p){alert('No person.');return}
   const titleEl=$('personDetailsTitle'),subEl=$('personDetailsSub'),bodyEl=$('personDetailsBody');
   titleEl.textContent='👁️ #'+(p.id||'new')+' — '+(p.display_name||p.slug||'Person');
-  subEl.textContent='Login ID: '+(p.slug||'—')+(p.birthday?' · Birthday: '+p.birthday:'')+' · Password: '+(p.password||'(not set)')+(p.wipe_iso?' · 🗓️ Wipes on: '+p.wipe_iso.replace('T',' ').slice(0,16):'');
+  const wipeDisplay=p.wipe_iso?(utcToZonedLocal(p.wipe_iso,p.wipe_iso_tz||DEFAULT_TZ).replace('T',' ')+' ('+(p.wipe_iso_tz||DEFAULT_TZ)+')'):'';
+  subEl.textContent='Login ID: '+(p.slug||'—')+(p.birthday?' · Birthday: '+p.birthday:'')+' · Password: '+(p.password||'(not set)')+(wipeDisplay?' · 🗓️ Wipes on: '+wipeDisplay:'');
   bodyEl.innerHTML='<div style="padding:1rem;text-align:center;color:var(--c-text-muted);font-style:italic;">Loading…</div>';
   show($('personDetailsModal'));
   let set={},gifts=[],story=[],events=[],voice=[],video=[],pins=[],media=[];
@@ -1793,7 +1958,9 @@ async function openPersonDetails(p){
   const link=PUBLIC_CARD_LINK+(p.slug?('?person='+encodeURIComponent(p.slug)):'');
   h+='<div class="detail-block"><div class="detail-block-title">👤 Person</div>'
     + row('ID',p.id) + row('Display Name',p.display_name) + row('Login ID / Slug',p.slug)
-    + row('Birthday',p.birthday) + row('Password',p.password||'(not set)') + row('🗓️ Wipe on',p.wipe_iso) + row('Card link',link)
+    + row('Birthday',p.birthday) + row('Password',p.password||'(not set)')
+    + row('🗓️ Wipe on',p.wipe_iso?(new Date(p.wipe_iso).toISOString()+' · '+utcToZonedLocal(p.wipe_iso,p.wipe_iso_tz||DEFAULT_TZ)+' '+(p.wipe_iso_tz||DEFAULT_TZ)):'')
+    + row('Card link',link)
     + '</div>';
   h+='<div class="detail-block"><div class="detail-block-title">🎨 Theme & Features</div>'
     + row('Theme',shared.theme||'(default: romantic)') + row('Default language',shared.defaultLang||'(default: en)') + row('Music mode',shared.music_mode)
@@ -1801,20 +1968,22 @@ async function openPersonDetails(p){
   ['enableFireworks','enableGiftBox','enableVoiceMsg','enableVideoMsg','enableEventCount','enableStory','enableMap','enableUpload','showLockScreen','pinSlideshowEnabled','storySlideshowEnabled'].forEach(k=>{h+=row(k,shared[k]==='true'?'✅ On':'❌ Off')});
   for(let i=1;i<=5;i++){ if(shared['song'+i+'_url']){ h+=row('Song '+i+' ('+(shared['song'+i+'_where']||'both')+')',shared['song'+i+'_url']+' '+(shared['song'+i+'_on']==='true'?'✅':'❌')); } }
   h+='</div>';
-
-  /* Counters block */
   h+='<div class="detail-block"><div class="detail-block-title">💕 Counters</div>';
   COUNTERS.forEach((c,idx)=>{
     const on=String(shared[c.showKey])!=='false';
+    const tz=shared[c.tzKey]||DEFAULT_TZ;
+    const local=shared[c.dtKey]?utcToZonedLocal(shared[c.dtKey],tz):'';
     h+=row('Counter '+(idx+1)+' show',on?'✅ On':'❌ Off');
     h+=row('Counter '+(idx+1)+' label',shared[c.labelKey]);
-    h+=row('Counter '+(idx+1)+' date',shared[c.dtKey]);
+    h+=row('Counter '+(idx+1)+' date (UTC)',shared[c.dtKey]);
+    h+=row('Counter '+(idx+1)+' date ('+tz+')',local);
     h+=row('Counter '+(idx+1)+' display',shared[c.dispKey]);
   });
   h+='</div>';
-
   h+='<div class="detail-block"><div class="detail-block-title">🔓 Unlock</div>'
-    + row('Unlock date',shared.unlockDateISO)
+    + row('Unlock date (UTC)',shared.unlockDateISO)
+    + row('Unlock timezone',shared.unlockDateISO_tz)
+    + row('Unlock local',shared.unlockDateISO?utcToZonedLocal(shared.unlockDateISO,shared.unlockDateISO_tz||DEFAULT_TZ):'')
     + '</div>';
   ['en','gu','hi'].forEach(lang=>{
     const tl=texts[lang]||{};let any=false;TEXT_FIELDS.forEach(k=>{if(tl[k])any=true});
@@ -1858,13 +2027,37 @@ async function openPersonDetails(p){
 $('personDetailsClose').onclick=()=>hide($('personDetailsModal'));
 $('personDetailsModal').addEventListener('click',(e)=>{if(e.target===$('personDetailsModal'))hide($('personDetailsModal'))});
 
-/* -------------------- ADMIN REPEATERS -------------------- */
+/* ---------------- ADMIN REPEATERS ---------------- */
 function renderAdminGifts(){ const w=$('giftsRepeater');if(!w)return;w.innerHTML=''; (S.CURR.gifts||[]).forEach((g,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Emoji</label><input type="text" class="panel-input" data-gg="emoji" data-i="${i}" value="${(g.emoji||'🎁')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gg="title" data-i="${i}" value="${(g.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Message</label><textarea class="panel-textarea" data-gg="message" data-i="${i}">${(g.message||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID</label><input type="text" class="panel-input" data-gg="photo_drive_id" data-i="${i}" value="${(g.photo_drive_id||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.gifts[+el.dataset.i][el.dataset.gg]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.gifts.splice(+b.dataset.i,1);renderAdminGifts()}}); }
 $('addGiftRow').onclick=()=>{S.CURR.gifts=S.CURR.gifts||[];S.CURR.gifts.push({emoji:'🎁',title:'',message:'',photo_drive_id:''});renderAdminGifts()};
 function renderAdminStory(){ const w=$('storyRepeater');if(!w)return;w.innerHTML=''; (S.CURR.story||[]).forEach((s,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-st="title" data-i="${i}" value="${(s.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Body</label><textarea class="panel-textarea" data-st="body" data-i="${i}">${(s.body||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID</label><input type="text" class="panel-input" data-st="photo_drive_id" data-i="${i}" value="${(s.photo_drive_id||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.story[+el.dataset.i][el.dataset.st]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.story.splice(+b.dataset.i,1);renderAdminStory()}}); }
 $('addStoryRow').onclick=()=>{S.CURR.story=S.CURR.story||[];S.CURR.story.push({title:'',body:'',photo_drive_id:''});renderAdminStory()};
-function renderAdminEvents(){ const w=$('eventsRepeater');if(!w)return;w.innerHTML=''; (S.CURR.events||[]).forEach((ev,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Icon</label><input type="text" class="panel-input" data-ev="icon" data-i="${i}" value="${(ev.icon||'📅')}"></div><div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" data-ev="label" data-i="${i}" value="${(ev.label||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Target</label><input type="text" class="panel-input" data-ev="target_iso" data-i="${i}" value="${(ev.target_iso||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{S.CURR.events[+el.dataset.i][el.dataset.ev]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.events.splice(+b.dataset.i,1);renderAdminEvents()}}); }
-$('addEventRow').onclick=()=>{S.CURR.events=S.CURR.events||[];S.CURR.events.push({icon:'📅',label:'',target_iso:''});renderAdminEvents()};
+function renderAdminEvents(){ const w=$('eventsRepeater');if(!w)return;w.innerHTML=''; (S.CURR.events||[]).forEach((ev,i)=>{ const row=document.createElement('div');row.className='repeat-row';
+  const tz=ev.target_iso_tz||DEFAULT_TZ;
+  const local=ev.target_iso?utcToZonedLocal(ev.target_iso,tz):'';
+  const tzOptsHtml=TZ_OPTIONS.map(o=>`<option value="${o.v}"${o.v===tz?' selected':''}>${o.l}</option>`).join('');
+  row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Icon</label><input type="text" class="panel-input" data-ev="icon" data-i="${i}" value="${(ev.icon||'📅')}"></div><div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" data-ev="label" data-i="${i}" value="${(ev.label||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Target date &amp; time + timezone</label><div class="tz-row"><input type="datetime-local" class="panel-input" data-ev="target_local" data-i="${i}" value="${local}"><select class="panel-select tz-select" data-ev="target_tz" data-i="${i}">${tzOptsHtml}</select></div></div>`;
+  w.appendChild(row); });
+  w.querySelectorAll('input,select').forEach(el=>{
+    el.oninput=el.onchange=()=>{
+      const i=+el.dataset.i;
+      if(el.dataset.ev==='target_local'){
+        const tzEl=w.querySelector('.tz-select[data-ev="target_tz"][data-i="'+i+'"]');
+        const tz=tzEl?tzEl.value:DEFAULT_TZ;
+        S.CURR.events[i].target_iso=el.value?zonedToUTC(el.value,tz):'';
+        S.CURR.events[i].target_iso_tz=tz;
+      } else if(el.dataset.ev==='target_tz'){
+        const dtEl=w.querySelector('input[data-ev="target_local"][data-i="'+i+'"]');
+        const tz=el.value;
+        S.CURR.events[i].target_iso_tz=tz;
+        if(dtEl&&dtEl.value)S.CURR.events[i].target_iso=zonedToUTC(dtEl.value,tz);
+      } else if(el.dataset.ev){
+        S.CURR.events[i][el.dataset.ev]=el.value;
+      }
+    };
+  });
+  w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.events.splice(+b.dataset.i,1);renderAdminEvents()}}); }
+$('addEventRow').onclick=()=>{S.CURR.events=S.CURR.events||[];S.CURR.events.push({icon:'📅',label:'',target_iso:'',target_iso_tz:DEFAULT_TZ});renderAdminEvents()};
 function renderAdminVoice(){ const w=$('voiceRepeater');if(!w)return;w.innerHTML=''; (S.CURR.voice||[]).forEach((v,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-vc="title" data-i="${i}" value="${(v.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Audio URL</label><input type="text" class="panel-input" data-vc="audio_url" data-i="${i}" value="${(v.audio_url||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{S.CURR.voice[+el.dataset.i][el.dataset.vc]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.voice.splice(+b.dataset.i,1);renderAdminVoice()}}); }
 $('addVoiceRow').onclick=()=>{S.CURR.voice=S.CURR.voice||[];S.CURR.voice.push({title:'',audio_url:''});renderAdminVoice()};
 function renderAdminVideo(){ const w=$('videoRepeater');if(!w)return;w.innerHTML=''; (S.CURR.video||[]).forEach((v,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-vd="title" data-i="${i}" value="${(v.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Video URL</label><input type="text" class="panel-input" data-vd="video_url" data-i="${i}" value="${(v.video_url||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{S.CURR.video[+el.dataset.i][el.dataset.vd]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.video.splice(+b.dataset.i,1);renderAdminVideo()}}); }
@@ -1874,10 +2067,13 @@ $('addPinRow').onclick=()=>{S.CURR.pins=S.CURR.pins||[];S.CURR.pins.push({label:
 function renderAdminMedia(){ const w=$('mediaRepeater');if(!w)return;w.innerHTML=''; (S.CURR.media||[]).forEach((m,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-md="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div><div class="panel-field"><label class="panel-label">Drive ID (photo)</label><input type="text" class="panel-input" data-md="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Direct URL (video/photo)</label><input type="text" class="panel-input" data-md="src" data-i="${i}" value="${(m.src||'')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-md="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{S.CURR.media[+el.dataset.i][el.dataset.md]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.media.splice(+b.dataset.i,1);renderAdminMedia()}}); }
 $('addMediaRow').onclick=()=>{S.CURR.media=S.CURR.media||[];S.CURR.media.push({type:'photo',drive_id:'',src:'',title:''});renderAdminMedia()};
 
-/* -------------------- SAVE -------------------- */
+/* ---------------- SAVE ---------------- */
 async function saveAdminAll(){
   saveAdminTextsFromFields(S.ADMIN_EDIT_LANG);
   readAdminFields();
+  const dbPeople=await sb.people()||[];
+  const dbIds=new Set(dbPeople.map(p=>p.id));
+  const keepIds=new Set();
   const usedSlugs=new Set();
   for(let i=0;i<S.PEOPLE.length;i++){
     const p=S.PEOPLE[i];
@@ -1886,9 +2082,17 @@ async function saveAdminAll(){
     while(usedSlugs.has(slug))slug=slug+'-'+Math.floor(Math.random()*1000);
     usedSlugs.add(slug);p.slug=slug;
     const row={slug,display_name:p.display_name||('Person '+(i+1)),password:p.password||'',birthday:p.birthday||'',wipe_iso:p.wipe_iso||null,enabled:true,sort_order:i};
-    if(!p.id){ try{ const r=await sb.insPerson(row); if(r&&r[0]&&r[0].id)p.id=r[0].id; }catch(e){ delete row.wipe_iso;delete row.birthday; const r=await sb.insPerson(row); if(r&&r[0]&&r[0].id)p.id=r[0].id; } }
-    else{ try{await sb.updPerson(p.id,row)}catch(e){ delete row.wipe_iso;delete row.birthday; await sb.updPerson(p.id,row); } }
+    if(!p.id){
+      let r;try{ r=await sb.insPerson(row);}catch(e){ delete row.wipe_iso;delete row.birthday; r=await sb.insPerson(row); }
+      if(r&&r[0]&&r[0].id)p.id=r[0].id;
+    }else{
+      try{await sb.updPerson(p.id,row)}catch(e){ delete row.wipe_iso;delete row.birthday; await sb.updPerson(p.id,row); }
+    }
+    if(p.id)keepIds.add(p.id);
   }
+  const toDelete=[];dbIds.forEach(id=>{if(!keepIds.has(id))toDelete.push(id)});
+  for(const id of toDelete)await wipeOnePerson(id);
+
   const tasks=[];
   if(S.CURRENT_PERSON&&S.CURRENT_PERSON.id){
     const pid=S.CURRENT_PERSON.id;
@@ -1903,7 +2107,8 @@ async function saveAdminAll(){
     tasks.push(wi(T_VOICE,(S.CURR.voice||[]).filter(v=>v.audio_url).map(v=>({person_id:pid,title:v.title||'',audio_url:v.audio_url||''}))));
     tasks.push(wi(T_VIDEO,(S.CURR.video||[]).filter(v=>v.video_url).map(v=>({person_id:pid,title:v.title||'',video_url:v.video_url||''}))));
     tasks.push(wi(T_PINS,(S.CURR.pins||[]).filter(p=>p.lat&&p.lng).map(p=>({person_id:pid,label:p.label||'',lat:p.lat,lng:p.lng,photo_drive_id:p.photo_drive_id||'',story:p.story||''}))));
-    tasks.push(wi(T_MEDIA,(S.CURR.media||[]).filter(m=>m.drive_id||m.src).map(m=>({person_id:pid,type:m.type||'photo',drive_id:m.drive_id||'',src:m.src||'',title:m.title||'',sort_order:0}))));
+    const cleanMedia=dedupeMedia((S.CURR.media||[]).filter(m=>m.drive_id||m.src));
+    tasks.push(wi(T_MEDIA,cleanMedia.map(m=>({person_id:pid,type:m.type||'photo',drive_id:m.drive_id||'',src:m.src||'',title:m.title||'',sort_order:0}))));
   }
   await Promise.all(tasks);
   S.PEOPLE=await sb.people()||[];
@@ -1960,7 +2165,68 @@ document.querySelectorAll('#adminPanel .panel-tab').forEach(tab=>{
   };
 });
 
-/* -------------------- GUEST APPROVALS -------------------- */
+/* ---------------- ADMIN EXCEL EXPORT/IMPORT ---------------- */
+$('adminExportBtn').onclick=async()=>{
+  const st=$('adminDataStatus');st.textContent='⏳ Building…';st.className='panel-status';
+  try{
+    if(!window.XLSX)throw new Error('XLSX library not loaded.');
+    const wb=XLSX.utils.book_new();
+    const allPeople=await sb.people()||[];
+    const peopleRows=allPeople.map(p=>({id:p.id||'',slug:p.slug||'',display_name:p.display_name||'',birthday:p.birthday||'',password:p.password||'',wipe_iso:p.wipe_iso||'',enabled:p.enabled!==false?'true':'false',sort_order:p.sort_order||0}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(peopleRows.length?peopleRows:[{slug:'',display_name:''}]),'people');
+    const textRows=[],sharedRows=[];
+    for(const p of allPeople){
+      const s=await sb.getSet(p.id);
+      Object.keys(s).forEach(k=>{
+        if(k.startsWith('texts__'))textRows.push({person_slug:p.slug||'',key:k.substring(7),value:s[k]});
+        else if(k.startsWith('shared__'))sharedRows.push({person_slug:p.slug||'',key:k.substring(8),value:s[k]});
+      });
+    }
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(textRows.length?textRows:[{person_slug:'',key:'',value:''}]),'texts');
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(sharedRows.length?sharedRows:[{person_slug:'',key:'',value:''}]),'shared');
+    const giftRows=[];for(const p of allPeople)(await sb.rows(T_GIFTS,p.id)||[]).forEach(g=>giftRows.push({person_slug:p.slug||'',emoji:g.emoji||'',title:g.title||'',message:g.message||'',photo_drive_id:g.photo_drive_id||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(giftRows.length?giftRows:[{person_slug:'',emoji:'',title:'',message:'',photo_drive_id:''}]),'gifts');
+    const evRows=[];for(const p of allPeople)(await sb.rows(T_EVENTS,p.id)||[]).forEach(e=>evRows.push({person_slug:p.slug||'',icon:e.icon||'',label:e.label||'',target_iso:e.target_iso||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(evRows.length?evRows:[{person_slug:'',icon:'',label:'',target_iso:''}]),'events');
+    const vcRows=[];for(const p of allPeople)(await sb.rows(T_VOICE,p.id)||[]).forEach(v=>vcRows.push({person_slug:p.slug||'',title:v.title||'',audio_url:v.audio_url||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(vcRows.length?vcRows:[{person_slug:'',title:'',audio_url:''}]),'voice');
+    const vdRows=[];for(const p of allPeople)(await sb.rows(T_VIDEO,p.id)||[]).forEach(v=>vdRows.push({person_slug:p.slug||'',title:v.title||'',video_url:v.video_url||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(vdRows.length?vdRows:[{person_slug:'',title:'',video_url:''}]),'video');
+    const pinRows=[];for(const p of allPeople)(await sb.rows(T_PINS,p.id)||[]).forEach(pp=>pinRows.push({person_slug:p.slug||'',label:pp.label||'',lat:pp.lat||'',lng:pp.lng||'',photo_drive_id:pp.photo_drive_id||'',story:pp.story||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(pinRows.length?pinRows:[{person_slug:'',label:'',lat:'',lng:'',photo_drive_id:'',story:''}]),'pins');
+    const stRows=[];for(const p of allPeople)(await sb.rows(T_STORY,p.id)||[]).forEach(s=>stRows.push({person_slug:p.slug||'',title:s.title||'',body:s.body||'',photo_drive_id:s.photo_drive_id||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(stRows.length?stRows:[{person_slug:'',title:'',body:'',photo_drive_id:''}]),'story');
+    const mediaRows=(await sb.rows(T_MEDIA)||[]).map(m=>({person_slug:(allPeople.find(p=>p.id===m.person_id)||{}).slug||'',type:m.type||'',src:m.src||'',drive_id:m.drive_id||'',title:m.title||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(mediaRows.length?mediaRows:[{person_slug:'',type:'',src:'',drive_id:'',title:''}]),'media');
+    XLSX.writeFile(wb,'surprise-backup-'+new Date().toISOString().slice(0,10)+'.xlsx');
+    st.textContent='✅ Exported.';st.className='panel-status ok';
+  }catch(e){console.error(e);st.textContent='❌ '+(e.message||'Export failed');st.className='panel-status err'}
+};
+$('adminImportBtn').onclick=()=>$('adminExcelInput').click();
+$('adminExcelInput').onchange=async(e)=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  const st=$('adminDataStatus');st.textContent='⏳ Reading…';st.className='panel-status';
+  try{
+    if(!window.XLSX)throw new Error('XLSX library not loaded');
+    const buf=await f.arrayBuffer();
+    const wb=XLSX.read(buf,{type:'array'});
+    if(wb.Sheets['people']){
+      const rows=XLSX.utils.sheet_to_json(wb.Sheets['people'],{defval:''});
+      S.PEOPLE=rows.filter(r=>r.slug||r.display_name).map((r,i)=>({
+        id:null,slug:String(r.slug||'').trim()||('person-'+Date.now()+'-'+i),
+        display_name:String(r.display_name||'').trim()||('Person '+(i+1)),
+        birthday:String(r.birthday||''),password:String(r.password||''),
+        wipe_iso:String(r.wipe_iso||''),wipe_iso_tz:DEFAULT_TZ,
+        enabled:String(r.enabled).toLowerCase()!=='false',sort_order:i
+      }));
+      renderPeopleRepeater();buildAdminPersonDropdown();
+    }
+    st.textContent='✅ Imported. Click Save to push to cloud.';st.className='panel-status ok';
+  }catch(err){console.error(err);st.textContent='❌ '+(err.message||'Import failed');st.className='panel-status err'}
+  finally{e.target.value=''}
+};
+
+/* ---------------- GUEST APPROVALS ---------------- */
 async function loadGuestApprovals(){
   const list=$('pendingGuestsList');if(!list)return;
   list.textContent='Loading…';
@@ -1976,7 +2242,9 @@ async function loadGuestApprovals(){
     const wa=(r.guest_whatsapp||gi.whatsapp||'').replace(/[^0-9+]/g,'');
     const waLink=wa?('https://wa.me/'+wa.replace(/[^0-9]/g,'')):'';
     const en=pl.texts_en||pl.texts||{};
+    const structMedia=(pl.media||[]).filter(m=>m&&(m.drive_id||m.src));
     const mediaIds=String(pl.mediaIds||'').split(',').map(x=>x.trim()).filter(Boolean);
+    const dedupCount=dedupeMedia([...structMedia,...mediaIds.map(id=>({drive_id:id}))]).length;
     const el=document.createElement('div');el.className='repeat-row';
     el.innerHTML=`<div style="font-size:.85rem;line-height:1.6;">
       <strong>🆕 ${esc(prop.display_name||r.target_person_slug)}</strong>
@@ -1988,7 +2256,7 @@ async function loadGuestApprovals(){
       ${gi.occasion?'🎉 '+esc(gi.occasion)+'<br>':''}
       ${gi.note?'💬 '+esc(gi.note)+'<br>':''}
       <hr style="border:none;border-top:1px dashed rgba(196,30,58,.25);margin:.4rem 0;">
-      🎨 Theme: ${esc(pl.theme||'—')} · 🎁 Gifts: ${(pl.gifts||[]).length} · 📖 Story: ${(pl.story||[]).length} · 📅 Events: ${(pl.events||[]).length} · 📸 Media: ${mediaIds.length} · 🔊 Voice: ${(pl.voice||[]).length} · 🎬 Video: ${(pl.video||[]).length} · 🗺️ Pins: ${(pl.pins||[]).length}
+      🎨 Theme: ${esc(pl.theme||'—')} · 🎁 Gifts: ${(pl.gifts||[]).length} · 📖 Story: ${(pl.story||[]).length} · 📅 Events: ${(pl.events||[]).length} · 📸 Media (unique): ${dedupCount} · 🔊 Voice: ${(pl.voice||[]).length} · 🎬 Video: ${(pl.video||[]).length} · 🗺️ Pins: ${(pl.pins||[]).length}
     </div>
     <details style="margin:.5rem 0;"><summary style="cursor:pointer;font-weight:800;color:var(--c-primary);">📂 Show all imported data</summary>
       <div class="detail-block"><div class="detail-block-title">💌 Texts — EN (first 6)</div>${Object.keys(en).slice(0,6).map(k=>'<div class="detail-row"><strong>'+esc(k)+':</strong> '+esc(en[k])+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
@@ -1996,10 +2264,11 @@ async function loadGuestApprovals(){
         ${COUNTERS.map((c,idx)=>{
           const sh=pl.shared||{};
           const on=String(sh[c.showKey])!=='false';
-          return '<div class="detail-row"><strong>Counter '+(idx+1)+':</strong> '+(on?'✅ On':'❌ Off')+' · label: '+esc(sh[c.labelKey]||'')+' · date: '+esc(sh[c.dtKey]||'')+'</div>';
+          const tz=sh[c.tzKey]||DEFAULT_TZ;
+          return '<div class="detail-row"><strong>Counter '+(idx+1)+':</strong> '+(on?'✅ On':'❌ Off')+' · label: '+esc(sh[c.labelKey]||'')+' · local: '+esc(sh[c.dtKey]||'')+' ('+esc(tz)+')</div>';
         }).join('')}
       </div>
-      <div class="detail-block"><div class="detail-block-title">📸 Media IDs (${mediaIds.length})</div>${mediaIds.slice(0,20).map(id=>'<div class="detail-row">'+esc(id)+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
+      <div class="detail-block"><div class="detail-block-title">📸 Media (unique: ${dedupCount})</div>${dedupeMedia([...structMedia,...mediaIds.map(id=>({drive_id:id}))]).slice(0,20).map(m=>'<div class="detail-row">'+esc(m.drive_id||m.src||'')+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
     </details>
     <div style="margin-top:.5rem;display:flex;gap:.4rem;flex-wrap:wrap;">
       <button class="repeat-add" data-act="approve" data-id="${r.id}" style="background:#0a7a3d;">✓ Approve & Create Person</button>
@@ -2051,12 +2320,11 @@ async function loadGuestApprovals(){
           settings['shared__enableVoiceMsg']='true';
           settings['shared__enableVideoMsg']='true';
           settings['shared__enableMap']='true';
-
-          /* Copy counters from guest shared payload */
           const gs=pl.shared||{};
           COUNTERS.forEach(c=>{
             if(gs[c.labelKey]!==undefined)settings['shared__'+c.labelKey]=gs[c.labelKey];
             if(gs[c.dtKey]!==undefined)settings['shared__'+c.dtKey]=gs[c.dtKey];
+            if(gs[c.tzKey]!==undefined)settings['shared__'+c.tzKey]=gs[c.tzKey];
             if(gs[c.dispKey]!==undefined)settings['shared__'+c.dispKey]=gs[c.dispKey];
             if(gs[c.showKey]!==undefined)settings['shared__'+c.showKey]=gs[c.showKey];
           });
@@ -2075,11 +2343,10 @@ async function loadGuestApprovals(){
           if(vdRows.length)tasks.push(sb.insBatch(T_VIDEO,vdRows));
           const pinRows=(pl.pins||[]).filter(p=>p.lat&&p.lng).map(p=>({person_id:newPersonId,label:p.label||'',lat:p.lat,lng:p.lng,photo_drive_id:p.photo_drive_id||'',story:p.story||''}));
           if(pinRows.length)tasks.push(sb.insBatch(T_PINS,pinRows));
-          const mediaIds=String(pl.mediaIds||'').split(',').map(x=>x.trim()).filter(Boolean);
           const structMedia=(pl.media||[]).filter(m=>m&&(m.drive_id||m.src));
-          const mediaRows=[];
-          mediaIds.forEach(id=>mediaRows.push({person_id:newPersonId,type:'photo',drive_id:id,src:'',title:'',sort_order:0}));
-          structMedia.forEach(m=>mediaRows.push({person_id:newPersonId,type:m.type||'photo',drive_id:m.drive_id||'',src:m.src||'',title:m.title||'',sort_order:0}));
+          const flatMedia=String(pl.mediaIds||'').split(',').map(x=>x.trim()).filter(Boolean).map(id=>({type:'photo',drive_id:id,src:'',title:''}));
+          const uniqueMedia=dedupeMedia([...structMedia,...flatMedia]);
+          const mediaRows=uniqueMedia.map(m=>({person_id:newPersonId,type:m.type||'photo',drive_id:m.drive_id||'',src:m.src||'',title:m.title||'',sort_order:0}));
           if(mediaRows.length)tasks.push(sb.insBatch(T_MEDIA,mediaRows));
           await Promise.all(tasks);
 
@@ -2155,7 +2422,7 @@ async function loadGuestHistory(){
 }
 $('refreshGuestHistory').onclick=loadGuestHistory;
 
-/* -------------------- GUEST PANEL -------------------- */
+/* ---------------- GUEST PANEL ---------------- */
 const G={gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[],theme:'',counters:{}};
 
 document.querySelectorAll('#guestLangTabs button').forEach(btn=>{
@@ -2175,19 +2442,58 @@ function renderGuestCounters(){
     const num=idx+1;
     const showEl=$('g_ct'+num+'_show');if(showEl)showEl.checked=(String(G.counters[c.showKey])!=='false');
   });
+  /* dt */
   document.querySelectorAll('.g-ctr').forEach(el=>{
     const key=el.dataset.gc;if(!key)return;
-    el.value=G.counters[key]!==undefined?G.counters[key]:'';
+    if(key.endsWith('_datetime')){
+      const tzKey=key+'_tz';
+      const tz=G.counters[tzKey]||DEFAULT_TZ;
+      el.value=G.counters[key]?utcToZonedLocal(G.counters[key],tz):'';
+    } else {
+      el.value=G.counters[key]!==undefined?G.counters[key]:'';
+    }
+  });
+  /* tz selects */
+  document.querySelectorAll('.g-ctr-tz').forEach(el=>{
+    const key=el.dataset.gc;if(!key)return;
+    fillTzSelect(el,G.counters[key]||DEFAULT_TZ);
+    el.value=G.counters[key]||DEFAULT_TZ;
   });
 }
 document.querySelectorAll('.g-ctr').forEach(el=>{
-  el.addEventListener('input',()=>{const k=el.dataset.gc;if(k)G.counters[k]=el.value});
-  el.addEventListener('change',()=>{const k=el.dataset.gc;if(k)G.counters[k]=el.value});
+  el.addEventListener('input',()=>{
+    const k=el.dataset.gc;if(!k)return;
+    if(k.endsWith('_datetime')){
+      const tzKey=k+'_tz';
+      const tzSel=document.querySelector('.g-ctr-tz[data-gc="'+tzKey+'"]');
+      const tz=tzSel?tzSel.value:DEFAULT_TZ;
+      G.counters[k]=el.value?zonedToUTC(el.value,tz):'';
+    } else {
+      G.counters[k]=el.value;
+    }
+  });
+  el.addEventListener('change',()=>{
+    const k=el.dataset.gc;if(!k)return;
+    if(k.endsWith('_datetime')){
+      const tzKey=k+'_tz';
+      const tzSel=document.querySelector('.g-ctr-tz[data-gc="'+tzKey+'"]');
+      const tz=tzSel?tzSel.value:DEFAULT_TZ;
+      G.counters[k]=el.value?zonedToUTC(el.value,tz):'';
+    } else {
+      G.counters[k]=el.value;
+    }
+  });
 });
-[1,2,3].forEach(n=>{
-  const el=$('g_ct'+n+'_show');
-  if(el)el.onchange=()=>{G.counters['ct'+n+'_show']=el.checked?'true':'false'};
+document.querySelectorAll('.g-ctr-tz').forEach(el=>{
+  el.addEventListener('change',()=>{
+    const tzKey=el.dataset.gc;if(!tzKey)return;
+    G.counters[tzKey]=el.value;
+    const dtKey=tzKey.replace(/_tz$/,'');
+    const dtEl=document.querySelector('.g-ctr[data-gc="'+dtKey+'"]');
+    if(dtEl&&dtEl.value)G.counters[dtKey]=zonedToUTC(dtEl.value,el.value);
+  });
 });
+[1,2,3].forEach(n=>{ const el=$('g_ct'+n+'_show'); if(el)el.onchange=()=>{G.counters['ct'+n+'_show']=el.checked?'true':'false'}; });
 
 window.openGuestPanel=function(){
   S.GUEST_TEXTS={en:{},gu:{},hi:{}};S.GUEST_EDIT_LANG='en';
@@ -2215,8 +2521,31 @@ function renderGuestGifts(){ const w=$('guestGiftsRepeater');if(!w)return;w.inne
 $('guestAddGiftRow').onclick=()=>{G.gifts.push({emoji:'🎁',title:'',message:'',photo_drive_id:''});renderGuestGifts()};
 function renderGuestStory(){ const w=$('guestStoryRepeater');if(!w)return;w.innerHTML=''; G.story.forEach((s,i)=>{const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gs="title" data-i="${i}" value="${(s.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Body</label><textarea class="panel-textarea" data-gs="body" data-i="${i}">${(s.body||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID</label><input type="text" class="panel-input" data-gs="photo_drive_id" data-i="${i}" value="${(s.photo_drive_id||'')}"></div>`; w.appendChild(row)}); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{G.story[+el.dataset.i][el.dataset.gs]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.story.splice(+b.dataset.i,1);renderGuestStory()}}); }
 $('guestAddStoryRow').onclick=()=>{G.story.push({title:'',body:'',photo_drive_id:''});renderGuestStory()};
-function renderGuestEvents(){ const w=$('guestEventsRepeater');if(!w)return;w.innerHTML=''; G.events.forEach((ev,i)=>{const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Icon</label><input type="text" class="panel-input" data-ge="icon" data-i="${i}" value="${(ev.icon||'📅')}"></div><div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" data-ge="label" data-i="${i}" value="${(ev.label||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Target</label><input type="text" class="panel-input" data-ge="target_iso" data-i="${i}" value="${(ev.target_iso||'')}"></div>`; w.appendChild(row)}); w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{G.events[+el.dataset.i][el.dataset.ge]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.events.splice(+b.dataset.i,1);renderGuestEvents()}}); }
-$('guestAddEventRow').onclick=()=>{G.events.push({icon:'📅',label:'',target_iso:''});renderGuestEvents()};
+function renderGuestEvents(){ const w=$('guestEventsRepeater');if(!w)return;w.innerHTML=''; G.events.forEach((ev,i)=>{const row=document.createElement('div');row.className='repeat-row';
+  const tz=ev.target_iso_tz||DEFAULT_TZ;
+  const local=ev.target_iso?utcToZonedLocal(ev.target_iso,tz):'';
+  const tzOptsHtml=TZ_OPTIONS.map(o=>`<option value="${o.v}"${o.v===tz?' selected':''}>${o.l}</option>`).join('');
+  row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Icon</label><input type="text" class="panel-input" data-ge="icon" data-i="${i}" value="${(ev.icon||'📅')}"></div><div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" data-ge="label" data-i="${i}" value="${(ev.label||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Target date &amp; time + timezone</label><div class="tz-row"><input type="datetime-local" class="panel-input" data-ge="target_local" data-i="${i}" value="${local}"><select class="panel-select tz-select" data-ge="target_tz" data-i="${i}">${tzOptsHtml}</select></div></div>`; w.appendChild(row)});
+  w.querySelectorAll('input,select').forEach(el=>{
+    el.oninput=el.onchange=()=>{
+      const i=+el.dataset.i;
+      if(el.dataset.ge==='target_local'){
+        const tzEl=w.querySelector('.tz-select[data-ge="target_tz"][data-i="'+i+'"]');
+        const tz=tzEl?tzEl.value:DEFAULT_TZ;
+        G.events[i].target_iso=el.value?zonedToUTC(el.value,tz):'';
+        G.events[i].target_iso_tz=tz;
+      } else if(el.dataset.ge==='target_tz'){
+        const dtEl=w.querySelector('input[data-ge="target_local"][data-i="'+i+'"]');
+        const tz=el.value;
+        G.events[i].target_iso_tz=tz;
+        if(dtEl&&dtEl.value)G.events[i].target_iso=zonedToUTC(dtEl.value,tz);
+      } else if(el.dataset.ge){
+        G.events[i][el.dataset.ge]=el.value;
+      }
+    };
+  });
+  w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.events.splice(+b.dataset.i,1);renderGuestEvents()}}); }
+$('guestAddEventRow').onclick=()=>{G.events.push({icon:'📅',label:'',target_iso:'',target_iso_tz:DEFAULT_TZ});renderGuestEvents()};
 function renderGuestVoice(){ const w=$('guestVoiceRepeater');if(!w)return;w.innerHTML=''; G.voice.forEach((v,i)=>{const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gv="title" data-i="${i}" value="${(v.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Audio URL</label><input type="text" class="panel-input" data-gv="audio_url" data-i="${i}" value="${(v.audio_url||'')}"></div>`; w.appendChild(row)}); w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{G.voice[+el.dataset.i][el.dataset.gv]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.voice.splice(+b.dataset.i,1);renderGuestVoice()}}); }
 $('guestAddVoiceRow').onclick=()=>{G.voice.push({title:'',audio_url:''});renderGuestVoice()};
 function renderGuestVideo(){ const w=$('guestVideoRepeater');if(!w)return;w.innerHTML=''; G.video.forEach((v,i)=>{const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gd="title" data-i="${i}" value="${(v.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Video URL</label><input type="text" class="panel-input" data-gd="video_url" data-i="${i}" value="${(v.video_url||'')}"></div>`; w.appendChild(row)}); w.querySelectorAll('input').forEach(el=>{el.oninput=()=>{G.video[+el.dataset.i][el.dataset.gd]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.video.splice(+b.dataset.i,1);renderGuestVideo()}}); }
@@ -2225,7 +2554,18 @@ function renderGuestPins(){ const w=$('guestPinsRepeater');if(!w)return;w.innerH
 $('guestAddPinRow').onclick=()=>{G.pins.push({label:'',lat:'',lng:'',photo_drive_id:'',story:''});renderGuestPins()};
 function renderGuestMedia(){ const w=$('guestMediaRepeater');if(!w)return;w.innerHTML=''; (G.media||[]).forEach((m,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-gm="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div><div class="panel-field"><label class="panel-label">Drive ID</label><input type="text" class="panel-input" data-gm="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Direct URL</label><input type="text" class="panel-input" data-gm="src" data-i="${i}" value="${(m.src||'')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gm="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{G.media[+el.dataset.i][el.dataset.gm]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.media.splice(+b.dataset.i,1);renderGuestMedia()}}); }
 $('guestAddMediaRow').onclick=()=>{G.media=G.media||[];G.media.push({type:'photo',drive_id:'',src:'',title:''});renderGuestMedia()};
-$('guestBulkAddMedia').onclick=()=>{ const v=$('g_mediaIds').value||''; const ids=v.split(',').map(x=>x.trim()).filter(Boolean); if(!ids.length){__showToast('Paste at least one ID',false);return} G.media=G.media||[]; ids.forEach(id=>G.media.push({type:'photo',drive_id:id,src:'',title:''})); renderGuestMedia(); __showToast('✅ Added '+ids.length+' photos'); };
+$('guestBulkAddMedia').onclick=()=>{
+  const v=$('g_mediaIds').value||'';
+  const ids=v.split(',').map(x=>x.trim()).filter(Boolean);
+  if(!ids.length){__showToast('Paste at least one ID',false);return}
+  G.media=G.media||[];
+  const before=G.media.length;
+  ids.forEach(id=>G.media.push({type:'photo',drive_id:id,src:'',title:''}));
+  G.media=dedupeMedia(G.media);
+  const removed=(before+ids.length)-G.media.length;
+  renderGuestMedia();
+  __showToast('✅ Added'+(removed>0?(' · '+removed+' duplicate(s) removed'):''));
+};
 
 document.querySelectorAll('#guestPanel .panel-tab').forEach(tab=>{
   tab.onclick=()=>{
@@ -2240,6 +2580,7 @@ document.querySelectorAll('#guestPanel .panel-tab').forEach(tab=>{
 $('guestExportBtn').onclick=()=>{
   const st=$('guestExcelStatus');
   try{
+    if(!window.XLSX)throw new Error('XLSX library not loaded.');
     saveGuestTextsFromFields(S.GUEST_EDIT_LANG);
     const wb=XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([
@@ -2247,7 +2588,7 @@ $('guestExportBtn').onclick=()=>{
       {sheet:'',instruction:'1) Fill "people" — the person you are requesting for.'},
       {sheet:'',instruction:'2) Fill "requester" — your name, WhatsApp, relation, occasion, note.'},
       {sheet:'',instruction:'3) Fill "texts" — one row per field, with en_value / gu_value / hi_value.'},
-      {sheet:'',instruction:'4) Fill "shared" — theme, counters (ct1_show, ct1_label, ct1_datetime, ct1_dispdate etc.), features.'},
+      {sheet:'',instruction:'4) Fill "shared" — theme, counters (ct1_show, ct1_label, ct1_datetime, ct1_datetime_tz, ct1_dispdate etc.), features.'},
       {sheet:'',instruction:'5) Fill "gifts", "events", "voice", "video", "pins", "story", "media".'},
       {sheet:'',instruction:'6) Save the file, Import Excel, then Submit for Approval.'},
       {sheet:'',instruction:'7) We will WhatsApp you the Login ID + Password + Card link.'}
@@ -2256,16 +2597,15 @@ $('guestExportBtn').onclick=()=>{
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([{name:$('guestName').value||'',whatsapp:$('guestWhatsapp').value||'',relation:$('guestRelation').value||'',occasion:$('guestOccasion').value||'',note:$('guestNote').value||''}]),'requester');
     const en=S.GUEST_TEXTS.en||{},gu=S.GUEST_TEXTS.gu||{},hi=S.GUEST_TEXTS.hi||{};
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(TEXT_FIELDS.map(k=>({key:k,en_value:en[k]||'',gu_value:gu[k]||'',hi_value:hi[k]||''}))),'texts');
-
     const c=G.counters||{};
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([
       {key:'theme',value:G.theme||'romantic'},{key:'defaultLang',value:'en'},
       {key:'ct1_show',value:c.ct1_show!==undefined?c.ct1_show:'true'},
-      {key:'ct1_label',value:c.ct1_label||''},{key:'ct1_datetime',value:c.ct1_datetime||''},{key:'ct1_dispdate',value:c.ct1_dispdate||''},
+      {key:'ct1_label',value:c.ct1_label||''},{key:'ct1_datetime',value:c.ct1_datetime||''},{key:'ct1_datetime_tz',value:c.ct1_datetime_tz||DEFAULT_TZ},{key:'ct1_dispdate',value:c.ct1_dispdate||''},
       {key:'ct2_show',value:c.ct2_show!==undefined?c.ct2_show:'true'},
-      {key:'ct2_label',value:c.ct2_label||''},{key:'ct2_datetime',value:c.ct2_datetime||''},{key:'ct2_dispdate',value:c.ct2_dispdate||''},
+      {key:'ct2_label',value:c.ct2_label||''},{key:'ct2_datetime',value:c.ct2_datetime||''},{key:'ct2_datetime_tz',value:c.ct2_datetime_tz||DEFAULT_TZ},{key:'ct2_dispdate',value:c.ct2_dispdate||''},
       {key:'ct3_show',value:c.ct3_show!==undefined?c.ct3_show:'true'},
-      {key:'ct3_label',value:c.ct3_label||''},{key:'ct3_datetime',value:c.ct3_datetime||''},{key:'ct3_dispdate',value:c.ct3_dispdate||''},
+      {key:'ct3_label',value:c.ct3_label||''},{key:'ct3_datetime',value:c.ct3_datetime||''},{key:'ct3_datetime_tz',value:c.ct3_datetime_tz||DEFAULT_TZ},{key:'ct3_dispdate',value:c.ct3_dispdate||''},
       {key:'enableGiftBox',value:'true'},{key:'enableStory',value:'true'},{key:'enableEventCount',value:'true'},
       {key:'enableVoiceMsg',value:'true'},{key:'enableVideoMsg',value:'true'},{key:'enableMap',value:'true'},
       {key:'enableFireworks',value:'true'},{key:'enableUpload',value:'false'},{key:'showLockScreen',value:'false'},
@@ -2273,9 +2613,8 @@ $('guestExportBtn').onclick=()=>{
       {key:'pinSlideshowEnabled',value:'true'},{key:'pinSlideDuration',value:'4'},
       {key:'storySlideshowEnabled',value:'true'},{key:'storySlideDuration',value:'4'}
     ]),'shared');
-
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.gifts.length?G.gifts:[{emoji:'',title:'',message:'',photo_drive_id:''}]).map(g=>({emoji:g.emoji||'',title:g.title||'',message:g.message||'',photo_drive_id:g.photo_drive_id||''}))),'gifts');
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.events.length?G.events:[{icon:'',label:'',target_iso:''}]).map(e=>({icon:e.icon||'',label:e.label||'',target_iso:e.target_iso||''}))),'events');
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.events.length?G.events:[{icon:'',label:'',target_iso:'',target_iso_tz:DEFAULT_TZ}]).map(e=>({icon:e.icon||'',label:e.label||'',target_iso:e.target_iso||'',target_iso_tz:e.target_iso_tz||DEFAULT_TZ}))),'events');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.voice.length?G.voice:[{title:'',audio_url:''}]).map(v=>({title:v.title||'',audio_url:v.audio_url||''}))),'voice');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.video.length?G.video:[{title:'',video_url:''}]).map(v=>({title:v.title||'',video_url:v.video_url||''}))),'video');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.pins.length?G.pins:[{label:'',lat:'',lng:'',photo_drive_id:'',story:''}]).map(p=>({label:p.label||'',lat:p.lat||'',lng:p.lng||'',photo_drive_id:p.photo_drive_id||'',story:p.story||''}))),'pins');
@@ -2285,15 +2624,14 @@ $('guestExportBtn').onclick=()=>{
     const slug=$('newPersonSlug').value.trim().toLowerCase()||'guest';
     XLSX.writeFile(wb,'guest-template-'+slug+'-'+new Date().toISOString().slice(0,10)+'.xlsx');
     st.textContent='✅ Template downloaded.';st.className='panel-status ok';
-  }catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
+  }catch(e){console.error(e);st.textContent='❌ '+(e.message||'Download failed');st.className='panel-status err'}
 };
-
-/* ---- GUEST EXCEL IMPORT ---- */
 $('guestImportBtn').onclick=()=>$('guestExcelInput').click();
 $('guestExcelInput').onchange=async(e)=>{
   const f=e.target.files&&e.target.files[0];if(!f)return;
   const st=$('guestExcelStatus');st.textContent='⏳ Reading…';st.className='panel-status';
   try{
+    if(!window.XLSX)throw new Error('XLSX library not loaded');
     if(!confirm('Import this file? Your current guest form will be REPLACED.')){st.textContent='';st.className='panel-status';e.target.value='';return}
     const buf=await f.arrayBuffer();
     const wb=XLSX.read(buf,{type:'array'});
@@ -2309,34 +2647,30 @@ $('guestExcelInput').onchange=async(e)=>{
     tx.forEach(r=>{const k=String(r.key||'').trim();if(!k)return; if(r.en_value!==undefined)en[k]=String(r.en_value||''); if(r.gu_value!==undefined)gu[k]=String(r.gu_value||''); if(r.hi_value!==undefined)hi[k]=String(r.hi_value||'');});
     S.GUEST_TEXTS={en,gu,hi};applyGuestTextsToFields(S.GUEST_EDIT_LANG);
 
-    /* shared → theme + counters */
     const sh=readSheet('shared');
     G.counters=G.counters||{};
-    sh.forEach(r=>{
-      const k=String(r.key||'').trim();if(!k)return;
-      const v=String(r.value==null?'':r.value);
-      if(k==='theme'){G.theme=v.trim();return}
-      if(/^ct[123]_(show|label|datetime|dispdate)$/.test(k)){G.counters[k]=v;return}
-    });
+    sh.forEach(r=>{ const k=String(r.key||'').trim();if(!k)return; const v=String(r.value==null?'':r.value); if(k==='theme'){G.theme=v.trim();return} if(/^ct[123]_(show|label|datetime|datetime_tz|dispdate)$/.test(k))G.counters[k]=v; });
     renderGuestCounters();
 
     G.gifts=readSheet('gifts').filter(r=>r.emoji||r.title||r.message||r.photo_drive_id).map(r=>({emoji:String(r.emoji||'🎁'),title:String(r.title||''),message:String(r.message||''),photo_drive_id:String(r.photo_drive_id||'')}));
-    G.events=readSheet('events').filter(r=>r.icon||r.label||r.target_iso).map(r=>({icon:String(r.icon||'📅'),label:String(r.label||''),target_iso:String(r.target_iso||'')}));
+    G.events=readSheet('events').filter(r=>r.icon||r.label||r.target_iso).map(r=>({icon:String(r.icon||'📅'),label:String(r.label||''),target_iso:String(r.target_iso||''),target_iso_tz:String(r.target_iso_tz||DEFAULT_TZ)}));
     G.voice=readSheet('voice').filter(r=>r.title||r.audio_url).map(r=>({title:String(r.title||''),audio_url:String(r.audio_url||'')}));
     G.video=readSheet('video').filter(r=>r.title||r.video_url).map(r=>({title:String(r.title||''),video_url:String(r.video_url||'')}));
     G.pins=readSheet('pins').filter(r=>r.label||r.lat||r.lng||r.photo_drive_id||r.story).map(r=>({label:String(r.label||''),lat:String(r.lat||''),lng:String(r.lng||''),photo_drive_id:String(r.photo_drive_id||''),story:String(r.story||'')}));
     G.story=readSheet('story').filter(r=>r.title||r.body||r.photo_drive_id).map(r=>({title:String(r.title||''),body:String(r.body||''),photo_drive_id:String(r.photo_drive_id||'')}));
     const mediaRows=readSheet('media').filter(r=>(r.drive_id||r.src)&&String(r.drive_id||r.src).trim()!=='');
-    G.media=mediaRows.map(r=>({type:String(r.type||'photo'),src:String(r.src||''),drive_id:String(r.drive_id||''),title:String(r.title||'')}));
+    const rawMedia=mediaRows.map(r=>({type:String(r.type||'photo'),src:String(r.src||''),drive_id:String(r.drive_id||''),title:String(r.title||'')}));
+    const beforeDedupe=rawMedia.length;
+    G.media=dedupeMedia(rawMedia);
+    const removed=beforeDedupe-G.media.length;
 
     renderGuestTheme();renderGuestGifts();renderGuestStory();renderGuestEvents();
     renderGuestVoice();renderGuestVideo();renderGuestPins();renderGuestMedia();
-    st.textContent='✅ Imported! '+G.media.length+' media row(s). Review, then Submit for Approval.';st.className='panel-status ok';
-  }catch(err){st.textContent='❌ '+err.message;st.className='panel-status err'}
+    st.textContent='✅ Imported! '+G.media.length+' media row(s)'+(removed>0?(' · '+removed+' duplicate removed'):'')+'. Review, then Submit.';st.className='panel-status ok';
+  }catch(err){console.error(err);st.textContent='❌ '+(err.message||'Import failed');st.className='panel-status err'}
   finally{e.target.value=''}
 };
 
-/* ---- GUEST SUBMIT ---- */
 $('guestSubmit').onclick=async()=>{
   saveGuestTextsFromFields(S.GUEST_EDIT_LANG);
   const st=$('guestStatus');
@@ -2364,9 +2698,11 @@ $('guestSubmit').onclick=async()=>{
   COUNTERS.forEach(c=>{
     sharedOut[c.labelKey]=G.counters[c.labelKey]!==undefined?G.counters[c.labelKey]:(S.GUEST_TEXTS.en[c.labelKey]||'');
     sharedOut[c.dtKey]=G.counters[c.dtKey]||'';
+    sharedOut[c.tzKey]=G.counters[c.tzKey]||DEFAULT_TZ;
     sharedOut[c.dispKey]=G.counters[c.dispKey]||'';
     sharedOut[c.showKey]=G.counters[c.showKey]!==undefined?G.counters[c.showKey]:'true';
   });
+  const dedupedMedia=dedupeMedia(G.media||[]);
   const payload={
     person_proposal:{display_name:newName,slug:newSlug,birthday:newBday},
     guest_info:{name:gname,relation:rel,occasion:occasion,note:note,whatsapp:gwa},
@@ -2377,8 +2713,8 @@ $('guestSubmit').onclick=async()=>{
     shared:sharedOut,
     theme:G.theme,gifts:G.gifts,story:G.story,events:G.events,
     voice:G.voice,video:G.video,pins:G.pins,
-    media:G.media||[],
-    mediaIds:(G.media||[]).map(m=>m.drive_id).filter(Boolean).join(', ')
+    media:dedupedMedia,
+    mediaIds:dedupedMedia.map(m=>m.drive_id).filter(Boolean).join(', ')
   };
   st.textContent='⏳ Submitting…';st.className='panel-status';
   try{
@@ -2397,9 +2733,10 @@ $('guestSubmit').onclick=async()=>{
   }catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
 };
 
-/* -------------------- BOOT -------------------- */
+/* ---------------- BOOT ---------------- */
 async function boot(){
   document.body.setAttribute('data-theme','romantic');
+  initAllTzSelects();
   const emo=['❤️','💛','🌹','💕','✨','💗','🌺','💝','🌸','💞'];
   for(let i=0;i<18;i++){
     const sp=document.createElement('span');sp.className='float-item';
@@ -2410,6 +2747,7 @@ async function boot(){
     sp.style.animationDelay=(Math.random()*8)+'s';
     document.body.appendChild(sp);
   }
+  try{ await sb.wipeExpired(); }catch(e){}
   S.PEOPLE=await sb.people()||[];
   const gs=await sb.getSet(null);
   S.CURR.shared={adminPassword:(gs&&gs['shared__adminPassword'])||FALLBACK_ADMIN_PW};
