@@ -228,7 +228,11 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 .thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:.5rem;margin-top:.5rem}
 .thumb{aspect-ratio:1/1;border-radius:.6rem;overflow:hidden;background:#eee;border:1px solid rgba(196,30,58,.2);display:flex;align-items:center;justify-content:center}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.thumb .badge{position:absolute;font-size:.65rem;background:rgba(0,0,0,.7);color:#fff;padding:.15rem .35rem;border-radius:4px;margin:.25rem}
+.counter-edit-card{background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid var(--c-primary-2);border-radius:.9rem;padding:.8rem;margin-bottom:.7rem}
+.counter-edit-card .head{display:flex;align-items:center;gap:.5rem;margin-bottom:.55rem;font-weight:900;color:var(--c-primary);font-size:.92rem;font-style:italic}
+.counter-edit-card .head .icon{font-size:1.3rem}
+.counter-edit-card .head label{display:flex;align-items:center;gap:.4rem;margin-left:auto;font-size:.8rem;color:var(--c-primary-2);cursor:pointer;text-transform:uppercase;letter-spacing:.8px}
+.counter-edit-card .head input[type="checkbox"]{width:20px;height:20px;accent-color:var(--c-primary-2);cursor:pointer}
 </style>
 </head>
 <body data-theme="romantic">
@@ -488,14 +492,33 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 
 <div class="panel-pane" id="pane-lock">
   <div class="panel-section">
-    <div class="panel-section-title">🔓 Unlock / Counters</div>
+    <div class="panel-section-title">💕 Counters — editable here AND in Guest panel</div>
+    <div class="panel-sub" style="text-align:left;">Toggle <b>Show</b> to display each counter on the card. The date drives a <b>live days · hours · minutes · seconds</b> counter. You can also edit the label and display date.</div>
+
+    <div class="counter-edit-card">
+      <div class="head"><span class="icon">💬</span><span>Counter 1</span><label><input type="checkbox" id="f_ct1_show"> Show</label></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" id="f_ct1_label2" placeholder="💬 Days You've Been Our Family"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time (drives the live counter)</label><input type="datetime-local" class="panel-input" id="f_ct1_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Display date text (shown under the counter)</label><input type="text" class="panel-input" id="f_ct1_dispdate"></div>
+    </div>
+
+    <div class="counter-edit-card">
+      <div class="head"><span class="icon">💕</span><span>Counter 2</span><label><input type="checkbox" id="f_ct2_show"> Show</label></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" id="f_ct2_label2" placeholder="💕 Days of Your Love"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input" id="f_ct2_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input" id="f_ct2_dispdate"></div>
+    </div>
+
+    <div class="counter-edit-card">
+      <div class="head"><span class="icon">💍</span><span>Counter 3</span><label><input type="checkbox" id="f_ct3_show"> Show</label></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" id="f_ct3_label2" placeholder="💍 Days of Beautiful Memories"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input" id="f_ct3_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input" id="f_ct3_dispdate"></div>
+    </div>
+  </div>
+  <div class="panel-section">
+    <div class="panel-section-title">🔓 Unlock</div>
     <div class="panel-field"><label class="panel-label">Unlock date &amp; time</label><input type="datetime-local" class="panel-input" id="f_unlockDateISO"></div>
-    <div class="panel-field"><label class="panel-label">Counter 1 (datetime)</label><input type="datetime-local" class="panel-input" id="f_ct1_datetime"></div>
-    <div class="panel-field"><label class="panel-label">Counter 1 display</label><input type="text" class="panel-input" id="f_ct1_dispdate"></div>
-    <div class="panel-field"><label class="panel-label">Counter 2 (datetime)</label><input type="datetime-local" class="panel-input" id="f_ct2_datetime"></div>
-    <div class="panel-field"><label class="panel-label">Counter 2 display</label><input type="text" class="panel-input" id="f_ct2_dispdate"></div>
-    <div class="panel-field"><label class="panel-label">Counter 3 (datetime)</label><input type="datetime-local" class="panel-input" id="f_ct3_datetime"></div>
-    <div class="panel-field"><label class="panel-label">Counter 3 display</label><input type="text" class="panel-input" id="f_ct3_dispdate"></div>
   </div>
   <div class="panel-section">
     <div class="panel-section-title">⚠️ Danger Zone</div>
@@ -541,7 +564,6 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
   <div class="panel-section"><div class="panel-section-title">📸 Slideshow Photos</div>
     <div id="mediaRepeater"></div>
     <button type="button" class="repeat-add" id="addMediaRow">➕ Add Photo Row</button>
-    <div style="margin-top:.6rem;font-size:.78rem;color:var(--c-text-muted);font-style:italic;">Each row: type (photo/video), Drive ID or URL, sort order.</div>
   </div>
 </div>
 
@@ -575,13 +597,12 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 <div class="panel-pane" id="pane-guests">
   <div class="panel-section">
     <div class="panel-section-title">✍️ Pending Guest Submissions</div>
-    <div class="panel-sub" style="text-align:left;">Approving CREATES A NEW PERSON, applies all imported Excel data (texts, gifts, story, events, voice, video, pins, media), and lets you WhatsApp the credentials.</div>
+    <div class="panel-sub" style="text-align:left;">Approving CREATES A NEW PERSON, applies all imported Excel data (texts, gifts, story, events, voice, video, pins, media, counters), and lets you WhatsApp the credentials.</div>
     <div id="pendingGuestsList">Loading…</div>
     <button type="button" class="repeat-add" id="refreshGuests" style="margin-top:.6rem;">🔄 Refresh</button>
   </div>
   <div class="panel-section">
     <div class="panel-section-title">📜 Guest Submissions History (Approved)</div>
-    <div class="panel-sub" style="text-align:left;">Every approved submission with re-send credentials button.</div>
     <div id="guestHistoryList">Loading…</div>
     <button type="button" class="repeat-add" id="refreshGuestHistory" style="margin-top:.6rem;">🔄 Refresh</button>
   </div>
@@ -618,20 +639,16 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 
 <div class="share-preview-box">
   <div class="title">📲 We will WhatsApp you the Login ID + Password + Link</div>
-  <div class="line">Once your request is approved, <strong>we will WhatsApp you</strong> the person's <strong>Login ID</strong>, <strong>Password</strong> and a <strong>direct link</strong> to open &amp; preview their surprise card.</div>
+  <div class="line">Once approved, we will send the person's <strong>Login ID</strong>, <strong>Password</strong> and a <strong>direct link</strong>.</div>
   <div class="line">🌐 Card link: <strong>https://surprise-clickandcheck-your-surprise2.netlify.app/</strong></div>
 </div>
 
 <div class="guest-draft">
   <p><strong>Send me a WhatsApp message for approval.</strong> It will be approved once the payment is done.</p>
-  <p>If you're <strong>not able to upload photos or videos here</strong>, send them by email to <strong>deep2810p@gmail.com</strong> with a message describing what you want.</p>
 </div>
 
-<div class="panel-section" style="padding:.8rem .8rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid var(--c-primary-2);">
+<div class="panel-section" style="padding:.8rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid var(--c-primary-2);">
   <div class="panel-section-title" style="color:var(--c-primary);">📊 Excel Template</div>
-  <div style="font-size:.85rem;color:var(--c-primary-2);font-style:italic;line-height:1.5;margin-bottom:.6rem;">
-    Download the Excel template → fill it on your computer → import it back here → review → submit for approval.
-  </div>
   <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
     <button type="button" class="panel-btn save" id="guestExportBtn">📤 Download Excel Template</button>
     <button type="button" class="panel-btn reset" id="guestImportBtn">📥 Import Excel</button>
@@ -640,19 +657,19 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
   <div class="panel-status" id="guestExcelStatus"></div>
 </div>
 
-<div class="panel-section" style="padding:.8rem .8rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid var(--c-primary-2);">
+<div class="panel-section" style="padding:.8rem;background:linear-gradient(135deg,#fff5e0,#ffe8f0);border:2px solid var(--c-primary-2);">
   <div class="panel-section-title" style="color:var(--c-primary);">🎯 Person you're requesting <span style="color:#c41e3a;">*all fields required</span></div>
-  <div class="panel-field"><label class="panel-label">Person's Display Name *</label><input type="text" class="panel-input" id="newPersonName" placeholder="e.g. Priya Sharma"></div>
-  <div class="panel-field"><label class="panel-label">Person's Slug / Username *</label><input type="text" class="panel-input" id="newPersonSlug" placeholder="e.g. priya"></div>
+  <div class="panel-field"><label class="panel-label">Person's Display Name *</label><input type="text" class="panel-input" id="newPersonName"></div>
+  <div class="panel-field"><label class="panel-label">Person's Slug / Username *</label><input type="text" class="panel-input" id="newPersonSlug"></div>
   <div class="panel-field"><label class="panel-label">Person's Birthday *</label><input type="date" class="panel-input" id="newPersonBirthday"></div>
 </div>
 
-<div class="panel-section" style="padding:.75rem .8rem;background:linear-gradient(135deg,#e8f5f0,#d3ede1);border:2px solid #0d5c4a;">
+<div class="panel-section" style="padding:.75rem;background:linear-gradient(135deg,#e8f5f0,#d3ede1);border:2px solid #0d5c4a;">
   <div class="panel-section-title" style="color:#0d5c4a;">👤 About you (the requester) <span style="color:#c41e3a;">*all fields required</span></div>
-  <div class="panel-field"><label class="panel-label">Your name *</label><input type="text" class="panel-input" id="guestName" placeholder="e.g. Rohan Mehta"></div>
+  <div class="panel-field"><label class="panel-label">Your name *</label><input type="text" class="panel-input" id="guestName"></div>
   <div class="panel-field">
-    <label class="panel-label" style="color:#0d5c4a;">Your WhatsApp number * <span style="font-weight:900;color:#c41e3a;">(we will send ID + password + link here)</span></label>
-    <input type="tel" class="panel-input" id="guestWhatsapp" placeholder="e.g. +91 98765 43210">
+    <label class="panel-label" style="color:#0d5c4a;">Your WhatsApp number *</label>
+    <input type="tel" class="panel-input" id="guestWhatsapp">
     <div style="font-size:.72rem;color:#0d5c4a;font-style:italic;margin-top:.35rem;">📲 We will send you the <strong>Login ID</strong>, <strong>Password</strong> and the <strong>card link</strong> on this WhatsApp number.</div>
   </div>
   <div class="panel-field"><label class="panel-label">Your relation to them *</label>
@@ -661,12 +678,13 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
   <div class="panel-field"><label class="panel-label">Occasion *</label>
     <select class="panel-select" id="guestOccasion"><option value="">— Select —</option><option value="Birthday">🎂 Birthday</option><option value="Anniversary">💍 Anniversary</option><option value="Wedding">💒 Wedding</option><option value="Just Because">💕 Just Because</option><option value="Other">✨ Other</option></select>
   </div>
-  <div class="panel-field"><label class="panel-label">Message to admin (optional)</label><textarea class="panel-textarea" id="guestNote" placeholder="e.g. Please add this for my friend's birthday"></textarea></div>
+  <div class="panel-field"><label class="panel-label">Message to admin (optional)</label><textarea class="panel-textarea" id="guestNote"></textarea></div>
 </div>
 
 <div class="panel-tabs">
   <button class="panel-tab active" data-pane="gpane-text">📝 Text</button>
   <button class="panel-tab" data-pane="gpane-theme">🎨 Theme</button>
+  <button class="panel-tab" data-pane="gpane-counters">💕 Counters</button>
   <button class="panel-tab" data-pane="gpane-gifts">🎁 Gifts</button>
   <button class="panel-tab" data-pane="gpane-story">📖 Story</button>
   <button class="panel-tab" data-pane="gpane-events">📅 Events</button>
@@ -687,7 +705,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
     <div class="panel-field"><label class="panel-label">Headline</label><input type="text" class="panel-input g-text" data-gt="mainHeadline"></div>
     <div class="panel-field"><label class="panel-label">Subhead Line 1</label><input type="text" class="panel-input g-text" data-gt="subhead1"></div>
     <div class="panel-field"><label class="panel-label">Subhead Line 2</label><input type="text" class="panel-input g-text" data-gt="subhead2"></div>
-    <div class="panel-field"><label class="panel-label">Greeting (Dear …)</label><input type="text" class="panel-input g-text" data-gt="greeting"></div>
+    <div class="panel-field"><label class="panel-label">Greeting</label><input type="text" class="panel-input g-text" data-gt="greeting"></div>
     <div class="panel-field"><label class="panel-label">Message paragraph 1</label><textarea class="panel-textarea g-text" data-gt="msg1"></textarea></div>
     <div class="panel-field"><label class="panel-label">Message paragraph 2</label><textarea class="panel-textarea g-text" data-gt="msg2"></textarea></div>
     <div class="panel-field"><label class="panel-label">Message paragraph 3</label><textarea class="panel-textarea g-text" data-gt="msg3"></textarea></div>
@@ -697,7 +715,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
     <div class="panel-field"><label class="panel-label">Names badge</label><input type="text" class="panel-input g-text" data-gt="namesBadge"></div>
     <div class="panel-field"><label class="panel-label">From label</label><input type="text" class="panel-input g-text" data-gt="fromLabel"></div>
     <div class="panel-field"><label class="panel-label">Counters title</label><input type="text" class="panel-input g-text" data-gt="countersTitle"></div>
-    <div class="panel-field"><label class="panel-label">Counter 1 label</label><input type="text" class="panel-input g-text" data-gt="ct1_label"></div>
+    <div class="panel-field"><label class="panel-label">Counter 1 label (fallback if not set in Counters tab)</label><input type="text" class="panel-input g-text" data-gt="ct1_label"></div>
     <div class="panel-field"><label class="panel-label">Counter 2 label</label><input type="text" class="panel-input g-text" data-gt="ct2_label"></div>
     <div class="panel-field"><label class="panel-label">Counter 3 label</label><input type="text" class="panel-input g-text" data-gt="ct3_label"></div>
     <div class="panel-field"><label class="panel-label">"Open Memories" button</label><input type="text" class="panel-input g-text" data-gt="openMemoriesBtn"></div>
@@ -724,7 +742,7 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
     <div class="panel-field"><label class="panel-label">Secs label</label><input type="text" class="panel-input g-text" data-gt="secsLabel"></div>
     <div class="panel-field"><label class="panel-label">Open Early button</label><input type="text" class="panel-input g-text" data-gt="openEarlyText"></div>
     <div class="panel-field"><label class="panel-label">Wrong-password message</label><input type="text" class="panel-input g-text" data-gt="pwError"></div>
-    <div class="panel-field"><label class="panel-label">Locked-until message (use {date})</label><input type="text" class="panel-input g-text" data-gt="pwLockedMsg"></div>
+    <div class="panel-field"><label class="panel-label">Locked-until message</label><input type="text" class="panel-input g-text" data-gt="pwLockedMsg"></div>
   </div>
   <div class="panel-section">
     <div class="panel-section-title">💖 Closing Modal</div>
@@ -749,6 +767,35 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
       <button type="button" class="theme-swatch elegant" data-gtheme-pick="elegant">Elegant ✨</button>
       <button type="button" class="theme-swatch festive" data-gtheme-pick="festive">Festive 🎉</button>
       <button type="button" class="theme-swatch anniversary" data-gtheme-pick="anniversary">Anniversary 💍</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW: Guest Counter editor -->
+<div class="panel-pane" id="gpane-counters">
+  <div class="panel-section">
+    <div class="panel-section-title">💕 Counters — same as admin</div>
+    <div class="panel-sub" style="text-align:left;">Toggle <b>Show</b> to display each counter on the card. Set a start date — the counter shows live <b>days · hours · minutes · seconds</b>.</div>
+
+    <div class="counter-edit-card">
+      <div class="head"><span class="icon">💬</span><span>Counter 1</span><label><input type="checkbox" id="g_ct1_show"> Show</label></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct1_label" placeholder="💬 Days You've Been Our Family"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input g-ctr" data-gc="ct1_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input g-ctr" data-gc="ct1_dispdate"></div>
+    </div>
+
+    <div class="counter-edit-card">
+      <div class="head"><span class="icon">💕</span><span>Counter 2</span><label><input type="checkbox" id="g_ct2_show"> Show</label></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct2_label" placeholder="💕 Days of Your Love"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input g-ctr" data-gc="ct2_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input g-ctr" data-gc="ct2_dispdate"></div>
+    </div>
+
+    <div class="counter-edit-card">
+      <div class="head"><span class="icon">💍</span><span>Counter 3</span><label><input type="checkbox" id="g_ct3_show"> Show</label></div>
+      <div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input g-ctr" data-gc="ct3_label" placeholder="💍 Days of Beautiful Memories"></div>
+      <div class="panel-field"><label class="panel-label">Start date &amp; time</label><input type="datetime-local" class="panel-input g-ctr" data-gc="ct3_datetime"></div>
+      <div class="panel-field"><label class="panel-label">Display date text</label><input type="text" class="panel-input g-ctr" data-gc="ct3_dispdate"></div>
     </div>
   </div>
 </div>
@@ -873,14 +920,6 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
-/* =====================================================================
-   SURPRISE CARD APP
-   - Multiple people can log in simultaneously (per-session state)
-   - Admin can log in and edit at the same time as viewers
-   - Guest Excel import captures ALL sheets → admin panel → after approval
-     they land as the person's real data (texts, gifts, story, events,
-     voice, video, pins, MEDIA)
-   ===================================================================== */
 (function(){
 'use strict';
 
@@ -911,9 +950,14 @@ S.GUEST_TEXTS=S.GUEST_TEXTS||{en:{},gu:{},hi:{}};
 S.GUEST_EDIT_LANG='en';
 S.CARD_STARTED=false;
 
-/* ------------------------------------------------------------------ */
-/*  SUPABASE HELPERS                                                    */
-/* ------------------------------------------------------------------ */
+/* Counters definition used everywhere */
+const COUNTERS=[
+  {id:'ct1',icon:'💬',labelKey:'ct1_label',dtKey:'ct1_datetime',dispKey:'ct1_dispdate',showKey:'ct1_show',mainLabel:'ctMain1_label',mainTime:'counterTalkMain',mainDate:'ctMain1_date',mainRow:'ctMain1'},
+  {id:'ct2',icon:'💕',labelKey:'ct2_label',dtKey:'ct2_datetime',dispKey:'ct2_dispdate',showKey:'ct2_show',mainLabel:'ctMain2_label',mainTime:'counterYesMain',mainDate:'ctMain2_date',mainRow:'ctMain2'},
+  {id:'ct3',icon:'💍',labelKey:'ct3_label',dtKey:'ct3_datetime',dispKey:'ct3_dispdate',showKey:'ct3_show',mainLabel:'ctMain3_label',mainTime:'counterEngagedMain',mainDate:'ctMain3_date',mainRow:'ctMain3'}
+];
+
+/* -------------------- SUPABASE -------------------- */
 const sb={
   h(){return{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=representation'}},
   hd(){return{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY}},
@@ -924,13 +968,11 @@ const sb={
   async rows(table,pid){try{let u=`${SUPABASE_URL}/rest/v1/${table}?select=*`;if(pid!=null)u+=`&person_id=eq.${pid}`;const r=await fetch(u,{headers:this.h(),cache:'no-store'});if(!r.ok)return[];return r.json()}catch(e){return[]}},
   async getSet(pid){try{let u=`${SUPABASE_URL}/rest/v1/${T_SETTINGS}?select=key,value`;if(pid===null)u+='&person_id=is.null';else if(pid!=null)u+=`&person_id=eq.${pid}`;const r=await fetch(u,{headers:this.h(),cache:'no-store'});if(!r.ok)return{};const rows=await r.json();const o={};rows.forEach(x=>o[x.key]=x.value);return o}catch(e){return{}}},
   async upSet(obj,pid){
-    const keys=Object.keys(obj);
-    if(!keys.length)return;
+    const keys=Object.keys(obj);if(!keys.length)return;
     try{
       const keyList=keys.map(k=>'"'+k+'"').join(',');
       let delUrl=`${SUPABASE_URL}/rest/v1/${T_SETTINGS}?key=in.(${keyList})`;
-      if(pid!=null)delUrl+=`&person_id=eq.${pid}`;
-      else delUrl+='&person_id=is.null';
+      if(pid!=null)delUrl+=`&person_id=eq.${pid}`;else delUrl+='&person_id=is.null';
       await fetch(delUrl,{method:'DELETE',headers:this.hd()});
     }catch(e){}
     const rows=keys.map(k=>{const r={key:k,value:String(obj[k])};if(pid!=null)r.person_id=pid;return r});
@@ -944,13 +986,10 @@ const sb={
   async wipe(table,pid){try{await fetch(`${SUPABASE_URL}/rest/v1/${table}?person_id=eq.${pid}`,{method:'DELETE',headers:this.hd()})}catch(e){}},
   async wipeAll(table){try{await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=gt.0`,{method:'DELETE',headers:this.hd()})}catch(e){}},
   async guests(){try{const r=await fetch(`${SUPABASE_URL}/rest/v1/${T_GUEST}?select=*&order=created_at.desc`,{headers:this.h(),cache:'no-store'});if(!r.ok)return[];return r.json()}catch(e){return[]}},
-  async updGuest(id,patch){return this.upd(T_GUEST,id,patch)},
-  async delGuest(id){await fetch(`${SUPABASE_URL}/rest/v1/${T_GUEST}?id=eq.${id}`,{method:'DELETE',headers:this.hd()})}
+  async updGuest(id,patch){return this.upd(T_GUEST,id,patch)}
 };
 
-/* ------------------------------------------------------------------ */
-/*  WIPE                                                               */
-/* ------------------------------------------------------------------ */
+/* -------------------- WIPE -------------------- */
 async function wipeOnePerson(pid){
   if(!pid)return;
   try{
@@ -964,8 +1003,7 @@ async function wipeOnePerson(pid){
 }
 async function checkWipe(){
   try{
-    const all=await sb.people();
-    if(!all||!all.length)return;
+    const all=await sb.people();if(!all||!all.length)return;
     const now=Date.now();const toWipe=[];
     for(const p of all){
       if(!p.wipe_iso)continue;
@@ -974,23 +1012,18 @@ async function checkWipe(){
     }
     if(!toWipe.length)return;
     for(const id of toWipe)await wipeOnePerson(id);
-    S.PEOPLE=await sb.people()||[];
-    if(window.buildHome)window.buildHome();
+    S.PEOPLE=await sb.people()||[];if(window.buildHome)window.buildHome();
   }catch(e){}
 }
 
-/* ------------------------------------------------------------------ */
-/*  FIREWORKS / FLOATERS / TOAST                                        */
-/* ------------------------------------------------------------------ */
+/* -------------------- FIREWORKS / TOAST -------------------- */
 const FW_COLORS=['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6','#ff69b4','#ff8a3d','#2a5fd1','#9d4edd'];
 function getShared(k,def){const s=S.CURR.shared||{};return s[k]!==undefined?s[k]:def}
 function getText(k,def){const t=S.CURR.texts||{};return t[k]!==undefined?t[k]:def}
-
 function fireworksBurst(x,y){
   if(getShared('enableFireworks','true')!=='true')return;
   for(let i=0;i<26;i++){
-    const p=document.createElement('div');
-    p.className='firework';
+    const p=document.createElement('div');p.className='firework';
     p.style.left=x+'px';p.style.top=y+'px';
     p.style.backgroundColor=FW_COLORS[Math.floor(Math.random()*FW_COLORS.length)];
     const a=(i/26)*Math.PI*2+Math.random()*0.3;
@@ -998,8 +1031,7 @@ function fireworksBurst(x,y){
     p.style.setProperty('--tx',Math.cos(a)*d+'px');
     p.style.setProperty('--ty',Math.sin(a)*d+'px');
     p.style.animationDuration=(0.9+Math.random()*0.7)+'s';
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),1700);
+    document.body.appendChild(p);setTimeout(()=>p.remove(),1700);
   }
 }
 document.addEventListener('click',(e)=>{
@@ -1015,60 +1047,43 @@ window.__showToast=function(msg,ok){
   t._tt=setTimeout(()=>t.classList.remove('show'),2400);
 };
 
-/* ------------------------------------------------------------------ */
-/*  HOME SCREEN                                                        */
-/* ------------------------------------------------------------------ */
+/* -------------------- HOME -------------------- */
 window.buildHome=function(){
-  const g=$('homeGrid');if(!g)return;
-  g.innerHTML='';
+  const g=$('homeGrid');if(!g)return;g.innerHTML='';
   const ep=S.PEOPLE.filter(p=>p.enabled!==false);
   ep.forEach(p=>{
-    const b=document.createElement('button');
-    b.type='button';b.className='home-btn';
+    const b=document.createElement('button');b.type='button';b.className='home-btn';
     b.innerHTML=`<span class="home-btn-emoji">💝</span><span>${(p.display_name||p.slug||'Person').replace(/</g,'&lt;')}</span>`;
-    b.onclick=()=>onPersonClick(p);
-    g.appendChild(b);
+    b.onclick=()=>onPersonClick(p);g.appendChild(b);
   });
   const ab=document.createElement('button');ab.type='button';ab.className='home-btn admin';
-  ab.innerHTML='<span class="home-btn-emoji">🛠️</span><span>Admin</span>';
-  ab.onclick=()=>openAdminLoginFull();
-  g.appendChild(ab);
+  ab.innerHTML='<span class="home-btn-emoji">🛠️</span><span>Admin</span>';ab.onclick=()=>openAdminLoginFull();g.appendChild(ab);
   const gb=document.createElement('button');gb.type='button';gb.className='home-btn guest';
-  gb.innerHTML='<span class="home-btn-emoji">✍️</span><span>Guest</span>';
-  gb.onclick=()=>window.openGuestPanel&&window.openGuestPanel();
-  g.appendChild(gb);
+  gb.innerHTML='<span class="home-btn-emoji">✍️</span><span>Guest</span>';gb.onclick=()=>window.openGuestPanel&&window.openGuestPanel();g.appendChild(gb);
 };
 window.__resetHome__=function(){
-  window.buildHome();
-  $('homeScreen').classList.remove('hidden');
-  hide($('viewerScreen'));
-  hide($('adminPanel'));
-  hide($('guestPanel'));
+  window.buildHome();$('homeScreen').classList.remove('hidden');
+  hide($('viewerScreen'));hide($('adminPanel'));hide($('guestPanel'));
 };
-
 function onPersonClick(p){
   S.LOGIN_TARGET=p;
   txt($('personLoginTitle'),'Hi '+(p.display_name||p.slug||'')+' 💕');
   txt($('personLoginSub'),'Enter your password to open your surprise.');
-  $('personPwError').classList.remove('show');
-  $('personPwInput').value='';
-  show($('personLoginModal'));
-  setTimeout(()=>$('personPwInput').focus(),150);
+  $('personPwError').classList.remove('show');$('personPwInput').value='';
+  show($('personLoginModal'));setTimeout(()=>$('personPwInput').focus(),150);
 }
 $('personPwCancel').onclick=()=>hide($('personLoginModal'));
 $('personPwInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();tryPersonPw()}});
 $('personPwConfirm').onclick=tryPersonPw;
 
 async function tryPersonPw(){
-  const pw=$('personPwInput').value;
-  const p=S.LOGIN_TARGET;if(!p)return;
+  const pw=$('personPwInput').value;const p=S.LOGIN_TARGET;if(!p)return;
   const adminPw=(S.CURR.shared&&S.CURR.shared.adminPassword)||FALLBACK_ADMIN_PW;
   if(pw===adminPw||pw===FALLBACK_ADMIN_PW){hide($('personLoginModal'));await window.startAdmin();return}
   const expected=p.password||'';
   if(expected&&pw!==expected){
     $('personPwError').textContent=getText('pwError','❌ Incorrect password.');
-    $('personPwError').classList.add('show');
-    return;
+    $('personPwError').classList.add('show');return;
   }
   hide($('personLoginModal'));
   await loadPersonIntoState(p);
@@ -1087,9 +1102,7 @@ async function tryPersonPw(){
   openOpeningFull();
 }
 
-/* ------------------------------------------------------------------ */
-/*  LOCK SCREEN                                                        */
-/* ------------------------------------------------------------------ */
+/* -------------------- LOCK -------------------- */
 function renderLockFull(){
   txt($('lockTitleEl'),getText('lockTitle','The surprise is locked'));
   $('lockSubtitleEl').innerHTML=(getText('lockSubtitle','')||'')+(getText('lockDateText','')?('<br><strong>'+getText('lockDateText','')+'</strong>'):'');
@@ -1118,25 +1131,17 @@ $('openEarlyBtn').onclick=()=>{
   const unlockIso=(S.CURR.shared||{}).unlockDateISO||'';
   const unlockDate=unlockIso?new Date(unlockIso):null;
   const locked=unlockDate&&!isNaN(unlockDate)&&new Date()<unlockDate;
-  if(locked){
-    const tpl=getText('pwLockedMsg','🔒 This surprise unlocks on {date}. Please come back then.');
-    alert(tpl.replace('{date}',unlockDate.toLocaleString()));
-    return;
-  }
+  if(locked){ const tpl=getText('pwLockedMsg','🔒 This surprise unlocks on {date}. Please come back then.'); alert(tpl.replace('{date}',unlockDate.toLocaleString())); return; }
   clearInterval(CD_T);hide($('lockScreen'));openOpeningFull();
 };
 
-/* ------------------------------------------------------------------ */
-/*  OPENING SCREEN                                                     */
-/* ------------------------------------------------------------------ */
+/* -------------------- OPENING / CAKE -------------------- */
 function openOpeningFull(){
   txt($('openLine1El'),getText('openLine1','A special day…'));
   txt($('openLine2El'),getText('openLine2','Happy Birthday!'));
   txt($('cakeHintEl'),getText('cakeHint','Tap the cake to open 💕'));
-  hide($('viewerScreen'));
-  S.CARD_STARTED=false;
-  $('openingScreen').classList.remove('hidden');
-  show($('openingScreen'));
+  hide($('viewerScreen'));S.CARD_STARTED=false;
+  $('openingScreen').classList.remove('hidden');show($('openingScreen'));
 }
 $('cakeClickable').onclick=async()=>{
   $('openingScreen').classList.add('hidden');
@@ -1146,9 +1151,7 @@ $('cakeClickable').onclick=async()=>{
   showViewerFor(S.CURRENT_PERSON,true);
 };
 
-/* ------------------------------------------------------------------ */
-/*  VIEWER / CARD                                                      */
-/* ------------------------------------------------------------------ */
+/* -------------------- VIEWER -------------------- */
 async function showViewerFor(person,startNow){
   if(!S.CURRENT_PERSON||S.CURRENT_PERSON.id!==person.id){
     await loadPersonIntoState(person);
@@ -1159,17 +1162,12 @@ async function showViewerFor(person,startNow){
   $('musicToggle').classList.toggle('visible',buildPlaylistFor('card').length>0);
   $('langToggle').classList.toggle('visible',true);
   const lt=$('langToggle');
-  if(lt){
-    lt.textContent=S.CURR_LANG==='en'?'EN':(S.CURR_LANG==='gu'?'ગુ':'हि');
-    lt.dataset.state=S.CURR_LANG;
-  }
+  if(lt){lt.textContent=S.CURR_LANG==='en'?'EN':(S.CURR_LANG==='gu'?'ગુ':'हि');lt.dataset.state=S.CURR_LANG;}
   renderCardFull();
   if(startNow)startCard();
   window.scrollTo(0,0);
 }
 window.__showViewerForPreview__=showViewerFor;
-window.__showViewer__=showViewerFor;
-
 function startCard(){
   if(S.CARD_STARTED)return;
   S.CARD_STARTED=true;
@@ -1177,7 +1175,6 @@ function startCard(){
   updateCounters();
   startMusicFor('card');
 }
-window.__startCard__=startCard;
 
 function renderCardFull(){
   const t=S.CURR.texts||{},s=S.CURR.shared||{};
@@ -1195,29 +1192,27 @@ function renderCardFull(){
   txt($('voiceBtnTextEl'),t.voiceBtnText||'Play Voice Message');
   txt($('videoBtnTextEl'),t.videoBtnText||'Play Video Message');
   txt($('countersMainTitle'),t.countersTitle||'Our journey so far');
-  txt($('ctMain1_label'),t.ct1_label||'Together since');
-  txt($('ctMain2_label'),t.ct2_label||'Friends since');
-  txt($('ctMain3_label'),t.ct3_label||'Engaged since');
-  txt($('ctMain1_date'),s.ct1_dispdate||'');
-  txt($('ctMain2_date'),s.ct2_dispdate||'');
-  txt($('ctMain3_date'),s.ct3_dispdate||'');
+
+  /* Counters — use shared overrides first (from admin/guest counter editor), fall back to text fields */
+  COUNTERS.forEach(c=>{
+    const label=s[c.labelKey]||t[c.labelKey]||'';
+    txt($(c.mainLabel),label);
+    txt($(c.mainDate),s[c.dispKey]||'');
+    const on=String(s[c.showKey])!=='false';
+    $(c.mainRow).classList.toggle('counter-hidden',!on);
+  });
+  const anyVisible=COUNTERS.some(c=>String(s[c.showKey])!=='false');
+  $('countersMain').classList.toggle('hidden-box',!anyVisible);
+
   $('storyBtn').style.display=(s.enableStory==='true'&&S.CURR.story.length)?'inline-flex':'none';
   $('mapBtn').style.display=(s.enableMap==='true'&&S.CURR.pins.length)?'inline-flex':'none';
   $('uploadBtn').style.display=(s.enableUpload==='true')?'inline-flex':'none';
   $('voiceRow').style.display=(s.enableVoiceMsg==='true'&&S.CURR.voice.length)?'flex':'none';
   $('videoMsgRow').style.display=(s.enableVideoMsg==='true'&&S.CURR.video.length)?'flex':'none';
-  const anyC=['ct1_show','ct2_show','ct3_show'].some(k=>String(s[k])==='true'||s[k]===undefined);
-  $('countersMain').classList.toggle('hidden-box',!anyC);
-  ['ctMain1','ctMain2','ctMain3'].forEach((id,i)=>{
-    const on=String(s['ct'+(i+1)+'_show'])!=='false';
-    $(id).classList.toggle('counter-hidden',!on);
-  });
   renderGifts();renderEvents();updateCounters();
 }
 
-/* ------------------------------------------------------------------ */
-/*  TYPEWRITER                                                         */
-/* ------------------------------------------------------------------ */
+/* -------------------- TYPEWRITER -------------------- */
 let TW_TIMERS=[],TW_STARTED=false,TW_DONE=false,TW_ABORT=false;
 function clearTW(){while(TW_TIMERS.length)clearTimeout(TW_TIMERS.pop())}
 function graphemes(str){try{const seg=new Intl.Segmenter('en',{granularity:'grapheme'});return Array.from(seg.segment(str),x=>x.segment)}catch(e){return Array.from(str)}}
@@ -1254,9 +1249,7 @@ function startTypewriter(){
   next();
 }
 
-/* ------------------------------------------------------------------ */
-/*  COUNTERS                                                           */
-/* ------------------------------------------------------------------ */
+/* -------------------- COUNTERS (live) -------------------- */
 function updateCounters(){
   const s=S.CURR.shared||{};
   const fmt=iso=>{
@@ -1266,9 +1259,8 @@ function updateCounters(){
     if(diff<0)return'Just started 💕';
     const sec=Math.floor(diff/1000);
     const days=Math.floor(sec/86400),hrs=Math.floor((sec%86400)/3600),mins=Math.floor((sec%3600)/60),ss=sec%60;
-    let o='';if(days>0)o+=`<strong>${days}</strong> d `;
-    if(hrs>0||o)o+=`<strong>${hrs}</strong> h `;
-    o+=`<strong>${mins}</strong> m <strong>${ss}</strong> s`;
+    let o='';
+    o+=`<strong>${days}</strong> d <strong>${hrs}</strong> h <strong>${mins}</strong> m <strong>${ss}</strong> s`;
     return o;
   };
   $('counterTalkMain').innerHTML=fmt(s.ct1_datetime);
@@ -1277,13 +1269,10 @@ function updateCounters(){
 }
 setInterval(()=>{if($('viewerScreen').classList.contains('active'))updateCounters()},1000);
 
-/* ------------------------------------------------------------------ */
-/*  GIFTS                                                              */
-/* ------------------------------------------------------------------ */
+/* -------------------- GIFTS -------------------- */
 function renderGifts(){
   const w=$('giftRow'),sec=$('giftSection');
-  const gifts=S.CURR.gifts||[];
-  const s=S.CURR.shared||{};
+  const gifts=S.CURR.gifts||[];const s=S.CURR.shared||{};
   if(s.enableGiftBox!=='true'||!gifts.length){sec.style.display='none';return}
   sec.style.display='block';
   txt($('giftSectionTitleEl'),(S.CURR.texts||{}).giftSectionTitle||'Tap a gift 💝');
@@ -1291,8 +1280,7 @@ function renderGifts(){
   gifts.forEach(g=>{
     const d=document.createElement('div');d.className='gift-box';
     d.innerHTML=`<div class="gift-emoji">${g.emoji||'🎁'}</div><div class="gift-label">${(g.title||'Open me!').replace(/</g,'&lt;')}</div>`;
-    d.onclick=()=>openGift(g);
-    w.appendChild(d);
+    d.onclick=()=>openGift(g);w.appendChild(d);
   });
 }
 function openGift(g){
@@ -1305,14 +1293,11 @@ function openGift(g){
   m.querySelector('#gmClose').onclick=()=>m.remove();
 }
 
-/* ------------------------------------------------------------------ */
-/*  EVENTS                                                             */
-/* ------------------------------------------------------------------ */
+/* -------------------- EVENTS -------------------- */
 let EV_T=null;
 function renderEvents(){
   const sec=$('eventSection'),w=$('eventRow');
-  const ev=S.CURR.events||[];
-  const s=S.CURR.shared||{};
+  const ev=S.CURR.events||[];const s=S.CURR.shared||{};
   if(s.enableEventCount!=='true'||!ev.length){sec.style.display='none';return}
   sec.style.display='block';
   txt($('eventSectionTitleEl'),(S.CURR.texts||{}).eventSectionTitle||'Coming up');
@@ -1330,9 +1315,7 @@ function renderEvents(){
   EV_T=setInterval(tick,60000);
 }
 
-/* ------------------------------------------------------------------ */
-/*  VOICE / VIDEO                                                      */
-/* ------------------------------------------------------------------ */
+/* -------------------- VOICE / VIDEO -------------------- */
 $('voicePlayBtn').onclick=()=>{
   if(!S.CURR.voice||!S.CURR.voice.length)return;
   const a=$('audioPlayer');
@@ -1345,18 +1328,14 @@ $('videoMsgBtn').onclick=()=>{
   if(!S.CURR.video||!S.CURR.video.length)return;
   const m=document.createElement('div');m.className='info-modal active';
   m.innerHTML=`<div class="info-content"><button class="info-close" id="vmClose">✕</button><div class="info-title">${(S.CURR.video[0].title||'A message').replace(/</g,'&lt;')}</div><video src="${S.CURR.video[0].video_url}" controls playsinline style="width:100%;border-radius:1rem;background:#000;max-height:70vh;"></video></div>`;
-  document.body.appendChild(m);
-  m.querySelector('#vmClose').onclick=()=>m.remove();
+  document.body.appendChild(m);m.querySelector('#vmClose').onclick=()=>m.remove();
 };
 
-/* ------------------------------------------------------------------ */
-/*  MUSIC                                                              */
-/* ------------------------------------------------------------------ */
+/* -------------------- MUSIC -------------------- */
 let MUSIC_ON=false,CURR_CTX='card',CURR_LIST=[],CURR_IDX=-1;
 function getVol(ctx){const s=S.CURR.shared||{};if(ctx==='video')return parseFloat(s.vol_video)||1.0;if(ctx==='slideshow')return parseFloat(s.vol_slide)||0.85;return parseFloat(s.vol_card)||0.45}
 function buildPlaylistFor(ctx){
-  const s=S.CURR.shared||{};
-  const mode=s.music_mode||'both';
+  const s=S.CURR.shared||{};const mode=s.music_mode||'both';
   if(mode==='card'&&ctx==='slideshow')return[];
   if(mode==='slideshow'&&ctx==='card')return[];
   const out=[];
@@ -1373,8 +1352,7 @@ function playNext(){
   if(!CURR_LIST.length)return;
   CURR_IDX=(CURR_IDX+1)%CURR_LIST.length;
   const a=$('audioPlayer');
-  a.src=CURR_LIST[CURR_IDX];
-  a.volume=getVol(CURR_CTX);
+  a.src=CURR_LIST[CURR_IDX];a.volume=getVol(CURR_CTX);
   a.play().then(()=>{MUSIC_ON=true;$('musicToggle').textContent='🔊'}).catch(()=>{MUSIC_ON=false;$('musicToggle').textContent='🔇'});
 }
 function startMusicFor(ctx){
@@ -1391,9 +1369,7 @@ $('musicToggle').onclick=()=>{
   else{MUSIC_ON=true;a.play().catch(()=>{});$('musicToggle').textContent='🔊'}
 };
 
-/* ------------------------------------------------------------------ */
-/*  LANGUAGE                                                           */
-/* ------------------------------------------------------------------ */
+/* -------------------- LANGUAGE -------------------- */
 $('langToggle').onclick=()=>{
   const order=['en','gu','hi'];const i=order.indexOf(S.CURR_LANG);
   S.CURR_LANG=order[(i+1)%order.length];
@@ -1407,14 +1383,10 @@ function applyLangFull(){
   if($('viewerScreen').classList.contains('active'))renderCardFull();
 }
 
-/* ------------------------------------------------------------------ */
-/*  ADMIN LOGIN                                                        */
-/* ------------------------------------------------------------------ */
+/* -------------------- ADMIN LOGIN -------------------- */
 function openAdminLoginFull(){
-  $('adminPwError').classList.remove('show');
-  $('adminPwInput').value='';
-  show($('adminLoginModal'));
-  setTimeout(()=>$('adminPwInput').focus(),150);
+  $('adminPwError').classList.remove('show');$('adminPwInput').value='';
+  show($('adminLoginModal'));setTimeout(()=>$('adminPwInput').focus(),150);
 }
 window.openAdminLogin=openAdminLoginFull;
 $('adminPwCancel').onclick=()=>hide($('adminLoginModal'));
@@ -1427,9 +1399,7 @@ async function tryAdminFull(){
   else{$('adminPwError').classList.add('show');$('adminPwInput').value=''}
 }
 
-/* ------------------------------------------------------------------ */
-/*  LOAD PERSON INTO STATE                                             */
-/* ------------------------------------------------------------------ */
+/* -------------------- LOAD PERSON -------------------- */
 async function loadPersonIntoState(p){
   S.CURRENT_PERSON=p;
   S.CURR={texts:{},textsByLang:{en:{},gu:{},hi:{}},shared:{},gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[]};
@@ -1440,8 +1410,7 @@ async function loadPersonIntoState(p){
   Object.keys(set).forEach(k=>{if(k.startsWith('shared__'))shared[k.substring(8)]=set[k]});
   S.CURR.shared=shared;
   function buildTextsForLang(L){
-    const out={};
-    const pref='texts__'+L+'_';
+    const out={};const pref='texts__'+L+'_';
     Object.keys(set).forEach(k=>{if(k.startsWith(pref))out[k.substring(pref.length)]=set[k]});
     Object.keys(set).forEach(k=>{
       if(!k.startsWith('texts__'))return;
@@ -1466,19 +1435,15 @@ async function loadPersonIntoState(p){
   S.CURR.media=await sb.rows(T_MEDIA,p.id)||[];
 }
 window.__loadPersonIntoState__=loadPersonIntoState;
-window.__renderCardFull__=renderCardFull;
 window.__S__=S;
 
 $('viewerBackBtn').onclick=()=>{
-  hide($('viewerScreen'));
-  S.PREVIEW_MODE=false;S.CARD_STARTED=false;
+  hide($('viewerScreen'));S.PREVIEW_MODE=false;S.CARD_STARTED=false;
   if(S.ADMIN_MODE)show($('adminPanel'));
   else $('homeScreen').classList.remove('hidden');
 };
 
-/* ------------------------------------------------------------------ */
-/*  SLIDESHOW                                                          */
-/* ------------------------------------------------------------------ */
+/* -------------------- SLIDESHOW -------------------- */
 let SS=[],SS_IDX=0,SS_T=null;
 $('openBtn').onclick=async()=>{
   if(!S.CURRENT_PERSON){alert('No person selected.');return}
@@ -1493,17 +1458,8 @@ function buildSlides(){
   const t=$('slidesTrack');t.innerHTML='';
   SS.forEach((s,i)=>{
     const d=document.createElement('div');d.className='slide';d.dataset.i=i;
-    if(s.type==='video'){
-      const v=document.createElement('video');
-      v.src=s.src;v.playsInline=true;v.controls=true;
-      v.onended=()=>{if($('slideshowOverlay').classList.contains('active'))nextSlide()};
-      d.appendChild(v);
-    }else{
-      const img=document.createElement('img');
-      img.src='https://lh3.googleusercontent.com/d/'+s.drive_id+'=w2400';
-      img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w2400'};
-      d.appendChild(img);
-    }
+    if(s.type==='video'){const v=document.createElement('video');v.src=s.src;v.playsInline=true;v.controls=true;v.onended=()=>{if($('slideshowOverlay').classList.contains('active'))nextSlide()};d.appendChild(v);}
+    else{const img=document.createElement('img');img.src='https://lh3.googleusercontent.com/d/'+s.drive_id+'=w2400';img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w2400'};d.appendChild(img);}
     t.appendChild(d);
   });
   updateSlide();
@@ -1528,9 +1484,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape')$('slideshowClose').click();
 });
 
-/* ------------------------------------------------------------------ */
-/*  STORY                                                              */
-/* ------------------------------------------------------------------ */
+/* -------------------- STORY / MAP (unchanged behaviour) -------------------- */
 let STORY_IDX=0,STORY_T=null,ST_PAUSED=false;
 function getStoryDurationMs(){ const s=S.CURR.shared||{}; let sec=parseFloat(s.storySlideDuration); if(!isFinite(sec)||sec<=0){sec=parseFloat(s.storySlideDefaultSec);if(!isFinite(sec)||sec<=0)sec=4} return Math.round(sec*1000); }
 $('storyBtn').onclick=()=>{ if(!S.CURR.story||!S.CURR.story.length)return; STORY_IDX=0;ST_PAUSED=false;drawStory();show($('storyModal')); const s=S.CURR.shared||{}; if(s.storySlideshowEnabled==='true'){startStoryAuto()}else{$('storySlideUI').style.display='none'} };
@@ -1542,9 +1496,6 @@ function startStoryAuto(){ if(STORY_T)clearTimeout(STORY_T); const ms=getStoryDu
 function stopStoryAuto(){ if(STORY_T){clearTimeout(STORY_T);STORY_T=null} const pb=$('storySlideProgress');if(pb){pb.style.transition='none';pb.style.width='0%'} $('storySlideUI').style.display='none'; }
 function drawStory(){ const v=$('storyViewer');const p=S.CURR.story[STORY_IDX];if(!p){v.innerHTML='';return} let h='<div class="story-page">'; if(p.photo_drive_id)h+=`<img src="https://lh3.googleusercontent.com/d/${p.photo_drive_id}=w1600">`; if(p.title)h+=`<h3>${p.title.replace(/</g,'&lt;')}</h3>`; if(p.body)h+='<p>'+p.body.replace(/</g,'&lt;')+'</p>'; h+='</div>';v.innerHTML=h; txt($('storyPageNum'),(STORY_IDX+1)+' / '+S.CURR.story.length); txt($('storySlideCounter'),'Page '+(STORY_IDX+1)+' / '+S.CURR.story.length); $('storySlideUI').style.display='flex'; }
 
-/* ------------------------------------------------------------------ */
-/*  MAP + PINS                                                         */
-/* ------------------------------------------------------------------ */
 let PIN_FLAT=[],PIN_IDX=0,PIN_T=null,PIN_PAUSED=false;
 function getPinDurationMs(){ const s=S.CURR.shared||{}; let sec=parseFloat(s.pinSlideDuration); if(!isFinite(sec)||sec<=0){sec=parseFloat(s.pinSlideDefaultSec);if(!isFinite(sec)||sec<=0)sec=4} return Math.round(sec*1000); }
 function buildPinFlat(){ const flat=[]; (S.CURR.pins||[]).forEach((pin,pIdx)=>{ const ids=String(pin.photo_drive_id||'').split(',').map(x=>x.trim()).filter(Boolean); if(!ids.length){flat.push({pin,pinIdx,driveId:'',photoIdx:0,total:1})} else ids.forEach((id,phIdx)=>flat.push({pin,pinIdx,driveId:id,photoIdx:phIdx,total:ids.length})); }); return flat; }
@@ -1574,9 +1525,7 @@ function stopPinSlideshow(){ if(PIN_T){clearTimeout(PIN_T);PIN_T=null} const pb=
 function openPinByIndex(pinIdx){ PIN_FLAT=buildPinFlat(); const idx=PIN_FLAT.findIndex(x=>x.pinIdx===pinIdx); if(idx<0)return; PIN_PAUSED=false; show($('pinModal')); const ui=$('pinSlideUI');if(ui)ui.style.display='flex'; gotoPinFlat(idx); }
 document.addEventListener('click',(e)=>{ if(e.target&&e.target.id==='pinSlidePause'){ e.stopPropagation(); PIN_PAUSED=!PIN_PAUSED; e.target.textContent=PIN_PAUSED?'▶':'⏸'; if(!PIN_PAUSED)schedulePinNext(); } });
 
-/* ------------------------------------------------------------------ */
-/*  UPLOAD                                                             */
-/* ------------------------------------------------------------------ */
+/* -------------------- UPLOAD -------------------- */
 $('uploadBtn').onclick=()=>{ $('uploadStatus').textContent='';$('uploadStatus').className='panel-status'; show($('uploadModal')); };
 $('uploadClose').onclick=()=>hide($('uploadModal'));
 $('uploadSubmit').onclick=async()=>{
@@ -1587,9 +1536,7 @@ $('uploadSubmit').onclick=async()=>{
   catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
 };
 
-/* ------------------------------------------------------------------ */
-/*  ADMIN PANEL                                                        */
-/* ------------------------------------------------------------------ */
+/* -------------------- ADMIN PANEL -------------------- */
 const TEXT_FIELDS=[
   'pageTitle','mainHeadline','subhead1','subhead2','greeting','msg1','msg2','msg3','msg4','msg5',
   'signoff','namesBadge','fromLabel','countersTitle','ct1_label','ct2_label','ct3_label',
@@ -1662,9 +1609,14 @@ function buildAdminPersonDropdown(){
 function fillAdminFields(){
   const sh=S.CURR.shared||{};
   const set=(id,v)=>{const el=$(id);if(el)el.value=(v===undefined||v===null)?'':v};
-  set('f_unlockDateISO',sh.unlockDateISO);set('f_ct1_datetime',sh.ct1_datetime);set('f_ct1_dispdate',sh.ct1_dispdate);
+  /* counters */
+  set('f_ct1_datetime',sh.ct1_datetime);set('f_ct1_dispdate',sh.ct1_dispdate);
   set('f_ct2_datetime',sh.ct2_datetime);set('f_ct2_dispdate',sh.ct2_dispdate);
   set('f_ct3_datetime',sh.ct3_datetime);set('f_ct3_dispdate',sh.ct3_dispdate);
+  set('f_ct1_label2',sh.ct1_label||'');set('f_ct2_label2',sh.ct2_label||'');set('f_ct3_label2',sh.ct3_label||'');
+  const cb=(id,v)=>{const el=$(id);if(el)el.checked=(String(v)!=='false')};
+  cb('f_ct1_show',sh.ct1_show);cb('f_ct2_show',sh.ct2_show);cb('f_ct3_show',sh.ct3_show);
+  set('f_unlockDateISO',sh.unlockDateISO);
   set('f_hardExpiryISO',sh.hardExpiryISO);set('f_adminPassword',sh.adminPassword||FALLBACK_ADMIN_PW);
   const dl=$('f_defaultLang');if(dl)dl.value=sh.defaultLang||'en';
   const tgl=(id,v)=>{const el=$(id);if(el)el.checked=(v==='true')};
@@ -1687,9 +1639,14 @@ function fillAdminFields(){
 function readAdminFields(){
   const g=id=>{const el=$(id);return el?el.value:''};
   const sh=S.CURR.shared||{};
-  sh.unlockDateISO=g('f_unlockDateISO');sh.ct1_datetime=g('f_ct1_datetime');sh.ct1_dispdate=g('f_ct1_dispdate');
+  sh.ct1_datetime=g('f_ct1_datetime');sh.ct1_dispdate=g('f_ct1_dispdate');
   sh.ct2_datetime=g('f_ct2_datetime');sh.ct2_dispdate=g('f_ct2_dispdate');
   sh.ct3_datetime=g('f_ct3_datetime');sh.ct3_dispdate=g('f_ct3_dispdate');
+  sh.ct1_label=g('f_ct1_label2');sh.ct2_label=g('f_ct2_label2');sh.ct3_label=g('f_ct3_label2');
+  sh.ct1_show=(($('f_ct1_show')||{}).checked)?'true':'false';
+  sh.ct2_show=(($('f_ct2_show')||{}).checked)?'true':'false';
+  sh.ct3_show=(($('f_ct3_show')||{}).checked)?'true':'false';
+  sh.unlockDateISO=g('f_unlockDateISO');
   sh.hardExpiryISO=g('f_hardExpiryISO');sh.adminPassword=g('f_adminPassword')||FALLBACK_ADMIN_PW;
   const tgl=id=>{const el=$(id);return el&&el.checked?'true':'false'};
   sh.enableFireworks=tgl('f_enableFireworks');sh.enableGiftBox=tgl('f_enableGiftBox');
@@ -1707,11 +1664,7 @@ function readAdminFields(){
 }
 
 document.querySelectorAll('#themeGrid .theme-swatch').forEach(el=>{
-  el.onclick=()=>{
-    S.CURR.shared.theme=el.dataset.themePick;
-    document.querySelectorAll('#themeGrid .theme-swatch').forEach(x=>x.classList.toggle('selected',x===el));
-    document.body.setAttribute('data-theme',el.dataset.themePick);
-  };
+  el.onclick=()=>{ S.CURR.shared.theme=el.dataset.themePick; document.querySelectorAll('#themeGrid .theme-swatch').forEach(x=>x.classList.toggle('selected',x===el)); document.body.setAttribute('data-theme',el.dataset.themePick); };
 });
 document.addEventListener('input',(e)=>{
   ['f_vol_card','f_vol_slide','f_vol_video','f_pinSlideDuration','f_storySlideDuration'].forEach(id=>{
@@ -1751,9 +1704,7 @@ function renderPeopleRepeater(){
 }
 $('addPersonRow').onclick=()=>{S.PEOPLE.push({id:null,slug:'',display_name:'',birthday:'',password:'',wipe_iso:'',enabled:true,sort_order:S.PEOPLE.length});renderPeopleRepeater();buildAdminPersonDropdown()};
 
-/* ------------------------------------------------------------------ */
-/*  SHARE MODAL                                                        */
-/* ------------------------------------------------------------------ */
+/* -------------------- SHARE MODAL -------------------- */
 let SHARE_CTX={person:null,guest:null};
 function openShareModal(person,guest){
   if(!person){__showToast('❌ No person to share',false);return}
@@ -1801,9 +1752,7 @@ function buildShareMessage(requesterName,person,link){
   return ['Hi '+name+' 💕','','Your surprise for *'+(person.display_name||person.slug)+'* is ready! 🎉','','🔑 Login ID: '+(person.slug||''),'🔒 Password: '+(person.password||''),'🌐 Open here: '+link,'','Steps:','1) Open the link above.','2) Tap the button with the person\'s name.','3) Enter the password.','4) Tap the 🎂 cake to reveal the surprise.','','Enjoy! 💖'].join('\n');
 }
 
-/* ------------------------------------------------------------------ */
-/*  VIEW DETAILS MODAL                                                 */
-/* ------------------------------------------------------------------ */
+/* -------------------- VIEW DETAILS -------------------- */
 async function openPersonDetails(p){
   if(!p){alert('No person.');return}
   const titleEl=$('personDetailsTitle'),subEl=$('personDetailsSub'),bodyEl=$('personDetailsBody');
@@ -1839,11 +1788,7 @@ async function openPersonDetails(p){
   });
   const esc=s=>String(s==null?'':s).replace(/</g,'&lt;');
   const row=(label,val)=>{if(val===undefined||val===null||val==='')return'';return '<div class="detail-row"><strong>'+label+':</strong> '+esc(val)+'</div>'};
-  const thumbs=(items,getter)=>{
-    const html=items.map(getter).filter(Boolean);
-    if(!html.length)return'';
-    return '<div class="thumb-grid">'+html.map(u=>'<div class="thumb"><img src="'+u+'" loading="lazy"></div>').join('')+'</div>';
-  };
+  const thumbs=(items,getter)=>{ const html=items.map(getter).filter(Boolean); if(!html.length)return''; return '<div class="thumb-grid">'+html.map(u=>'<div class="thumb"><img src="'+u+'" loading="lazy"></div>').join('')+'</div>'; };
   let h='';
   const link=PUBLIC_CARD_LINK+(p.slug?('?person='+encodeURIComponent(p.slug)):'');
   h+='<div class="detail-block"><div class="detail-block-title">👤 Person</div>'
@@ -1856,11 +1801,20 @@ async function openPersonDetails(p){
   ['enableFireworks','enableGiftBox','enableVoiceMsg','enableVideoMsg','enableEventCount','enableStory','enableMap','enableUpload','showLockScreen','pinSlideshowEnabled','storySlideshowEnabled'].forEach(k=>{h+=row(k,shared[k]==='true'?'✅ On':'❌ Off')});
   for(let i=1;i<=5;i++){ if(shared['song'+i+'_url']){ h+=row('Song '+i+' ('+(shared['song'+i+'_where']||'both')+')',shared['song'+i+'_url']+' '+(shared['song'+i+'_on']==='true'?'✅':'❌')); } }
   h+='</div>';
-  h+='<div class="detail-block"><div class="detail-block-title">🔓 Lock & Counters</div>'
+
+  /* Counters block */
+  h+='<div class="detail-block"><div class="detail-block-title">💕 Counters</div>';
+  COUNTERS.forEach((c,idx)=>{
+    const on=String(shared[c.showKey])!=='false';
+    h+=row('Counter '+(idx+1)+' show',on?'✅ On':'❌ Off');
+    h+=row('Counter '+(idx+1)+' label',shared[c.labelKey]);
+    h+=row('Counter '+(idx+1)+' date',shared[c.dtKey]);
+    h+=row('Counter '+(idx+1)+' display',shared[c.dispKey]);
+  });
+  h+='</div>';
+
+  h+='<div class="detail-block"><div class="detail-block-title">🔓 Unlock</div>'
     + row('Unlock date',shared.unlockDateISO)
-    + row('Counter 1',shared.ct1_datetime) + row('Counter 1 display',shared.ct1_dispdate)
-    + row('Counter 2',shared.ct2_datetime) + row('Counter 2 display',shared.ct2_dispdate)
-    + row('Counter 3',shared.ct3_datetime) + row('Counter 3 display',shared.ct3_dispdate)
     + '</div>';
   ['en','gu','hi'].forEach(lang=>{
     const tl=texts[lang]||{};let any=false;TEXT_FIELDS.forEach(k=>{if(tl[k])any=true});
@@ -1904,9 +1858,7 @@ async function openPersonDetails(p){
 $('personDetailsClose').onclick=()=>hide($('personDetailsModal'));
 $('personDetailsModal').addEventListener('click',(e)=>{if(e.target===$('personDetailsModal'))hide($('personDetailsModal'))});
 
-/* ------------------------------------------------------------------ */
-/*  ADMIN REPEATERS                                                    */
-/* ------------------------------------------------------------------ */
+/* -------------------- ADMIN REPEATERS -------------------- */
 function renderAdminGifts(){ const w=$('giftsRepeater');if(!w)return;w.innerHTML=''; (S.CURR.gifts||[]).forEach((g,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Emoji</label><input type="text" class="panel-input" data-gg="emoji" data-i="${i}" value="${(g.emoji||'🎁')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gg="title" data-i="${i}" value="${(g.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Message</label><textarea class="panel-textarea" data-gg="message" data-i="${i}">${(g.message||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID</label><input type="text" class="panel-input" data-gg="photo_drive_id" data-i="${i}" value="${(g.photo_drive_id||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.gifts[+el.dataset.i][el.dataset.gg]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.gifts.splice(+b.dataset.i,1);renderAdminGifts()}}); }
 $('addGiftRow').onclick=()=>{S.CURR.gifts=S.CURR.gifts||[];S.CURR.gifts.push({emoji:'🎁',title:'',message:'',photo_drive_id:''});renderAdminGifts()};
 function renderAdminStory(){ const w=$('storyRepeater');if(!w)return;w.innerHTML=''; (S.CURR.story||[]).forEach((s,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-st="title" data-i="${i}" value="${(s.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Body</label><textarea class="panel-textarea" data-st="body" data-i="${i}">${(s.body||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID</label><input type="text" class="panel-input" data-st="photo_drive_id" data-i="${i}" value="${(s.photo_drive_id||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.story[+el.dataset.i][el.dataset.st]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.story.splice(+b.dataset.i,1);renderAdminStory()}}); }
@@ -1919,27 +1871,10 @@ function renderAdminVideo(){ const w=$('videoRepeater');if(!w)return;w.innerHTML
 $('addVideoRow').onclick=()=>{S.CURR.video=S.CURR.video||[];S.CURR.video.push({title:'',video_url:''});renderAdminVideo()};
 function renderAdminPins(){ const w=$('pinsRepeater');if(!w)return;w.innerHTML=''; (S.CURR.pins||[]).forEach((p,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" data-pn="label" data-i="${i}" value="${(p.label||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Lat</label><input type="text" class="panel-input" data-pn="lat" data-i="${i}" value="${p.lat||''}"></div><div class="panel-field"><label class="panel-label">Lng</label><input type="text" class="panel-input" data-pn="lng" data-i="${i}" value="${p.lng||''}"></div><div class="panel-field"><label class="panel-label">Photo IDs</label><input type="text" class="panel-input" data-pn="photo_drive_id" data-i="${i}" value="${(p.photo_drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Story</label><textarea class="panel-textarea" data-pn="story" data-i="${i}">${(p.story||'')}</textarea></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.pins[+el.dataset.i][el.dataset.pn]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.pins.splice(+b.dataset.i,1);renderAdminPins()}}); }
 $('addPinRow').onclick=()=>{S.CURR.pins=S.CURR.pins||[];S.CURR.pins.push({label:'',lat:'',lng:'',photo_drive_id:'',story:''});renderAdminPins()};
-
-/* NEW: admin media repeater */
-function renderAdminMedia(){
-  const w=$('mediaRepeater');if(!w)return;w.innerHTML='';
-  (S.CURR.media||[]).forEach((m,i)=>{
-    const row=document.createElement('div');row.className='repeat-row';
-    row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button>
-      <div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-md="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div>
-      <div class="panel-field"><label class="panel-label">Drive ID (for photo)</label><input type="text" class="panel-input" data-md="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div>
-      <div class="panel-field"><label class="panel-label">Direct URL (for video or photo)</label><input type="text" class="panel-input" data-md="src" data-i="${i}" value="${(m.src||'')}"></div>
-      <div class="panel-field"><label class="panel-label">Title (optional)</label><input type="text" class="panel-input" data-md="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`;
-    w.appendChild(row);
-  });
-  w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{S.CURR.media[+el.dataset.i][el.dataset.md]=el.value}});
-  w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.media.splice(+b.dataset.i,1);renderAdminMedia()}});
-}
+function renderAdminMedia(){ const w=$('mediaRepeater');if(!w)return;w.innerHTML=''; (S.CURR.media||[]).forEach((m,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-md="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div><div class="panel-field"><label class="panel-label">Drive ID (photo)</label><input type="text" class="panel-input" data-md="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Direct URL (video/photo)</label><input type="text" class="panel-input" data-md="src" data-i="${i}" value="${(m.src||'')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-md="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{S.CURR.media[+el.dataset.i][el.dataset.md]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.media.splice(+b.dataset.i,1);renderAdminMedia()}}); }
 $('addMediaRow').onclick=()=>{S.CURR.media=S.CURR.media||[];S.CURR.media.push({type:'photo',drive_id:'',src:'',title:''});renderAdminMedia()};
 
-/* ------------------------------------------------------------------ */
-/*  SAVE                                                               */
-/* ------------------------------------------------------------------ */
+/* -------------------- SAVE -------------------- */
 async function saveAdminAll(){
   saveAdminTextsFromFields(S.ADMIN_EDIT_LANG);
   readAdminFields();
@@ -1975,7 +1910,6 @@ async function saveAdminAll(){
   if(window.buildHome)window.buildHome();
   renderPeopleRepeater();buildAdminPersonDropdown();
 }
-
 $('adminSave').onclick=async()=>{
   const t0=Date.now();window.__showToast('⏳ Saving…');
   try{ await saveAdminAll(); window.__showToast('✅ Saved in '+Math.round((Date.now()-t0)/100)/10+'s'); setTimeout(()=>hide($('adminPanel')),300); }
@@ -2026,9 +1960,7 @@ document.querySelectorAll('#adminPanel .panel-tab').forEach(tab=>{
   };
 });
 
-/* ------------------------------------------------------------------ */
-/*  GUEST APPROVALS                                                    */
-/* ------------------------------------------------------------------ */
+/* -------------------- GUEST APPROVALS -------------------- */
 async function loadGuestApprovals(){
   const list=$('pendingGuestsList');if(!list)return;
   list.textContent='Loading…';
@@ -2044,8 +1976,6 @@ async function loadGuestApprovals(){
     const wa=(r.guest_whatsapp||gi.whatsapp||'').replace(/[^0-9+]/g,'');
     const waLink=wa?('https://wa.me/'+wa.replace(/[^0-9]/g,'')):'';
     const en=pl.texts_en||pl.texts||{};
-    const gu=pl.texts_gu||{};
-    const hi=pl.texts_hi||{};
     const mediaIds=String(pl.mediaIds||'').split(',').map(x=>x.trim()).filter(Boolean);
     const el=document.createElement('div');el.className='repeat-row';
     el.innerHTML=`<div style="font-size:.85rem;line-height:1.6;">
@@ -2053,8 +1983,7 @@ async function loadGuestApprovals(){
       <em style="color:var(--c-text-muted);"> (login id: ${esc(prop.slug||r.target_person_slug)})</em><br>
       ${prop.birthday?'🎂 Birthday: '+esc(prop.birthday)+'<br>':''}
       <hr style="border:none;border-top:1px dashed rgba(196,30,58,.25);margin:.4rem 0;">
-      <strong>👤 Requested by:</strong> ${esc(gi.name||r.guest_name||'Guest')}
-      ${gi.relation?' ('+esc(gi.relation)+')':''}<br>
+      <strong>👤 Requested by:</strong> ${esc(gi.name||r.guest_name||'Guest')} ${gi.relation?' ('+esc(gi.relation)+')':''}<br>
       ${wa?'📱 '+esc(wa)+' '+(waLink?'<a href="'+waLink+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#25D366;color:#fff;padding:.15rem .55rem;border-radius:40px;font-size:.75rem;text-decoration:none;font-weight:800;">💬 Chat</a>':'')+'<br>':''}
       ${gi.occasion?'🎉 '+esc(gi.occasion)+'<br>':''}
       ${gi.note?'💬 '+esc(gi.note)+'<br>':''}
@@ -2062,8 +1991,14 @@ async function loadGuestApprovals(){
       🎨 Theme: ${esc(pl.theme||'—')} · 🎁 Gifts: ${(pl.gifts||[]).length} · 📖 Story: ${(pl.story||[]).length} · 📅 Events: ${(pl.events||[]).length} · 📸 Media: ${mediaIds.length} · 🔊 Voice: ${(pl.voice||[]).length} · 🎬 Video: ${(pl.video||[]).length} · 🗺️ Pins: ${(pl.pins||[]).length}
     </div>
     <details style="margin:.5rem 0;"><summary style="cursor:pointer;font-weight:800;color:var(--c-primary);">📂 Show all imported data</summary>
-      <div class="detail-block"><div class="detail-block-title">💌 Texts — EN (first 6 shown)</div>${Object.keys(en).slice(0,6).map(k=>'<div class="detail-row"><strong>'+esc(k)+':</strong> '+esc(en[k])+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
-      <div class="detail-block"><div class="detail-block-title">🎁 Gifts (${(pl.gifts||[]).length})</div>${(pl.gifts||[]).map((g,i)=>'<div class="detail-row"><strong>'+(i+1)+'.</strong> '+esc((g.emoji||'🎁')+' '+(g.title||''))+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
+      <div class="detail-block"><div class="detail-block-title">💌 Texts — EN (first 6)</div>${Object.keys(en).slice(0,6).map(k=>'<div class="detail-row"><strong>'+esc(k)+':</strong> '+esc(en[k])+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
+      <div class="detail-block"><div class="detail-block-title">💕 Counters</div>
+        ${COUNTERS.map((c,idx)=>{
+          const sh=pl.shared||{};
+          const on=String(sh[c.showKey])!=='false';
+          return '<div class="detail-row"><strong>Counter '+(idx+1)+':</strong> '+(on?'✅ On':'❌ Off')+' · label: '+esc(sh[c.labelKey]||'')+' · date: '+esc(sh[c.dtKey]||'')+'</div>';
+        }).join('')}
+      </div>
       <div class="detail-block"><div class="detail-block-title">📸 Media IDs (${mediaIds.length})</div>${mediaIds.slice(0,20).map(id=>'<div class="detail-row">'+esc(id)+'</div>').join('')||'<div class="detail-count">none</div>'}</div>
     </details>
     <div style="margin-top:.5rem;display:flex;gap:.4rem;flex-wrap:wrap;">
@@ -2116,6 +2051,15 @@ async function loadGuestApprovals(){
           settings['shared__enableVoiceMsg']='true';
           settings['shared__enableVideoMsg']='true';
           settings['shared__enableMap']='true';
+
+          /* Copy counters from guest shared payload */
+          const gs=pl.shared||{};
+          COUNTERS.forEach(c=>{
+            if(gs[c.labelKey]!==undefined)settings['shared__'+c.labelKey]=gs[c.labelKey];
+            if(gs[c.dtKey]!==undefined)settings['shared__'+c.dtKey]=gs[c.dtKey];
+            if(gs[c.dispKey]!==undefined)settings['shared__'+c.dispKey]=gs[c.dispKey];
+            if(gs[c.showKey]!==undefined)settings['shared__'+c.showKey]=gs[c.showKey];
+          });
           await sb.upSet(settings,newPersonId);
 
           const tasks=[];
@@ -2131,15 +2075,12 @@ async function loadGuestApprovals(){
           if(vdRows.length)tasks.push(sb.insBatch(T_VIDEO,vdRows));
           const pinRows=(pl.pins||[]).filter(p=>p.lat&&p.lng).map(p=>({person_id:newPersonId,label:p.label||'',lat:p.lat,lng:p.lng,photo_drive_id:p.photo_drive_id||'',story:p.story||''}));
           if(pinRows.length)tasks.push(sb.insBatch(T_PINS,pinRows));
-
-          /* 🆕 MEDIA from imported Excel — supports mediaIds string AND structured media array */
           const mediaIds=String(pl.mediaIds||'').split(',').map(x=>x.trim()).filter(Boolean);
           const structMedia=(pl.media||[]).filter(m=>m&&(m.drive_id||m.src));
           const mediaRows=[];
           mediaIds.forEach(id=>mediaRows.push({person_id:newPersonId,type:'photo',drive_id:id,src:'',title:'',sort_order:0}));
           structMedia.forEach(m=>mediaRows.push({person_id:newPersonId,type:m.type||'photo',drive_id:m.drive_id||'',src:m.src||'',title:m.title||'',sort_order:0}));
           if(mediaRows.length)tasks.push(sb.insBatch(T_MEDIA,mediaRows));
-
           await Promise.all(tasks);
 
           const shareLink=PUBLIC_CARD_LINK+'?person='+encodeURIComponent(slug);
@@ -2149,7 +2090,7 @@ async function loadGuestApprovals(){
           renderPeopleRepeater();buildAdminPersonDropdown();
           const freshPerson=S.PEOPLE.find(p=>p.id===newPersonId);
           if(freshPerson)openShareModal(freshPerson,r);
-          window.__showToast('✅ Approved — person #'+newPersonId+' created · share credentials');
+          window.__showToast('✅ Approved — person #'+newPersonId+' created');
         }else{
           await sb.updGuest(id,{status:'rejected'});
           window.__showToast('🗑️ Rejected');
@@ -2214,10 +2155,8 @@ async function loadGuestHistory(){
 }
 $('refreshGuestHistory').onclick=loadGuestHistory;
 
-/* ------------------------------------------------------------------ */
-/*  GUEST PANEL                                                        */
-/* ------------------------------------------------------------------ */
-const G={gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[],theme:''};
+/* -------------------- GUEST PANEL -------------------- */
+const G={gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[],theme:'',counters:{}};
 
 document.querySelectorAll('#guestLangTabs button').forEach(btn=>{
   btn.onclick=()=>{
@@ -2231,6 +2170,25 @@ document.querySelectorAll('#guestLangTabs button').forEach(btn=>{
 function applyGuestTextsToFields(lang){ const src=(S.GUEST_TEXTS&&S.GUEST_TEXTS[lang])||{}; document.querySelectorAll('.g-text').forEach(el=>{const k=el.dataset.gt;if(!k)return; el.value=src[k]!==undefined?src[k]:'';}); }
 function saveGuestTextsFromFields(lang){ const dst=(S.GUEST_TEXTS=S.GUEST_TEXTS||{en:{},gu:{},hi:{}}); dst[lang]=dst[lang]||{}; document.querySelectorAll('.g-text').forEach(el=>{const k=el.dataset.gt;if(!k)return; dst[lang][k]=el.value;}); }
 
+function renderGuestCounters(){
+  COUNTERS.forEach((c,idx)=>{
+    const num=idx+1;
+    const showEl=$('g_ct'+num+'_show');if(showEl)showEl.checked=(String(G.counters[c.showKey])!=='false');
+  });
+  document.querySelectorAll('.g-ctr').forEach(el=>{
+    const key=el.dataset.gc;if(!key)return;
+    el.value=G.counters[key]!==undefined?G.counters[key]:'';
+  });
+}
+document.querySelectorAll('.g-ctr').forEach(el=>{
+  el.addEventListener('input',()=>{const k=el.dataset.gc;if(k)G.counters[k]=el.value});
+  el.addEventListener('change',()=>{const k=el.dataset.gc;if(k)G.counters[k]=el.value});
+});
+[1,2,3].forEach(n=>{
+  const el=$('g_ct'+n+'_show');
+  if(el)el.onchange=()=>{G.counters['ct'+n+'_show']=el.checked?'true':'false'};
+});
+
 window.openGuestPanel=function(){
   S.GUEST_TEXTS={en:{},gu:{},hi:{}};S.GUEST_EDIT_LANG='en';
   document.querySelectorAll('#guestLangTabs button').forEach(b=>b.classList.toggle('active',b.dataset.guestLang==='en'));
@@ -2239,9 +2197,10 @@ window.openGuestPanel=function(){
   const gmid=$('g_mediaIds');if(gmid)gmid.value='';
   const rel=$('guestRelation');if(rel)rel.value='';
   const occ=$('guestOccasion');if(occ)occ.value='';
-  G.gifts=[];G.story=[];G.events=[];G.voice=[];G.video=[];G.pins=[];G.media=[];G.theme='';
+  G.gifts=[];G.story=[];G.events=[];G.voice=[];G.video=[];G.pins=[];G.media=[];G.theme='';G.counters={};
   renderGuestTheme();renderGuestGifts();renderGuestStory();renderGuestEvents();
   renderGuestVoice();renderGuestVideo();renderGuestPins();renderGuestMedia();
+  renderGuestCounters();
   const gs=$('guestStatus');if(gs){gs.textContent='';gs.className='panel-status'}
   const ges=$('guestExcelStatus');if(ges){ges.textContent='';ges.className='panel-status'}
   show($('guestPanel'));
@@ -2264,32 +2223,9 @@ function renderGuestVideo(){ const w=$('guestVideoRepeater');if(!w)return;w.inne
 $('guestAddVideoRow').onclick=()=>{G.video.push({title:'',video_url:''});renderGuestVideo()};
 function renderGuestPins(){ const w=$('guestPinsRepeater');if(!w)return;w.innerHTML=''; G.pins.forEach((p,i)=>{const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Label</label><input type="text" class="panel-input" data-gp="label" data-i="${i}" value="${(p.label||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Lat</label><input type="text" class="panel-input" data-gp="lat" data-i="${i}" value="${p.lat||''}"></div><div class="panel-field"><label class="panel-label">Lng</label><input type="text" class="panel-input" data-gp="lng" data-i="${i}" value="${p.lng||''}"></div><div class="panel-field"><label class="panel-label">Photo IDs</label><input type="text" class="panel-input" data-gp="photo_drive_id" data-i="${i}" value="${(p.photo_drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Story</label><textarea class="panel-textarea" data-gp="story" data-i="${i}">${(p.story||'')}</textarea></div>`; w.appendChild(row)}); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{G.pins[+el.dataset.i][el.dataset.gp]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.pins.splice(+b.dataset.i,1);renderGuestPins()}}); }
 $('guestAddPinRow').onclick=()=>{G.pins.push({label:'',lat:'',lng:'',photo_drive_id:'',story:''});renderGuestPins()};
-
-/* NEW: guest media repeater */
-function renderGuestMedia(){
-  const w=$('guestMediaRepeater');if(!w)return;w.innerHTML='';
-  (G.media||[]).forEach((m,i)=>{
-    const row=document.createElement('div');row.className='repeat-row';
-    row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button>
-      <div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-gm="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div>
-      <div class="panel-field"><label class="panel-label">Drive ID (for photo)</label><input type="text" class="panel-input" data-gm="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div>
-      <div class="panel-field"><label class="panel-label">Direct URL (for video or photo)</label><input type="text" class="panel-input" data-gm="src" data-i="${i}" value="${(m.src||'')}"></div>
-      <div class="panel-field"><label class="panel-label">Title (optional)</label><input type="text" class="panel-input" data-gm="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`;
-    w.appendChild(row);
-  });
-  w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{G.media[+el.dataset.i][el.dataset.gm]=el.value}});
-  w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.media.splice(+b.dataset.i,1);renderGuestMedia()}});
-}
+function renderGuestMedia(){ const w=$('guestMediaRepeater');if(!w)return;w.innerHTML=''; (G.media||[]).forEach((m,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-gm="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div><div class="panel-field"><label class="panel-label">Drive ID</label><input type="text" class="panel-input" data-gm="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Direct URL</label><input type="text" class="panel-input" data-gm="src" data-i="${i}" value="${(m.src||'')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gm="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{G.media[+el.dataset.i][el.dataset.gm]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{G.media.splice(+b.dataset.i,1);renderGuestMedia()}}); }
 $('guestAddMediaRow').onclick=()=>{G.media=G.media||[];G.media.push({type:'photo',drive_id:'',src:'',title:''});renderGuestMedia()};
-$('guestBulkAddMedia').onclick=()=>{
-  const v=$('g_mediaIds').value||'';
-  const ids=v.split(',').map(x=>x.trim()).filter(Boolean);
-  if(!ids.length){__showToast('Paste at least one ID',false);return}
-  G.media=G.media||[];
-  ids.forEach(id=>G.media.push({type:'photo',drive_id:id,src:'',title:''}));
-  renderGuestMedia();
-  __showToast('✅ Added '+ids.length+' photos');
-};
+$('guestBulkAddMedia').onclick=()=>{ const v=$('g_mediaIds').value||''; const ids=v.split(',').map(x=>x.trim()).filter(Boolean); if(!ids.length){__showToast('Paste at least one ID',false);return} G.media=G.media||[]; ids.forEach(id=>G.media.push({type:'photo',drive_id:id,src:'',title:''})); renderGuestMedia(); __showToast('✅ Added '+ids.length+' photos'); };
 
 document.querySelectorAll('#guestPanel .panel-tab').forEach(tab=>{
   tab.onclick=()=>{
@@ -2311,16 +2247,25 @@ $('guestExportBtn').onclick=()=>{
       {sheet:'',instruction:'1) Fill "people" — the person you are requesting for.'},
       {sheet:'',instruction:'2) Fill "requester" — your name, WhatsApp, relation, occasion, note.'},
       {sheet:'',instruction:'3) Fill "texts" — one row per field, with en_value / gu_value / hi_value.'},
-      {sheet:'',instruction:'4) Fill "shared", "gifts", "events", "voice", "video", "pins", "story", "media".'},
-      {sheet:'',instruction:'5) Save the file, Import Excel, then Submit for Approval.'},
-      {sheet:'',instruction:'6) We will WhatsApp you the Login ID + Password + Card link.'}
+      {sheet:'',instruction:'4) Fill "shared" — theme, counters (ct1_show, ct1_label, ct1_datetime, ct1_dispdate etc.), features.'},
+      {sheet:'',instruction:'5) Fill "gifts", "events", "voice", "video", "pins", "story", "media".'},
+      {sheet:'',instruction:'6) Save the file, Import Excel, then Submit for Approval.'},
+      {sheet:'',instruction:'7) We will WhatsApp you the Login ID + Password + Card link.'}
     ]),'How-to');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([{display_name:$('newPersonName').value||'',slug:$('newPersonSlug').value||'',birthday:$('newPersonBirthday').value||''}]),'people');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([{name:$('guestName').value||'',whatsapp:$('guestWhatsapp').value||'',relation:$('guestRelation').value||'',occasion:$('guestOccasion').value||'',note:$('guestNote').value||''}]),'requester');
     const en=S.GUEST_TEXTS.en||{},gu=S.GUEST_TEXTS.gu||{},hi=S.GUEST_TEXTS.hi||{};
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(TEXT_FIELDS.map(k=>({key:k,en_value:en[k]||'',gu_value:gu[k]||'',hi_value:hi[k]||''}))),'texts');
+
+    const c=G.counters||{};
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([
       {key:'theme',value:G.theme||'romantic'},{key:'defaultLang',value:'en'},
+      {key:'ct1_show',value:c.ct1_show!==undefined?c.ct1_show:'true'},
+      {key:'ct1_label',value:c.ct1_label||''},{key:'ct1_datetime',value:c.ct1_datetime||''},{key:'ct1_dispdate',value:c.ct1_dispdate||''},
+      {key:'ct2_show',value:c.ct2_show!==undefined?c.ct2_show:'true'},
+      {key:'ct2_label',value:c.ct2_label||''},{key:'ct2_datetime',value:c.ct2_datetime||''},{key:'ct2_dispdate',value:c.ct2_dispdate||''},
+      {key:'ct3_show',value:c.ct3_show!==undefined?c.ct3_show:'true'},
+      {key:'ct3_label',value:c.ct3_label||''},{key:'ct3_datetime',value:c.ct3_datetime||''},{key:'ct3_dispdate',value:c.ct3_dispdate||''},
       {key:'enableGiftBox',value:'true'},{key:'enableStory',value:'true'},{key:'enableEventCount',value:'true'},
       {key:'enableVoiceMsg',value:'true'},{key:'enableVideoMsg',value:'true'},{key:'enableMap',value:'true'},
       {key:'enableFireworks',value:'true'},{key:'enableUpload',value:'false'},{key:'showLockScreen',value:'false'},
@@ -2328,6 +2273,7 @@ $('guestExportBtn').onclick=()=>{
       {key:'pinSlideshowEnabled',value:'true'},{key:'pinSlideDuration',value:'4'},
       {key:'storySlideshowEnabled',value:'true'},{key:'storySlideDuration',value:'4'}
     ]),'shared');
+
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.gifts.length?G.gifts:[{emoji:'',title:'',message:'',photo_drive_id:''}]).map(g=>({emoji:g.emoji||'',title:g.title||'',message:g.message||'',photo_drive_id:g.photo_drive_id||''}))),'gifts');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.events.length?G.events:[{icon:'',label:'',target_iso:''}]).map(e=>({icon:e.icon||'',label:e.label||'',target_iso:e.target_iso||''}))),'events');
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet((G.voice.length?G.voice:[{title:'',audio_url:''}]).map(v=>({title:v.title||'',audio_url:v.audio_url||''}))),'voice');
@@ -2363,7 +2309,16 @@ $('guestExcelInput').onchange=async(e)=>{
     tx.forEach(r=>{const k=String(r.key||'').trim();if(!k)return; if(r.en_value!==undefined)en[k]=String(r.en_value||''); if(r.gu_value!==undefined)gu[k]=String(r.gu_value||''); if(r.hi_value!==undefined)hi[k]=String(r.hi_value||'');});
     S.GUEST_TEXTS={en,gu,hi};applyGuestTextsToFields(S.GUEST_EDIT_LANG);
 
-    const sh=readSheet('shared');sh.forEach(r=>{if(String(r.key||'').trim()==='theme'&&r.value)G.theme=String(r.value).trim()});
+    /* shared → theme + counters */
+    const sh=readSheet('shared');
+    G.counters=G.counters||{};
+    sh.forEach(r=>{
+      const k=String(r.key||'').trim();if(!k)return;
+      const v=String(r.value==null?'':r.value);
+      if(k==='theme'){G.theme=v.trim();return}
+      if(/^ct[123]_(show|label|datetime|dispdate)$/.test(k)){G.counters[k]=v;return}
+    });
+    renderGuestCounters();
 
     G.gifts=readSheet('gifts').filter(r=>r.emoji||r.title||r.message||r.photo_drive_id).map(r=>({emoji:String(r.emoji||'🎁'),title:String(r.title||''),message:String(r.message||''),photo_drive_id:String(r.photo_drive_id||'')}));
     G.events=readSheet('events').filter(r=>r.icon||r.label||r.target_iso).map(r=>({icon:String(r.icon||'📅'),label:String(r.label||''),target_iso:String(r.target_iso||'')}));
@@ -2371,15 +2326,12 @@ $('guestExcelInput').onchange=async(e)=>{
     G.video=readSheet('video').filter(r=>r.title||r.video_url).map(r=>({title:String(r.title||''),video_url:String(r.video_url||'')}));
     G.pins=readSheet('pins').filter(r=>r.label||r.lat||r.lng||r.photo_drive_id||r.story).map(r=>({label:String(r.label||''),lat:String(r.lat||''),lng:String(r.lng||''),photo_drive_id:String(r.photo_drive_id||''),story:String(r.story||'')}));
     G.story=readSheet('story').filter(r=>r.title||r.body||r.photo_drive_id).map(r=>({title:String(r.title||''),body:String(r.body||''),photo_drive_id:String(r.photo_drive_id||'')}));
-
     const mediaRows=readSheet('media').filter(r=>(r.drive_id||r.src)&&String(r.drive_id||r.src).trim()!=='');
     G.media=mediaRows.map(r=>({type:String(r.type||'photo'),src:String(r.src||''),drive_id:String(r.drive_id||''),title:String(r.title||'')}));
 
     renderGuestTheme();renderGuestGifts();renderGuestStory();renderGuestEvents();
     renderGuestVoice();renderGuestVideo();renderGuestPins();renderGuestMedia();
-
-    st.textContent='✅ Imported! '+G.media.length+' media row(s). Review, then Submit for Approval.';
-    st.className='panel-status ok';
+    st.textContent='✅ Imported! '+G.media.length+' media row(s). Review, then Submit for Approval.';st.className='panel-status ok';
   }catch(err){st.textContent='❌ '+err.message;st.className='panel-status err'}
   finally{e.target.value=''}
 };
@@ -2401,13 +2353,20 @@ $('guestSubmit').onclick=async()=>{
   if(!newSlug)missing.push('• Person\'s Login ID / Slug');
   if(!newBday)missing.push('• Person\'s Birthday');
   if(!gname)missing.push('• Your name');
-  if(!gwa)missing.push('• Your WhatsApp number (we send ID + password + link here)');
+  if(!gwa)missing.push('• Your WhatsApp number');
   if(!rel)missing.push('• Your relation to them');
   if(!occasion)missing.push('• Occasion');
   if(gwa&&gwa.replace(/\D/g,'').length<6)missing.push('• WhatsApp must have 6+ digits');
   if(missing.length){ alert('⚠️ Please fill all mandatory fields:\n\n'+missing.join('\n')); st.textContent='❌ Missing field(s).';st.className='panel-status err'; return; }
   const exists=S.PEOPLE.find(p=>p.slug===newSlug);
   if(exists){st.textContent='❌ Login ID already taken.';st.className='panel-status err';return}
+  const sharedOut={};
+  COUNTERS.forEach(c=>{
+    sharedOut[c.labelKey]=G.counters[c.labelKey]!==undefined?G.counters[c.labelKey]:(S.GUEST_TEXTS.en[c.labelKey]||'');
+    sharedOut[c.dtKey]=G.counters[c.dtKey]||'';
+    sharedOut[c.dispKey]=G.counters[c.dispKey]||'';
+    sharedOut[c.showKey]=G.counters[c.showKey]!==undefined?G.counters[c.showKey]:'true';
+  });
   const payload={
     person_proposal:{display_name:newName,slug:newSlug,birthday:newBday},
     guest_info:{name:gname,relation:rel,occasion:occasion,note:note,whatsapp:gwa},
@@ -2415,6 +2374,7 @@ $('guestSubmit').onclick=async()=>{
     texts_gu:S.GUEST_TEXTS.gu||{},
     texts_hi:S.GUEST_TEXTS.hi||{},
     texts:S.GUEST_TEXTS.en||{},
+    shared:sharedOut,
     theme:G.theme,gifts:G.gifts,story:G.story,events:G.events,
     voice:G.voice,video:G.video,pins:G.pins,
     media:G.media||[],
@@ -2426,7 +2386,7 @@ $('guestSubmit').onclick=async()=>{
       guest_name:gname,guest_relation:rel,guest_whatsapp:gwa,target_person_slug:newSlug,payload,status:'pending'
     })});
     if(!r.ok){const t=await r.text();throw new Error('submit failed '+r.status+' '+t)}
-    st.textContent='✅ Submitted! We will WhatsApp the Login ID, Password and link once approved.';st.className='panel-status ok';
+    st.textContent='✅ Submitted!';st.className='panel-status ok';
     setTimeout(()=>{
       if(confirm('Submitted!\n\nWe will WhatsApp you the Login ID + Password + Card link once approved.\n\nSend us a WhatsApp message now to speed up the approval?')){
         const msg='Hi Deep, I just submitted a request to add "'+newName+'". Please review and approve. I will receive the Login ID + Password + Card link on WhatsApp ('+gwa+'). Thank you!';
@@ -2437,15 +2397,12 @@ $('guestSubmit').onclick=async()=>{
   }catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
 };
 
-/* ------------------------------------------------------------------ */
-/*  BOOT                                                               */
-/* ------------------------------------------------------------------ */
+/* -------------------- BOOT -------------------- */
 async function boot(){
   document.body.setAttribute('data-theme','romantic');
   const emo=['❤️','💛','🌹','💕','✨','💗','🌺','💝','🌸','💞'];
   for(let i=0;i<18;i++){
-    const sp=document.createElement('span');
-    sp.className='float-item';
+    const sp=document.createElement('span');sp.className='float-item';
     sp.textContent=emo[Math.floor(Math.random()*emo.length)];
     sp.style.left=(Math.random()*100)+'%';
     sp.style.fontSize=(1.2+Math.random()*1.4)+'rem';
