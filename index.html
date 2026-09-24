@@ -1389,8 +1389,7 @@ const FALLBACK_ADMIN_PW='Deepnectar@@1617@@';
 const PUBLIC_CARD_LINK='https://surprise-clickandcheck-your-surprise2.netlify.app/';
 const DEFAULT_TZ='Asia/Dubai';
 
-/* default duration for images inside modals (gift / pin / story / any image-based extra) */
-const MODAL_IMG_DURATION_MS = 10000; /* 10 seconds per image */
+const MODAL_IMG_DURATION_MS = 10000;
 
 const TZ_OPTIONS=[
   {v:'Asia/Dubai',l:'🇦🇪 Dubai / UAE (UTC+4) — default'},
@@ -1466,7 +1465,6 @@ const COUNTERS=[
   {id:'ct3',icon:'💍',labelKey:'ct3_label',dtKey:'ct3_datetime',tzKey:'ct3_datetime_tz',dispKey:'ct3_dispdate',showKey:'ct3_show',mainLabel:'ctMain3_label',mainDate:'ctMain3_date',mainRow:'ctMain3'}
 ];
 
-/* ===== TZ helpers ===== */
 function zonedToUTC(localStr,tz){
   if(!localStr)return null;
   const m=localStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/);
@@ -1511,7 +1509,6 @@ function dedupeMedia(rows){
   return out;
 }
 
-/* ===== Requester EDIT password ===== */
 function last4Digits(s){
   const digits=String(s||'').replace(/\D/g,'');
   if(digits.length<4)return digits.padStart(4,'0');
@@ -1542,7 +1539,6 @@ function shuffleArray(arr){
   return a;
 }
 
-/* ===== Supabase ===== */
 const sb={
   h(){return{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=representation'}},
   hd(){return{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY}},
@@ -1614,7 +1610,6 @@ async function checkWipe(){
   }catch(e){}
 }
 
-/* ===== Fireworks / Toast ===== */
 const FW_COLORS=['#8b0028','#c41e3a','#ffd700','#ffed4e','#d4a373','#ffe0e6','#ff69b4','#ff8a3d','#2a5fd1','#9d4edd'];
 function getShared(k,def){const s=S.CURR.shared||{};return s[k]!==undefined?s[k]:def}
 function getText(k,def){const t=S.CURR.texts||{};return t[k]!==undefined?t[k]:def}
@@ -1645,7 +1640,6 @@ window.__showToast=function(msg,ok){
   t._tt=setTimeout(()=>t.classList.remove('show'),2400);
 };
 
-/* ===== Triple-click admin ===== */
 let homeClickCount=0;let homeClickTimer=null;
 (function wireTripleClick(){
   const el=$('homeEmoji');if(!el)return;
@@ -1664,7 +1658,6 @@ async function triggerAdminPrompt(){
   openAdminLoginFull();
 }
 
-/* ===== Home ===== */
 window.buildHome=function(){
   const g=$('homeGrid');if(!g)return;g.innerHTML='';
   const ep=S.PEOPLE.filter(p=>p.enabled!==false);
@@ -1729,7 +1722,6 @@ function hasReviewFor(slug){
   return (S.REVIEWS||[]).some(r=>r.person_slug&&r.person_slug.toLowerCase()===low);
 }
 
-/* ===== Login ===== */
 function onPersonClick(p){
   S.LOGIN_TARGET=p;
   txt($('personLoginTitle'),'Hi '+(p.display_name||p.slug||'')+' 💕');
@@ -1771,7 +1763,6 @@ async function tryPersonPw(){
   openOpeningFull();
 }
 
-/* ===== Lock screen ===== */
 function renderLockFull(){
   txt($('lockTitleEl'),getText('lockTitle','The surprise is locked'));
   $('lockSubtitleEl').innerHTML=(getText('lockSubtitle','')||'')+(getText('lockDateText','')?('<br><strong>'+getText('lockDateText','')+'</strong>'):'');
@@ -1804,7 +1795,6 @@ $('openEarlyBtn').onclick=()=>{
   clearInterval(CD_T);hide($('lockScreen'));openOpeningFull();
 };
 
-/* ===== Opening ===== */
 function openOpeningFull(){
   txt($('openLine1El'),getText('openLine1','A special day…'));
   txt($('openLine2El'),getText('openLine2','Happy Birthday!'));
@@ -1819,7 +1809,6 @@ $('cakeClickable').onclick=async()=>{
   showViewerFor(S.CURRENT_PERSON,true);
 };
 
-/* ===== Viewer ===== */
 async function showViewerFor(person,startNow){
   if(!S.CURRENT_PERSON||S.CURRENT_PERSON.id!==person.id){
     await loadPersonIntoState(person);
@@ -1877,7 +1866,6 @@ function renderCardFull(){
   renderGifts();renderEvents();updateCounters();
 }
 
-/* ===== Typewriter ===== */
 let TW_TIMERS=[],TW_STARTED=false,TW_DONE=false,TW_ABORT=false;
 function clearTW(){while(TW_TIMERS.length)clearTimeout(TW_TIMERS.pop())}
 function graphemes(str){try{const seg=new Intl.Segmenter('en',{granularity:'grapheme'});return Array.from(seg.segment(str),x=>x.segment)}catch(e){return Array.from(str)}}
@@ -1931,7 +1919,6 @@ function updateCounters(){
 }
 setInterval(()=>{if($('viewerScreen').classList.contains('active'))updateCounters()},1000);
 
-/* ===== Gifts / Events ===== */
 function renderGifts(){
   const w=$('giftRow'),sec=$('giftSection');
   const gifts=S.CURR.gifts||[];const s=S.CURR.shared||{};
@@ -2051,7 +2038,6 @@ function renderEvents(){
   if(EV_T)clearInterval(EV_T);EV_T=setInterval(tick,60000);
 }
 
-/* ===== Voice Message ===== */
 $('voicePlayBtn').onclick=()=>{
   if(!S.CURR.voice||!S.CURR.voice.length)return;
   const a=$('audioPlayer');
@@ -2061,7 +2047,6 @@ $('voicePlayBtn').onclick=()=>{
   a.play().catch(()=>{});
 };
 
-/* ===== Video Message ===== */
 let VM_CURRENT=null;
 $('videoMsgBtn').onclick=()=>{
   if(!S.CURR.video||!S.CURR.video.length)return;
@@ -2089,7 +2074,6 @@ $('videoMsgBtn').onclick=()=>{
   if(p&&p.catch)p.catch(()=>{ vid.muted=true; vid.play().catch(()=>{}); });
 };
 
-/* ===== Story Modal ===== */
 let STORY_IDX=0;
 let STORY_T=null;
 let STORY_AUTOPLAY=false;
@@ -2149,7 +2133,6 @@ $('storySlidePause').onclick=()=>{
 };
 $('storyModal').addEventListener('click',(e)=>{ if(e.target===$('storyModal')){closeStoryModal();} });
 
-/* ===== Map of Memories ===== */
 function renderMapPins(){
   const canvas=$('mapCanvas');if(!canvas)return;
   const pins=S.CURR.pins||[];
@@ -2202,7 +2185,6 @@ function closePinModal(){ if(PIN_MINI){PIN_MINI.stop();PIN_MINI=null;} hide($('p
 $('pinModalClose').onclick=closePinModal;
 $('pinModal').addEventListener('click',(e)=>{if(e.target===$('pinModal'))closePinModal()});
 
-/* ===== Upload Photo ===== */
 $('uploadBtn').onclick=()=>{
   $('uploadName').value='';$('uploadDriveId').value='';$('uploadMsg').value='';
   const st=$('uploadStatus');if(st){st.textContent='';st.className='panel-status'}
@@ -2227,7 +2209,6 @@ $('uploadSubmit').onclick=async()=>{
   }catch(e){st.textContent='❌ '+e.message;st.className='panel-status err';}
 };
 
-/* ===== Music ===== */
 let MUSIC_ON=false,CURR_CTX='card',CURR_LIST=[],CURR_IDX=-1;
 function getVol(ctx){const s=S.CURR.shared||{};if(ctx==='video')return parseFloat(s.vol_video)||1.0;if(ctx==='slideshow')return parseFloat(s.vol_slide)||0.85;return parseFloat(s.vol_card)||0.45}
 function buildPlaylistFor(ctx){
@@ -2275,7 +2256,6 @@ $('musicToggle').onclick=()=>{
   else{MUSIC_ON=true;a.play().catch(()=>{});$('musicToggle').textContent='🔊'}
 };
 
-/* ===== Language ===== */
 $('langToggle').onclick=()=>{
   const order=['en','gu','hi'];const i=order.indexOf(S.CURR_LANG);
   S.CURR_LANG=order[(i+1)%order.length];
@@ -2289,7 +2269,6 @@ function applyLangFull(){
   if($('viewerScreen').classList.contains('active'))renderCardFull();
 }
 
-/* ===== Admin login ===== */
 function openAdminLoginFull(){
   $('adminPwError').classList.remove('show');$('adminPwInput').value='';
   show($('adminLoginModal'));setTimeout(()=>$('adminPwInput').focus(),150);
@@ -2305,7 +2284,6 @@ async function tryAdminFull(){
   else{$('adminPwError').classList.add('show');$('adminPwInput').value=''}
 }
 
-/* ===== Load person ===== */
 async function loadPersonIntoState(p){
   S.CURRENT_PERSON=p;
   S.CURR={texts:{},textsByLang:{en:{},gu:{},hi:{}},shared:{},gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[]};
@@ -2354,8 +2332,8 @@ $('viewerBackBtn').onclick=()=>{
 };
 
 /* ============================================================
-   SLIDESHOW — fixed for mobile: preloading, waiting for load,
-   responsive image sizes, and tab-visibility recovery
+   SLIDESHOW — fixed for mobile: no auto-refresh, no double timer,
+   no visibilitychange misfires
    ============================================================ */
 let SS=[],SS_IDX=0,SS_T=null,SS_VIDEO_TIMER=null,SS_TX_T=null;
 let SS_isOpen=false;
@@ -2364,6 +2342,8 @@ let SS_touchSX=0,SS_touchSY=0;
 let SS_floaterTimer=null;
 let SS_fxCounter=0;
 let SS_rafId=null;
+let SS_timerToken=0;            // FIX: token to invalidate stale timers
+let SS_lastVisibilityChange=0;  // FIX: guard against rapid visibilitychange
 
 const SS_PHOTO_EFFECTS=['fx-ken-in','fx-ken-out','fx-pan-lr','fx-pan-rl','fx-pan-tb','fx-rotate','fx-fade','fx-blur','fx-scale-down'];
 const SS_VIDEO_EFFECTS=['vfx-fade','vfx-zoom','vfx-slide-right','vfx-blur'];
@@ -2374,6 +2354,7 @@ function SS_clearTimers(){
   if(SS_VIDEO_TIMER){clearTimeout(SS_VIDEO_TIMER);SS_VIDEO_TIMER=null;}
   if(SS_TX_T){clearTimeout(SS_TX_T);SS_TX_T=null;}
   if(SS_rafId){cancelAnimationFrame(SS_rafId);SS_rafId=null;}
+  SS_timerToken++;   // FIX: invalidate any in-flight timer callbacks
 }
 function SS_photoDurationMs(){
   const v=parseFloat((S.CURR.shared||{}).photoDurationSec||'5');
@@ -2536,7 +2517,7 @@ function SS_buildSlides(){
       v.playsInline=true;
       v.setAttribute('playsinline','');
       v.setAttribute('webkit-playsinline','');
-      v.preload='auto';
+      v.preload='metadata';
       v.setAttribute('disablepictureinpicture','');
       v.muted=true;
       d.appendChild(v);
@@ -2564,8 +2545,7 @@ function SS_buildSlides(){
       img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w'+(window.innerWidth < 700 ? 1200 : 2400);};
       img.className='fx-target';
       img.decoding='async';
-      img.loading='eager';
-      img.fetchPriority='high';
+      // FIX: no loading='eager' / fetchPriority='high' — causes mobile to abort & restart
       d.appendChild(img);
     }
     t.appendChild(d);
@@ -2607,23 +2587,11 @@ function SS_applyEffectToCurrent(prevIndex){
 
 function SS_animateTrackTo(prevIndex){
   const t=$('slidesTrack');
-  const choices=['slide','fade','scale','slide'];
-  const pick=choices[Math.floor(Math.random()*choices.length)];
-  if(pick==='fade'){
-    t.classList.add('transition-fade');
-    setTimeout(()=>{ t.classList.remove('transition-fade'); }, 350);
-  }
-  if(pick==='scale'){
-    t.style.transition='transform .6s cubic-bezier(.7,0,.2,1), opacity .5s ease';
-    t.classList.add('transition-scale');
-    t.style.transform=`translateX(-${SS_IDX*100}%) scale(1.05)`;
-    setTimeout(()=>{ t.style.transform=`translateX(-${SS_IDX*100}%) scale(1)`; t.classList.remove('transition-scale'); }, 10);
-    return;
-  }
+  // FIX: always use a simple translate (no fade/scale random) to avoid perceived refresh
+  t.style.transition='transform .55s cubic-bezier(.7,0,.2,1)';
   t.style.transform=`translateX(-${SS_IDX*100}%)`;
 }
 
-/* ---------- FIXED SS_updateSlide for mobile ---------- */
 function SS_updateSlide(){
   const t=$('slidesTrack');
   const prevIndex=SS_IDX;
@@ -2654,7 +2622,6 @@ function SS_updateSlide(){
       if(v.readyState>=1){ tryPlay(); }
       else{
         v.addEventListener('loadedmetadata',tryPlay,{once:true});
-        setTimeout(()=>{ if(SS_isOpen&&SS[SS_IDX]===cur&&v.paused)tryPlay(); },800);
       }
     }
     const pb=$('slideshowProgress');
@@ -2662,7 +2629,6 @@ function SS_updateSlide(){
   }else{
     if(SS_musicDucked!==false){ SS_fadeMusic(SS_normalMusicVol(),400); SS_musicDucked=false; }
 
-    // PRELOAD NEXT IMAGE (so it's ready before timer fires)
     const nextIdx = (SS_IDX+1) % SS.length;
     const next = SS[nextIdx];
     if(next && next.type !== 'video' && next.drive_id){
@@ -2672,9 +2638,15 @@ function SS_updateSlide(){
     }
 
     const img = slideEl.querySelector('img.fx-target');
+    const myToken = SS_timerToken;   // FIX: capture token for this slide
+    const curSlideRef = cur;
 
     const startTimer = () => {
-      if(!SS_isOpen || SS[SS_IDX] !== cur) return;
+      // FIX: bail out if we've moved on or a newer timer superseded us
+      if(!SS_isOpen) return;
+      if(SS[SS_IDX] !== curSlideRef) return;
+      if(SS_timerToken !== myToken) return;
+
       const dur = SS_photoDurationMs();
       const pb = $('slideshowProgress');
       if(pb){
@@ -2683,16 +2655,20 @@ function SS_updateSlide(){
         pb.style.transition='width '+dur+'ms linear';
         pb.style.width='100%';
       }
-      SS_T = setTimeout(()=>{ if(SS_isOpen) SS_next(); }, dur);
+      SS_T = setTimeout(()=>{
+        if(!SS_isOpen) return;
+        if(SS[SS_IDX] !== curSlideRef) return;
+        if(SS_timerToken !== myToken) return;
+        SS_next();
+      }, dur);
     };
 
     if(img && !img.complete){
-      // Wait for the image to actually load/error before starting timer
-      const onDone = () => startTimer();
-      img.addEventListener('load', onDone, {once:true});
-      img.addEventListener('error', onDone, {once:true});
-      // Safety fallback in case neither fires
-      setTimeout(startTimer, 8000);
+      img.addEventListener('load', startTimer, {once:true});
+      img.addEventListener('error', startTimer, {once:true});
+      // FIX: safety net — but only fires if neither load nor error happened
+      // and it checks token + current slide inside startTimer
+      setTimeout(startTimer, 6000);
     } else {
       startTimer();
     }
@@ -2752,9 +2728,19 @@ document.addEventListener('keydown',(e)=>{
   else if(e.key==='ArrowLeft')SS_prev();
   else if(e.key==='Escape')SS_close();
 });
+
+// FIX: single visibilitychange handler with debounce; removed blur/focus handlers
+// that were causing double-fires and mid-transition resets on mobile.
 document.addEventListener('visibilitychange',()=>{
+  const now = Date.now();
+  // Debounce — ignore changes within 500ms of the previous one
+  if (now - SS_lastVisibilityChange < 500) return;
+  SS_lastVisibilityChange = now;
+
   if(document.hidden){
-    SS_clearTimers();
+    // Just pause timers and video. Do NOT rebuild the slide.
+    if(SS_T){clearTimeout(SS_T);SS_T=null;}
+    if(SS_VIDEO_TIMER){clearTimeout(SS_VIDEO_TIMER);SS_VIDEO_TIMER=null;}
     const t=$('slidesTrack');
     if(t)Array.from(t.children).forEach(slideEl=>{
       const v=slideEl.querySelector('video');
@@ -2762,16 +2748,29 @@ document.addEventListener('visibilitychange',()=>{
     });
     const a=$('audioPlayer');if(a)a.pause();
   }else if(SS_isOpen){
-    SS_updateSlide();
+    // Resume: only resume music; do NOT force SS_updateSlide()
+    // because that would reset the current slide mid-view.
     const a=$('audioPlayer');
     if(a&&a.src){a.play().catch(()=>{});}
+    // If the current slide is a photo and its timer was cleared, restart it
+    const cur = SS[SS_IDX];
+    if(cur && cur.type !== 'video'){
+      // Only restart if we're actually missing a timer
+      if(!SS_T){
+        const dur = SS_photoDurationMs();
+        const curSlideRef = cur;
+        const myToken = SS_timerToken;
+        SS_T = setTimeout(()=>{
+          if(!SS_isOpen) return;
+          if(SS[SS_IDX] !== curSlideRef) return;
+          if(SS_timerToken !== myToken) return;
+          SS_next();
+        }, dur);
+      }
+    }
   }
 });
-// Mobile fallback — blur/focus sometimes fire when tab/window changes on iOS/Android
-window.addEventListener('blur',()=>{ if(SS_isOpen){ SS_clearTimers(); } });
-window.addEventListener('focus',()=>{ if(SS_isOpen){ SS_updateSlide(); } });
 
-/* ===== Closing modal → Review ===== */
 function openClosingModal(){
   const t=S.CURR.texts||{};
   txt($('closingTitleEl'),t.closeTitle||'💖 With Love');
@@ -2920,7 +2919,6 @@ function renderAdminReviews(){
 }
 $('adminRefreshReviews').onclick=loadReviews;
 
-/* ===== Text fields ===== */
 const TEXT_FIELDS=[
   'pageTitle','mainHeadline','subhead1','subhead2','greeting','msg1','msg2','msg3','msg4','msg5',
   'signoff','namesBadge','fromLabel','countersTitle','ct1_label','ct2_label','ct3_label',
@@ -2932,7 +2930,6 @@ const TEXT_FIELDS=[
   'closeTitle','close1','close2','close3','close4','closeSignoff','closeBtn'
 ];
 
-/* ===== Admin boot ===== */
 window.startAdmin=async function(){
   S.ADMIN_MODE=true;
   if(!S.PEOPLE.length)S.PEOPLE=await sb.people()||[];
@@ -3093,7 +3090,6 @@ document.addEventListener('input',(e)=>{
   if(e.target&&e.target.id==='f_floaterDensity'){const lab=$('f_floaterDensity_val');if(lab)lab.textContent=e.target.value}
 });
 
-/* ===== People repeater ===== */
 function personKey(p,i){return p.id?'p-'+p.id:'tmp-'+i}
 
 function renderPeopleRepeater(){
@@ -3221,7 +3217,6 @@ function renderPeopleRepeater(){
   }; });
 }
 
-/* ===== Add new person ===== */
 function apResetForm(){
   $('ap_name').value='';$('ap_slug').value='';$('ap_password').value='';$('ap_birthday').value='';
   $('ap_requester').value='';$('ap_requester_wa').value='';$('ap_wipe_local').value='';$('ap_editpw_preview').value='';
@@ -3309,7 +3304,6 @@ $('addPersonRow').onclick=()=>{
   renderPeopleRepeater();buildAdminPersonDropdown();
 };
 
-/* ===== Share modal ===== */
 let SHARE_CTX={person:null,guest:null};
 function openShareModal(person,guest){
   if(!person){__showToast('❌ No person to share',false);return}
@@ -3359,7 +3353,6 @@ function buildShareMessage(requesterName,person,link,editPw){
   return ['Hi '+name+' 💕','','Your surprise for *'+(person.display_name||person.slug)+'* is ready! 🎉','','🔑 Login ID: '+(person.slug||''),'🔒 Card Password (viewer): '+(person.password||''),'✏️ Requester EDIT password: '+(editPw||''),'🌐 Open here: '+link,'','How to use:','• To VIEW the surprise → use the Card Password.','• To EDIT the card → use the Requester EDIT password (you will see an ✏️ Edit Card button).','','Steps:','1) Open the link above.','2) Tap the button with the person\'s name.','3) Enter the Card Password (view) OR the Requester EDIT password (edit).','4) Tap the 🎂 cake to reveal the surprise.','','Enjoy! 💖'].join('\n');
 }
 
-/* ===== Person details ===== */
 async function openPersonDetails(p){
   if(!p){alert('No person.');return}
   const titleEl=$('personDetailsTitle'),subEl=$('personDetailsSub'),bodyEl=$('personDetailsBody');
@@ -3492,7 +3485,6 @@ async function openPersonDetails(p){
 $('personDetailsClose').onclick=()=>hide($('personDetailsModal'));
 $('personDetailsModal').addEventListener('click',(e)=>{if(e.target===$('personDetailsModal'))hide($('personDetailsModal'))});
 
-/* ===== Admin repeaters ===== */
 function renderAdminGifts(){ const w=$('giftsRepeater');if(!w)return;w.innerHTML=''; (S.CURR.gifts||[]).forEach((g,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Emoji</label><input type="text" class="panel-input" data-gg="emoji" data-i="${i}" value="${(g.emoji||'🎁')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-gg="title" data-i="${i}" value="${(g.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Message</label><textarea class="panel-textarea" data-gg="message" data-i="${i}">${(g.message||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID (comma-separate for slideshow)</label><input type="text" class="panel-input" data-gg="photo_drive_id" data-i="${i}" value="${(g.photo_drive_id||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.gifts[+el.dataset.i][el.dataset.gg]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.gifts.splice(+b.dataset.i,1);renderAdminGifts()}}); }
 $('addGiftRow').onclick=()=>{S.CURR.gifts=S.CURR.gifts||[];S.CURR.gifts.push({emoji:'🎁',title:'',message:'',photo_drive_id:''});renderAdminGifts()};
 function renderAdminStory(){ const w=$('storyRepeater');if(!w)return;w.innerHTML=''; (S.CURR.story||[]).forEach((s,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-st="title" data-i="${i}" value="${(s.title||'').replace(/"/g,'&quot;')}"></div><div class="panel-field"><label class="panel-label">Body</label><textarea class="panel-textarea" data-st="body" data-i="${i}">${(s.body||'')}</textarea></div><div class="panel-field"><label class="panel-label">Photo Drive ID (comma-separate for slideshow)</label><input type="text" class="panel-input" data-st="photo_drive_id" data-i="${i}" value="${(s.photo_drive_id||'')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,textarea').forEach(el=>{el.oninput=()=>{S.CURR.story[+el.dataset.i][el.dataset.st]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.story.splice(+b.dataset.i,1);renderAdminStory()}}); }
@@ -3521,7 +3513,6 @@ $('addPinRow').onclick=()=>{S.CURR.pins=S.CURR.pins||[];S.CURR.pins.push({label:
 function renderAdminMedia(){ const w=$('mediaRepeater');if(!w)return;w.innerHTML=''; (S.CURR.media||[]).forEach((m,i)=>{ const row=document.createElement('div');row.className='repeat-row'; row.innerHTML=`<button type="button" class="repeat-remove" data-i="${i}">✕</button><div class="panel-field"><label class="panel-label">Type</label><select class="panel-select" data-md="type" data-i="${i}"><option value="photo"${m.type==='photo'?' selected':''}>Photo</option><option value="video"${m.type==='video'?' selected':''}>Video</option></select></div><div class="panel-field"><label class="panel-label">Drive ID (photo)</label><input type="text" class="panel-input" data-md="drive_id" data-i="${i}" value="${(m.drive_id||'')}"></div><div class="panel-field"><label class="panel-label">Direct URL (video/photo)</label><input type="text" class="panel-input" data-md="src" data-i="${i}" value="${(m.src||'')}"></div><div class="panel-field"><label class="panel-label">Title</label><input type="text" class="panel-input" data-md="title" data-i="${i}" value="${(m.title||'').replace(/"/g,'&quot;')}"></div>`; w.appendChild(row); }); w.querySelectorAll('input,select').forEach(el=>{el.onchange=el.oninput=()=>{S.CURR.media[+el.dataset.i][el.dataset.md]=el.value}}); w.querySelectorAll('.repeat-remove').forEach(b=>{b.onclick=()=>{S.CURR.media.splice(+b.dataset.i,1);renderAdminMedia()}}); }
 $('addMediaRow').onclick=()=>{S.CURR.media=S.CURR.media||[];S.CURR.media.push({type:'photo',drive_id:'',src:'',title:''});renderAdminMedia()};
 
-/* ===== Save admin ===== */
 async function saveAdminAll(){
   saveAdminTextsFromFields(S.ADMIN_EDIT_LANG);
   readAdminFields();
@@ -3595,7 +3586,6 @@ document.querySelectorAll('#adminPanel .panel-tab').forEach(tab=>{
   };
 });
 
-/* ===== Admin Excel ===== */
 $('adminExportBtn').onclick=async()=>{
   const st=$('adminDataStatus');st.textContent='⏳ Building…';st.className='panel-status';
   try{
@@ -3711,7 +3701,6 @@ $('adminExcelInput').onchange=async(e)=>{
   finally{e.target.value=''}
 };
 
-/* ===== Guest approvals ===== */
 async function loadGuestApprovals(){
   const list=$('pendingGuestsList');if(!list)return;
   list.textContent='Loading…';
@@ -3774,7 +3763,6 @@ async function loadGuestApprovals(){
 }
 $('refreshGuests').onclick=loadGuestApprovals;
 
-/* ===== Guest editor ===== */
 function geSetLangActive(lang){ GE.lang=lang; document.querySelectorAll('#geLangTabs button').forEach(b=>b.classList.toggle('active',b.dataset.geLang===lang)); applyGETextsToFields(lang); }
 function applyGETextsToFields(lang){ const src=(GE.texts&&GE.texts[lang])||{}; document.querySelectorAll('#geTextFields [data-ge-text]').forEach(el=>{ const k=el.dataset.geText;if(!k)return; el.value=src[k]!==undefined?src[k]:''; }); }
 function saveGETextsFromFields(){ GE.texts=GE.texts||{en:{},gu:{},hi:{}}; GE.texts[GE.lang]=GE.texts[GE.lang]||{}; document.querySelectorAll('#geTextFields [data-ge-text]').forEach(el=>{ const k=el.dataset.geText;if(!k)return; GE.texts[GE.lang][k]=el.value; }); }
@@ -4132,7 +4120,6 @@ async function loadGuestHistory(){
 }
 $('refreshGuestHistory').onclick=loadGuestHistory;
 
-/* ===== Guest public panel ===== */
 const G={gifts:[],story:[],events:[],voice:[],video:[],pins:[],media:[],theme:'',counters:{}};
 
 document.querySelectorAll('#guestLangTabs button').forEach(btn=>{
@@ -4242,7 +4229,6 @@ document.querySelectorAll('#guestPanel .panel-tab').forEach(tab=>{
   };
 });
 
-/* ===== Guest Excel ===== */
 $('guestExportBtn').onclick=()=>{
   const st=$('guestExcelStatus');
   try{
@@ -4366,7 +4352,6 @@ $('guestSubmit').onclick=async()=>{
   }catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
 };
 
-/* ===== Requester editor ===== */
 function reSetLangActive(lang){ RE.lang=lang; document.querySelectorAll('#reLangTabs button').forEach(b=>b.classList.toggle('active',b.dataset.reLang===lang)); applyRETextsToFields(lang); }
 function applyRETextsToFields(lang){ const src=(RE.texts&&RE.texts[lang])||{}; document.querySelectorAll('#reTextFields [data-re-text]').forEach(el=>{ const k=el.dataset.reText;if(!k)return; el.value=src[k]!==undefined?src[k]:''; }); }
 function saveRETextsFromFields(){
@@ -4549,7 +4534,6 @@ $('reSave').onclick=async()=>{
   }catch(e){st.textContent='❌ '+e.message;st.className='panel-status err'}
 };
 
-/* ===== Boot ===== */
 async function boot(){
   document.body.setAttribute('data-theme','romantic');
   initAllTzSelects();
