@@ -333,6 +333,22 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 .vm-video{width:100%;border-radius:1rem;background:#000;max-height:70vh;display:block;}
 .map-empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--c-text-muted);font-style:italic;}
 .map-pin-label{position:absolute;transform:translate(-50%,0);font-size:.7rem;font-weight:700;color:var(--c-primary);background:rgba(255,255,255,.9);padding:.15rem .4rem;border-radius:.4rem;pointer-events:none;}
+/* NEW: Home screen intro / how-it-works */
+.home-intro{margin-top:.2rem;width:100%;max-width:680px;background:rgba(255,255,255,.12);border:2px solid rgba(255,215,0,.55);border-radius:1.4rem;padding:1.1rem 1.2rem;backdrop-filter:blur(8px);text-align:left;color:#fff;}
+.home-intro .hi-title{font-size:1rem;font-weight:900;color:var(--c-accent);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:.7rem;text-align:center;}
+.home-intro .hi-lead{font-size:.92rem;line-height:1.65;color:#ffeef4;font-style:italic;text-align:center;margin-bottom:.9rem;}
+.home-intro .hi-steps{display:flex;flex-direction:column;gap:.55rem;}
+.home-intro .hi-step{display:flex;gap:.7rem;align-items:flex-start;background:rgba(255,255,255,.95);color:var(--c-text);border-radius:.85rem;padding:.65rem .8rem;border-left:5px solid var(--c-accent);}
+.home-intro .hi-step .hi-num{flex:0 0 1.7rem;height:1.7rem;border-radius:50%;background:linear-gradient(135deg,var(--c-primary),var(--c-primary-2));color:var(--c-accent);font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
+.home-intro .hi-step .hi-body{flex:1;min-width:0;}
+.home-intro .hi-step .hi-h{font-size:.88rem;font-weight:900;color:var(--c-primary);font-style:italic;margin-bottom:.15rem;line-height:1.35;}
+.home-intro .hi-step .hi-p{font-size:.8rem;line-height:1.55;color:var(--c-text);}
+.home-intro .hi-foot{margin-top:.85rem;text-align:center;font-size:.75rem;color:#ffe0ec;font-style:italic;line-height:1.55;}
+.home-intro .hi-toggle{margin-top:.7rem;text-align:center;}
+.home-intro .hi-toggle button{background:var(--c-accent);color:var(--c-deep);border:none;border-radius:40px;padding:.4rem 1.05rem;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;font-style:italic;}
+.home-intro.collapsed .hi-steps,
+.home-intro.collapsed .hi-lead,
+.home-intro.collapsed .hi-foot{display:none;}
 /* NEW: in-modal mini slideshow (for gifts, pins, story) */
 .mini-slide-wrap{position:relative;width:100%;border-radius:1rem;overflow:hidden;background:#000;margin-bottom:.8rem;}
 .mini-slide-wrap .mini-slide-img{width:100%;max-height:60vh;object-fit:contain;display:block;background:#000;transition:opacity .35s ease;}
@@ -353,6 +369,44 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 <div class="home-emoji" id="homeEmoji" title="🎂💕">🎂💕</div>
 <div class="home-title">A surprise awaits…</div>
 <div class="home-sub">Pick who you are to continue 💖</div>
+<div class="home-intro" id="homeIntro">
+  <div class="hi-title">✨ What is this?</div>
+  <div class="hi-lead">A personalised surprise card 💌 — filled with messages, photos, videos, countdowns, and memories — made just for someone special.</div>
+  <div class="hi-steps">
+    <div class="hi-step">
+      <div class="hi-num">1</div>
+      <div class="hi-body">
+        <div class="hi-h">Pick who you are</div>
+        <div class="hi-p">Tap the button with your name below, or tap <strong>Guest</strong> if you want to create a surprise for someone.</div>
+      </div>
+    </div>
+    <div class="hi-step">
+      <div class="hi-num">2</div>
+      <div class="hi-body">
+        <div class="hi-h">Enter your password</div>
+        <div class="hi-p">Use the <strong>Card Password</strong> to view the surprise, or the <strong>EDIT password</strong> if you're the person who made it and want to change something.</div>
+      </div>
+    </div>
+    <div class="hi-step">
+      <div class="hi-num">3</div>
+      <div class="hi-body">
+        <div class="hi-h">Tap the cake 🎂</div>
+        <div class="hi-p">The surprise opens with a personal message, live counters, gift boxes, memories slideshow, story, map, and more.</div>
+      </div>
+    </div>
+    <div class="hi-step">
+      <div class="hi-num">4</div>
+      <div class="hi-body">
+        <div class="hi-h">Leave a review 💛</div>
+        <div class="hi-p">After watching, you can rate your experience and leave a nice message — it appears on the home screen for everyone.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hi-foot">💡 Want to create your own surprise? Tap <strong>Guest ✍️</strong> below to download the template, fill it, and submit it for approval.</div>
+  <div class="hi-toggle">
+    <button type="button" id="homeIntroToggle">Hide 👆 / Show 👇</button>
+  </div>
+</div>
 <div class="home-grid" id="homeGrid"><div class="home-loading">Loading…</div></div>
 <div class="home-footer">Guests can download the Excel template, fill it, and submit it for admin approval.</div>
 <div class="home-reviews" id="homeReviews" style="display:none;">
@@ -1651,6 +1705,21 @@ function renderHomeReviews(){
   moreWrap.style.display=(revs.length>lim)?'block':'none';
 }
 $('homeReviewsMoreBtn').onclick=()=>{ S.HOME_REVIEW_LIMIT+=10; renderHomeReviews(); };
+/* NEW: Home intro hide/show toggle (persists via localStorage) */
+(function wireHomeIntro(){
+  const box=$('homeIntro');
+  const btn=$('homeIntroToggle');
+  if(!box||!btn)return;
+  const KEY='homeIntroCollapsed';
+  try{
+    if(localStorage.getItem(KEY)==='1'){ box.classList.add('collapsed'); btn.textContent='Show more 👇'; }
+  }catch(e){}
+  btn.onclick=()=>{
+    const isCollapsed=box.classList.toggle('collapsed');
+    btn.textContent=isCollapsed?'Show more 👇':'Hide 👆';
+    try{ localStorage.setItem(KEY,isCollapsed?'1':'0'); }catch(e){}
+  };
+})();
 
 async function loadReviews(){
   S.REVIEWS=await sb.reviews()||[];
