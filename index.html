@@ -2757,11 +2757,54 @@ $('closingDoneBtn').onclick=()=>advanceAfterClosing();
 function advanceAfterClosing(){
   hide($('closingModal'));
   const p=S.CURRENT_PERSON;
-  if(!p){refreshPage();return}
-  if(hasReviewFor(p.slug)){refreshPage();return}
+  if(!p){ goHomeClean(); return; }
+  if(hasReviewFor(p.slug)){ goHomeClean(); return; }
   openReviewModal();
 }
 
+/* NEW: clean navigation back to home without reloading the page */
+function goHomeClean(){
+  // stop any running slideshow timers
+  try{ if(typeof SS_clearTimers==='function')SS_clearTimers(); }catch(e){}
+  try{ if(typeof SS_stopFloaters==='function')SS_stopFloaters(); }catch(e){}
+  try{ SS_isOpen=false; }catch(e){}
+  // stop story / pin mini slideshows
+  try{ if(typeof STORY_MINI!=='undefined'&&STORY_MINI){STORY_MINI.stop();STORY_MINI=null;} }catch(e){}
+  try{ if(typeof PIN_MINI!=='undefined'&&PIN_MINI){PIN_MINI.stop();PIN_MINI=null;} }catch(e){}
+  try{ clearInterval(STORY_T);STORY_T=null; }catch(e){}
+  // stop music
+  try{ const a=$('audioPlayer'); if(a){a.pause();a.currentTime=0;} MUSIC_ON=false; const mt=$('musicToggle'); if(mt)mt.textContent='🔇'; }catch(e){}
+  // stop any open video message
+  try{
+    if(typeof VM_CURRENT!=='undefined'&&VM_CURRENT){
+      const v=VM_CURRENT.querySelector('video');
+      if(v){v.pause();v.currentTime=0;v.removeAttribute('src');v.load();}
+      VM_CURRENT.remove();VM_CURRENT=null;
+    }
+  }catch(e){}
+  // close all modals/overlays
+  hide($('slideshowOverlay'));
+  hide($('storyModal'));
+  hide($('mapModal'));
+  hide($('pinModal'));
+  hide($('uploadModal'));
+  hide($('closingModal'));
+  hide($('reviewModal'));
+  hide($('viewerScreen'));
+  hide($('lockScreen'));
+  hide($('openingScreen'));
+  // reset viewer state
+  S.CARD_STARTED=false;
+  S.PREVIEW_MODE=false;
+  S.REQUESTER_MODE=false;
+  S.CURRENT_PERSON=null;
+  // clear slides track
+  try{ const t=$('slidesTrack'); if(t)t.innerHTML=''; }catch(e){}
+  try{ const d=$('slideshowDots'); if(d)d.innerHTML=''; }catch(e){}
+  // scroll to top and show home
+  window.scrollTo(0,0);
+  $('homeScreen').classList.remove('hidden');
+}
 let RV_STARS=0;
 function paintReviewStars(n){
   document.querySelectorAll('#reviewStars .star').forEach(s=>{ s.classList.toggle('on',+s.dataset.v<=n); });
@@ -2808,10 +2851,15 @@ $('reviewSubmit').onclick=async()=>{
   };
   st.textContent='⏳ Saving…';st.className='panel-status';
   try{
-    await sb.upsertReview(row);
-    st.textContent='✅ Thank you! Refreshing…';st.className='panel-status ok';
+        await sb.upsertReview(row);
+    st.textContent='✅ Thank you!';st.className='panel-status ok';
     __showToast('💛 Review submitted');
-    setTimeout(()=>refreshPage(),900);
+    // refresh reviews in-memory instead of reloading the whole page
+    await loadReviews();
+    setTimeout(()=>{
+      hide($('reviewModal'));
+      goHomeClean();
+    }, 900);
   }catch(e){ st.textContent='❌ '+(e.message||'Could not save'); st.className='panel-status err'; }
 };
 
