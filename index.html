@@ -2240,7 +2240,17 @@ function playNext(){
 function startMusicFor(ctx){
   const list=buildPlaylistFor(ctx);
   $('musicToggle').classList.toggle('visible',list.length>0);
-  if(!list.length){$('audioPlayer').pause();MUSIC_ON=false;$('musicToggle').textContent='🔇';return}
+  if(!list.length){
+    // Only pause if we're switching to a context that has no playlist AND
+    // we weren't already playing the same context's music.
+    if(CURR_CTX!==ctx){
+      const a=$('audioPlayer');
+      if(a && !a.paused) a.pause();
+      MUSIC_ON=false;
+      $('musicToggle').textContent='🔇';
+    }
+    return;
+  }
   if(CURR_CTX===ctx&&MUSIC_ON&&!$('audioPlayer').paused)return;
   CURR_CTX=ctx;CURR_LIST=list;CURR_IDX=-1;playNext();
 }
@@ -2375,11 +2385,17 @@ function SS_floaterDensity(){
   return Math.max(0,Math.min(2,v));
 }
 function SS_resetVideo(v){
-  try{ v.pause(); v.currentTime=0; }catch(e){}
+  try{ 
+    v.pause(); 
+    v.currentTime=0; 
+    v.muted=true;      // release audio focus on iOS
+    v.volume=0;
+  }catch(e){}
 }
 function SS_playVideo(v,unmuteBtn){
   try{ v.currentTime=0; }catch(e){}
   v.muted=false;
+  v.volume=1;
   const p=v.play();
   if(p && p.then){
     p.then(()=>{ if(unmuteBtn)unmuteBtn.classList.remove('show'); })
@@ -2399,6 +2415,10 @@ function SS_playVideo(v,unmuteBtn){
 }
 function SS_fadeMusic(target,duration){
   const a=$('audioPlayer');if(!a)return;
+  // Resume paused audio if we're fading back to a positive volume
+  if(a.paused && target>0 && a.src){
+    a.play().catch(()=>{});
+  }
   const start=a.volume;
   if(Math.abs(start-target)<0.01){a.volume=target;return;}
   const steps=Math.max(1,Math.round((duration||400)/30));
@@ -2695,7 +2715,19 @@ function SS_updateSlide(){
     const pb=$('slideshowProgress');
     if(pb){ pb.style.transition='none'; pb.style.width='0%'; }
   }else{
-    if(SS_musicDucked!==false){ SS_fadeMusic(SS_normalMusicVol(),400); SS_musicDucked=false; }
+    // Fade music back to normal volume AND resume playback if it was paused
+    if(SS_musicDucked!==false || SS_musicDucked===false){
+      const a=$('audioPlayer');
+      // If the audio player got paused (e.g. video took focus), restart it
+      if(a && a.src && a.paused && CURR_LIST.length){
+        a.volume=getVol('slideshow');
+        a.play().catch(()=>{});
+        MUSIC_ON=true;
+        $('musicToggle').textContent='🔊';
+      }
+      SS_fadeMusic(SS_normalMusicVol(),400);
+      SS_musicDucked=false;
+    }
 
     SS_preloadAhead();
 
