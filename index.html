@@ -1936,11 +1936,7 @@ function renderGifts(){
 function splitDriveIds(raw){
   return String(raw||'').split(',').map(x=>x.trim()).filter(Boolean);
 }
-function driveImg(id,w){
-  const isMobile = window.matchMedia('(max-width: 700px)').matches;
-  const width = isMobile ? 1200 : (w || 2000);
-  return 'https://lh3.googleusercontent.com/d/'+id+'=w'+width;
-}
+function driveImg(id,w){ return 'https://lh3.googleusercontent.com/d/'+id+'=w'+(w||2000); }
 
 function buildMiniSlideshow(container,ids,durationMs){
   if(!container)return null;
@@ -1952,7 +1948,6 @@ function buildMiniSlideshow(container,ids,durationMs){
   const img=document.createElement('img');
   img.className='mini-slide-img';
   img.loading='lazy';
-  img.decoding='async';
   img.src=driveImg(list[0],2400);
   img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+list[0]+'&sz=w2400';};
   container.appendChild(img);
@@ -2321,6 +2316,7 @@ async function loadPersonIntoState(p){
 window.__loadPersonIntoState__=loadPersonIntoState;
 
 $('viewerBackBtn').onclick=()=>{
+  SS_clearSession();
   hide($('viewerScreen'));S.PREVIEW_MODE=false;S.CARD_STARTED=false;S.REQUESTER_MODE=false;
   clearInterval(STORY_T);STORY_T=null;
   if(STORY_MINI){STORY_MINI.stop();STORY_MINI=null;}
@@ -2332,18 +2328,16 @@ $('viewerBackBtn').onclick=()=>{
 };
 
 /* ============================================================
-   SLIDESHOW — fixed for mobile: no auto-refresh, no double timer,
-   no visibilitychange misfires
+   SLIDESHOW — lazy loading + session restore (final mobile fix)
    ============================================================ */
 let SS=[],SS_IDX=0,SS_T=null,SS_VIDEO_TIMER=null,SS_TX_T=null;
 let SS_isOpen=false;
 let SS_musicDucked=false;
 let SS_touchSX=0,SS_touchSY=0;
 let SS_floaterTimer=null;
-let SS_fxCounter=0;
 let SS_rafId=null;
-let SS_timerToken=0;            // FIX: token to invalidate stale timers
-let SS_lastVisibilityChange=0;  // FIX: guard against rapid visibilitychange
+let SS_timerToken=0;
+let SS_lastVisibilityChange=0;
 
 const SS_PHOTO_EFFECTS=['fx-ken-in','fx-ken-out','fx-pan-lr','fx-pan-rl','fx-pan-tb','fx-rotate','fx-fade','fx-blur','fx-scale-down'];
 const SS_VIDEO_EFFECTS=['vfx-fade','vfx-zoom','vfx-slide-right','vfx-blur'];
@@ -2354,7 +2348,7 @@ function SS_clearTimers(){
   if(SS_VIDEO_TIMER){clearTimeout(SS_VIDEO_TIMER);SS_VIDEO_TIMER=null;}
   if(SS_TX_T){clearTimeout(SS_TX_T);SS_TX_T=null;}
   if(SS_rafId){cancelAnimationFrame(SS_rafId);SS_rafId=null;}
-  SS_timerToken++;   // FIX: invalidate any in-flight timer callbacks
+  SS_timerToken++;
 }
 function SS_photoDurationMs(){
   const v=parseFloat((S.CURR.shared||{}).photoDurationSec||'5');
@@ -2488,6 +2482,83 @@ function SS_applyIntensity(el){
   el.style.setProperty('--fx-dur',dur+'ms');
 }
 
+/* ---------- LAZY IMAGE LOADING ---------- */
+function SS_loadSlideImage(idx){
+  const t=$('slidesTrack');
+  if(!t)return;
+  const slideEl=t.children[idx];
+  if(!slideEl)return;
+  const s=SS[idx];
+  if(!s || s.type==='video')return;
+  const img=slideEl.querySelector('img.fx-target');
+  if(!img)return;
+  if(img.dataset.loaded==='1')return;
+  if(!s.drive_id)return;
+  img.dataset.loaded='1';
+  img.src=driveImg(s.drive_id,2400);
+  img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w'+(window.innerWidth < 700 ? 1200 : 2400);};
+}
+function SS_preloadAhead(){
+  SS_loadSlideImage(SS_IDX);
+  SS_loadSlideImage((SS_IDX+1)%SS.length);
+  SS_loadSlideImage((SS_IDX+2)%SS.length);
+  const t=$('slidesTrack');
+  if(!t)return;
+  Array.from(t.children).forEach((slideEl,i)=>{
+    const dist=Math.min(
+      Math.abs(i-SS_IDX),
+      SS.length - Math.abs(i-SS_IDX)
+    );
+    if(dist>3){
+      const img=slideEl.querySelector('img.fx-target');
+      if(img && img.dataset.loaded==='1'){
+        img.removeAttribute('src');
+        img.dataset.loaded='0';
+      }
+    }
+  });
+}
+
+/* ---------- SESSION RESTORE ---------- */
+function SS_saveSession(){
+  try{
+    if(S.CURRENT_PERSON && S.CURRENT_PERSON.slug){
+      sessionStorage.setItem('active_person_slug', S.CURRENT_PERSON.slug);
+      sessionStorage.setItem('active_view', 'viewer');
+    }
+  }catch(e){}
+}
+function SS_clearSession(){
+  try{
+    sessionStorage.removeItem('active_person_slug');
+    sessionStorage.removeItem('active_view');
+  }catch(e){}
+}
+function SS_restoreSession(){
+  try{
+    const slug=sessionStorage.getItem('active_person_slug');
+    const view=sessionStorage.getItem('active_view');
+    if(!slug || view!=='viewer')return false;
+    const p=S.PEOPLE.find(x=>x.slug===slug);
+    if(!p)return false;
+    S.CURRENT_PERSON=p;
+    loadPersonIntoState(p).then(()=>{
+      $('homeScreen').classList.add('hidden');
+      show($('viewerScreen'));
+      S.PREVIEW_MODE=false;
+      S.REQUESTER_MODE=false;
+      $('viewerPreviewTag').style.display='none';
+      $('viewerEditCardBtn').classList.remove('visible');
+      $('musicToggle').classList.toggle('visible',buildPlaylistFor('card').length>0);
+      $('langToggle').classList.toggle('visible',true);
+      renderCardFull();
+      startCard();
+      window.scrollTo(0,0);
+    }).catch(()=>{});
+    return true;
+  }catch(e){ return false; }
+}
+
 $('openBtn').onclick=async()=>{
   if(!S.CURRENT_PERSON){alert('No person selected.');return}
   const rows=await sb.rows(T_MEDIA,S.CURRENT_PERSON.id)||[];
@@ -2496,6 +2567,7 @@ $('openBtn').onclick=async()=>{
   const ordered=SS_applySavedMediaOrder(filtered);
   SS=SS_movePhotoFirst(ordered);
   SS_IDX=0;
+  SS_saveSession();
   SS_buildSlides();
   show($('slideshowOverlay'));
   SS_isOpen=true;
@@ -2541,11 +2613,9 @@ function SS_buildSlides(){
       });
     }else{
       const img=document.createElement('img');
-      img.src=driveImg(s.drive_id,2400);
-      img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w'+(window.innerWidth < 700 ? 1200 : 2400);};
       img.className='fx-target';
       img.decoding='async';
-      // FIX: no loading='eager' / fetchPriority='high' — causes mobile to abort & restart
+      img.dataset.loaded='0';
       d.appendChild(img);
     }
     t.appendChild(d);
@@ -2585,17 +2655,15 @@ function SS_applyEffectToCurrent(prevIndex){
   }
 }
 
-function SS_animateTrackTo(prevIndex){
+function SS_animateTrackTo(){
   const t=$('slidesTrack');
-  // FIX: always use a simple translate (no fade/scale random) to avoid perceived refresh
   t.style.transition='transform .55s cubic-bezier(.7,0,.2,1)';
   t.style.transform=`translateX(-${SS_IDX*100}%)`;
 }
 
 function SS_updateSlide(){
   const t=$('slidesTrack');
-  const prevIndex=SS_IDX;
-  SS_animateTrackTo(prevIndex);
+  SS_animateTrackTo();
   txt($('slideshowCounter'),(SS_IDX+1)+' / '+SS.length);
   const dots=$('slideshowDots');
   if(dots)dots.querySelectorAll('.dot').forEach((el,i)=>el.classList.toggle('active',i===SS_IDX));
@@ -2611,7 +2679,7 @@ function SS_updateSlide(){
   const cur=SS[SS_IDX];
   const slideEl=t.children[SS_IDX];
   if(!cur||!slideEl)return;
-  SS_applyEffectToCurrent(prevIndex);
+  SS_applyEffectToCurrent();
 
   if(cur.type==='video'){
     if(SS_musicDucked!==true){ SS_fadeMusic(SS_duckedMusicVol(),400); SS_musicDucked=true; }
@@ -2629,20 +2697,13 @@ function SS_updateSlide(){
   }else{
     if(SS_musicDucked!==false){ SS_fadeMusic(SS_normalMusicVol(),400); SS_musicDucked=false; }
 
-    const nextIdx = (SS_IDX+1) % SS.length;
-    const next = SS[nextIdx];
-    if(next && next.type !== 'video' && next.drive_id){
-      const pre = new Image();
-      const isMobile = window.matchMedia('(max-width: 700px)').matches;
-      pre.src = 'https://lh3.googleusercontent.com/d/'+next.drive_id+'=w'+(isMobile ? 1200 : 1600);
-    }
+    SS_preloadAhead();
 
     const img = slideEl.querySelector('img.fx-target');
-    const myToken = SS_timerToken;   // FIX: capture token for this slide
+    const myToken = SS_timerToken;
     const curSlideRef = cur;
 
     const startTimer = () => {
-      // FIX: bail out if we've moved on or a newer timer superseded us
       if(!SS_isOpen) return;
       if(SS[SS_IDX] !== curSlideRef) return;
       if(SS_timerToken !== myToken) return;
@@ -2666,8 +2727,6 @@ function SS_updateSlide(){
     if(img && !img.complete){
       img.addEventListener('load', startTimer, {once:true});
       img.addEventListener('error', startTimer, {once:true});
-      // FIX: safety net — but only fires if neither load nor error happened
-      // and it checks token + current slide inside startTimer
       setTimeout(startTimer, 6000);
     } else {
       startTimer();
@@ -2694,6 +2753,7 @@ function SS_close(){
   if(t)Array.from(t.children).forEach(slideEl=>{
     const v=slideEl.querySelector('video');if(v)SS_resetVideo(v);
     const ub=slideEl.querySelector('.unmute-btn');if(ub)ub.classList.remove('show');
+    const img=slideEl.querySelector('img.fx-target');if(img){img.removeAttribute('src');img.dataset.loaded='0';}
   });
   if(t)t.innerHTML='';
   const dots=$('slideshowDots');if(dots)dots.innerHTML='';
@@ -2729,16 +2789,12 @@ document.addEventListener('keydown',(e)=>{
   else if(e.key==='Escape')SS_close();
 });
 
-// FIX: single visibilitychange handler with debounce; removed blur/focus handlers
-// that were causing double-fires and mid-transition resets on mobile.
 document.addEventListener('visibilitychange',()=>{
   const now = Date.now();
-  // Debounce — ignore changes within 500ms of the previous one
   if (now - SS_lastVisibilityChange < 500) return;
   SS_lastVisibilityChange = now;
 
   if(document.hidden){
-    // Just pause timers and video. Do NOT rebuild the slide.
     if(SS_T){clearTimeout(SS_T);SS_T=null;}
     if(SS_VIDEO_TIMER){clearTimeout(SS_VIDEO_TIMER);SS_VIDEO_TIMER=null;}
     const t=$('slidesTrack');
@@ -2748,14 +2804,10 @@ document.addEventListener('visibilitychange',()=>{
     });
     const a=$('audioPlayer');if(a)a.pause();
   }else if(SS_isOpen){
-    // Resume: only resume music; do NOT force SS_updateSlide()
-    // because that would reset the current slide mid-view.
     const a=$('audioPlayer');
     if(a&&a.src){a.play().catch(()=>{});}
-    // If the current slide is a photo and its timer was cleared, restart it
     const cur = SS[SS_IDX];
     if(cur && cur.type !== 'video'){
-      // Only restart if we're actually missing a timer
       if(!SS_T){
         const dur = SS_photoDurationMs();
         const curSlideRef = cur;
@@ -4552,6 +4604,8 @@ async function boot(){
   const gs=await sb.getSet(null);
   S.CURR.shared={adminPassword:(gs&&gs['shared__adminPassword'])||FALLBACK_ADMIN_PW,adminLoginEnabled:(gs&&gs['shared__adminLoginEnabled'])};
   if(window.buildHome)window.buildHome();
+  // Restore session so a phone reload returns to the viewer, not home
+  if(SS_restoreSession && SS_restoreSession()) return;
   await checkWipe();
   await loadReviews();
   setInterval(checkWipe,60000);
