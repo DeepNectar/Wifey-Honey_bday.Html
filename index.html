@@ -333,7 +333,6 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 .vm-video{width:100%;border-radius:1rem;background:#000;max-height:70vh;display:block;}
 .map-empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--c-text-muted);font-style:italic;}
 .map-pin-label{position:absolute;transform:translate(-50%,0);font-size:.7rem;font-weight:700;color:var(--c-primary);background:rgba(255,255,255,.9);padding:.15rem .4rem;border-radius:.4rem;pointer-events:none;}
-/* NEW: Home screen intro / how-it-works */
 .home-intro{margin-top:.2rem;width:100%;max-width:680px;background:rgba(255,255,255,.12);border:2px solid rgba(255,215,0,.55);border-radius:1.4rem;padding:1.1rem 1.2rem;backdrop-filter:blur(8px);text-align:left;color:#fff;}
 .home-intro .hi-title{font-size:1rem;font-weight:900;color:var(--c-accent);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:.7rem;text-align:center;}
 .home-intro .hi-lead{font-size:.92rem;line-height:1.65;color:#ffeef4;font-style:italic;text-align:center;margin-bottom:.9rem;}
@@ -349,7 +348,6 @@ h1.card-title{font-size:2.4rem;font-weight:700;font-style:italic;margin-top:.25r
 .home-intro.collapsed .hi-steps,
 .home-intro.collapsed .hi-lead,
 .home-intro.collapsed .hi-foot{display:none;}
-/* NEW: in-modal mini slideshow (for gifts, pins, story) */
 .mini-slide-wrap{position:relative;width:100%;border-radius:1rem;overflow:hidden;background:#000;margin-bottom:.8rem;}
 .mini-slide-wrap .mini-slide-img{width:100%;max-height:60vh;object-fit:contain;display:block;background:#000;transition:opacity .35s ease;}
 .mini-slide-counter{position:absolute;top:.5rem;right:.5rem;background:rgba(0,0,0,.65);color:#fff;font-size:.75rem;font-weight:800;padding:.25rem .7rem;border-radius:40px;border:1px solid rgba(255,255,255,.35);z-index:5;}
@@ -1391,7 +1389,7 @@ const FALLBACK_ADMIN_PW='Deepnectar@@1617@@';
 const PUBLIC_CARD_LINK='https://surprise-clickandcheck-your-surprise2.netlify.app/';
 const DEFAULT_TZ='Asia/Dubai';
 
-/* NEW: default duration for images inside modals (gift / pin / story / any image-based extra) */
+/* default duration for images inside modals (gift / pin / story / any image-based extra) */
 const MODAL_IMG_DURATION_MS = 10000; /* 10 seconds per image */
 
 const TZ_OPTIONS=[
@@ -1705,7 +1703,6 @@ function renderHomeReviews(){
   moreWrap.style.display=(revs.length>lim)?'block':'none';
 }
 $('homeReviewsMoreBtn').onclick=()=>{ S.HOME_REVIEW_LIMIT+=10; renderHomeReviews(); };
-/* NEW: Home intro hide/show toggle (persists via localStorage) */
 (function wireHomeIntro(){
   const box=$('homeIntro');
   const btn=$('homeIntroToggle');
@@ -1949,14 +1946,15 @@ function renderGifts(){
   });
 }
 
-/* NEW helper: split comma-separated Drive IDs */
 function splitDriveIds(raw){
   return String(raw||'').split(',').map(x=>x.trim()).filter(Boolean);
 }
-/* NEW helper: build drive image URL */
-function driveImg(id,w){ return 'https://lh3.googleusercontent.com/d/'+id+'=w'+(w||2000); }
+function driveImg(id,w){
+  const isMobile = window.matchMedia('(max-width: 700px)').matches;
+  const width = isMobile ? 1200 : (w || 2000);
+  return 'https://lh3.googleusercontent.com/d/'+id+'=w'+width;
+}
 
-/* NEW: attach an auto-playing slideshow to any container */
 function buildMiniSlideshow(container,ids,durationMs){
   if(!container)return null;
   const list=(ids||[]).filter(Boolean);
@@ -1967,6 +1965,7 @@ function buildMiniSlideshow(container,ids,durationMs){
   const img=document.createElement('img');
   img.className='mini-slide-img';
   img.loading='lazy';
+  img.decoding='async';
   img.src=driveImg(list[0],2400);
   img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+list[0]+'&sz=w2400';};
   container.appendChild(img);
@@ -2052,7 +2051,7 @@ function renderEvents(){
   if(EV_T)clearInterval(EV_T);EV_T=setInterval(tick,60000);
 }
 
-/* ===== Voice Message (with stop) ===== */
+/* ===== Voice Message ===== */
 $('voicePlayBtn').onclick=()=>{
   if(!S.CURR.voice||!S.CURR.voice.length)return;
   const a=$('audioPlayer');
@@ -2062,7 +2061,7 @@ $('voicePlayBtn').onclick=()=>{
   a.play().catch(()=>{});
 };
 
-/* ===== Video Message (auto-close + cleanup) ===== */
+/* ===== Video Message ===== */
 let VM_CURRENT=null;
 $('videoMsgBtn').onclick=()=>{
   if(!S.CURR.video||!S.CURR.video.length)return;
@@ -2090,17 +2089,13 @@ $('videoMsgBtn').onclick=()=>{
   if(p&&p.catch)p.catch(()=>{ vid.muted=true; vid.play().catch(()=>{}); });
 };
 
-/* ===== Story Modal (auto-play) =====
-   MODIFIED: default duration is 10s, and multiple comma-separated drive ids
-   on a single story page are shown as an inline slideshow at 10s per image.
-*/
+/* ===== Story Modal ===== */
 let STORY_IDX=0;
 let STORY_T=null;
 let STORY_AUTOPLAY=false;
-let STORY_MINI=null; /* current mini slideshow inside a story page */
+let STORY_MINI=null;
 
 function storyDurationMs(){
-  /* Prefer explicit setting; otherwise default to 10s. */
   const s=S.CURR.shared||{};
   const v=parseFloat(s.storySlideDefaultSec||s.storySlideDuration||'10');
   return (isFinite(v)&&v>0?v:10)*1000;
@@ -2187,7 +2182,6 @@ function renderMapPins(){
   });
 }
 
-/* MODIFIED: pin detail now shows multiple comma-separated images as a slideshow (10s each) */
 let PIN_MINI=null;
 function openPinDetail(p){
   if(PIN_MINI){PIN_MINI.stop();PIN_MINI=null;}
@@ -2360,7 +2354,8 @@ $('viewerBackBtn').onclick=()=>{
 };
 
 /* ============================================================
-   SLIDESHOW — random effects, floaters, adjustable settings
+   SLIDESHOW — fixed for mobile: preloading, waiting for load,
+   responsive image sizes, and tab-visibility recovery
    ============================================================ */
 let SS=[],SS_IDX=0,SS_T=null,SS_VIDEO_TIMER=null,SS_TX_T=null;
 let SS_isOpen=false;
@@ -2368,6 +2363,7 @@ let SS_musicDucked=false;
 let SS_touchSX=0,SS_touchSY=0;
 let SS_floaterTimer=null;
 let SS_fxCounter=0;
+let SS_rafId=null;
 
 const SS_PHOTO_EFFECTS=['fx-ken-in','fx-ken-out','fx-pan-lr','fx-pan-rl','fx-pan-tb','fx-rotate','fx-fade','fx-blur','fx-scale-down'];
 const SS_VIDEO_EFFECTS=['vfx-fade','vfx-zoom','vfx-slide-right','vfx-blur'];
@@ -2377,6 +2373,7 @@ function SS_clearTimers(){
   if(SS_T){clearTimeout(SS_T);SS_T=null;}
   if(SS_VIDEO_TIMER){clearTimeout(SS_VIDEO_TIMER);SS_VIDEO_TIMER=null;}
   if(SS_TX_T){clearTimeout(SS_TX_T);SS_TX_T=null;}
+  if(SS_rafId){cancelAnimationFrame(SS_rafId);SS_rafId=null;}
 }
 function SS_photoDurationMs(){
   const v=parseFloat((S.CURR.shared||{}).photoDurationSec||'5');
@@ -2563,9 +2560,12 @@ function SS_buildSlides(){
       });
     }else{
       const img=document.createElement('img');
-      img.src='https://lh3.googleusercontent.com/d/'+s.drive_id+'=w2400';
-      img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w2400'};
+      img.src=driveImg(s.drive_id,2400);
+      img.onerror=()=>{img.src='https://drive.google.com/thumbnail?id='+s.drive_id+'&sz=w'+(window.innerWidth < 700 ? 1200 : 2400);};
       img.className='fx-target';
+      img.decoding='async';
+      img.loading='eager';
+      img.fetchPriority='high';
       d.appendChild(img);
     }
     t.appendChild(d);
@@ -2623,6 +2623,7 @@ function SS_animateTrackTo(prevIndex){
   t.style.transform=`translateX(-${SS_IDX*100}%)`;
 }
 
+/* ---------- FIXED SS_updateSlide for mobile ---------- */
 function SS_updateSlide(){
   const t=$('slidesTrack');
   const prevIndex=SS_IDX;
@@ -2643,6 +2644,7 @@ function SS_updateSlide(){
   const slideEl=t.children[SS_IDX];
   if(!cur||!slideEl)return;
   SS_applyEffectToCurrent(prevIndex);
+
   if(cur.type==='video'){
     if(SS_musicDucked!==true){ SS_fadeMusic(SS_duckedMusicVol(),400); SS_musicDucked=true; }
     const v=slideEl.querySelector('video');
@@ -2659,17 +2661,44 @@ function SS_updateSlide(){
     if(pb){ pb.style.transition='none'; pb.style.width='0%'; }
   }else{
     if(SS_musicDucked!==false){ SS_fadeMusic(SS_normalMusicVol(),400); SS_musicDucked=false; }
-    const dur=SS_photoDurationMs();
-    const pb=$('slideshowProgress');
-    if(pb){
-      pb.style.transition='none';pb.style.width='0%';
-      void pb.offsetWidth;
-      pb.style.transition='width '+dur+'ms linear';
-      pb.style.width='100%';
+
+    // PRELOAD NEXT IMAGE (so it's ready before timer fires)
+    const nextIdx = (SS_IDX+1) % SS.length;
+    const next = SS[nextIdx];
+    if(next && next.type !== 'video' && next.drive_id){
+      const pre = new Image();
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+      pre.src = 'https://lh3.googleusercontent.com/d/'+next.drive_id+'=w'+(isMobile ? 1200 : 1600);
     }
-    SS_T=setTimeout(()=>{ if(SS_isOpen)SS_next(); },dur);
+
+    const img = slideEl.querySelector('img.fx-target');
+
+    const startTimer = () => {
+      if(!SS_isOpen || SS[SS_IDX] !== cur) return;
+      const dur = SS_photoDurationMs();
+      const pb = $('slideshowProgress');
+      if(pb){
+        pb.style.transition='none'; pb.style.width='0%';
+        void pb.offsetWidth;
+        pb.style.transition='width '+dur+'ms linear';
+        pb.style.width='100%';
+      }
+      SS_T = setTimeout(()=>{ if(SS_isOpen) SS_next(); }, dur);
+    };
+
+    if(img && !img.complete){
+      // Wait for the image to actually load/error before starting timer
+      const onDone = () => startTimer();
+      img.addEventListener('load', onDone, {once:true});
+      img.addEventListener('error', onDone, {once:true});
+      // Safety fallback in case neither fires
+      setTimeout(startTimer, 8000);
+    } else {
+      startTimer();
+    }
   }
 }
+
 function SS_next(){
   if(!SS.length){SS_close();return}
   SS_IDX=(SS_IDX+1)%SS.length;
@@ -2738,6 +2767,9 @@ document.addEventListener('visibilitychange',()=>{
     if(a&&a.src){a.play().catch(()=>{});}
   }
 });
+// Mobile fallback — blur/focus sometimes fire when tab/window changes on iOS/Android
+window.addEventListener('blur',()=>{ if(SS_isOpen){ SS_clearTimers(); } });
+window.addEventListener('focus',()=>{ if(SS_isOpen){ SS_updateSlide(); } });
 
 /* ===== Closing modal → Review ===== */
 function openClosingModal(){
@@ -2762,19 +2794,14 @@ function advanceAfterClosing(){
   openReviewModal();
 }
 
-/* NEW: clean navigation back to home without reloading the page */
 function goHomeClean(){
-  // stop any running slideshow timers
   try{ if(typeof SS_clearTimers==='function')SS_clearTimers(); }catch(e){}
   try{ if(typeof SS_stopFloaters==='function')SS_stopFloaters(); }catch(e){}
   try{ SS_isOpen=false; }catch(e){}
-  // stop story / pin mini slideshows
   try{ if(typeof STORY_MINI!=='undefined'&&STORY_MINI){STORY_MINI.stop();STORY_MINI=null;} }catch(e){}
   try{ if(typeof PIN_MINI!=='undefined'&&PIN_MINI){PIN_MINI.stop();PIN_MINI=null;} }catch(e){}
   try{ clearInterval(STORY_T);STORY_T=null; }catch(e){}
-  // stop music
   try{ const a=$('audioPlayer'); if(a){a.pause();a.currentTime=0;} MUSIC_ON=false; const mt=$('musicToggle'); if(mt)mt.textContent='🔇'; }catch(e){}
-  // stop any open video message
   try{
     if(typeof VM_CURRENT!=='undefined'&&VM_CURRENT){
       const v=VM_CURRENT.querySelector('video');
@@ -2782,7 +2809,6 @@ function goHomeClean(){
       VM_CURRENT.remove();VM_CURRENT=null;
     }
   }catch(e){}
-  // close all modals/overlays
   hide($('slideshowOverlay'));
   hide($('storyModal'));
   hide($('mapModal'));
@@ -2793,15 +2819,12 @@ function goHomeClean(){
   hide($('viewerScreen'));
   hide($('lockScreen'));
   hide($('openingScreen'));
-  // reset viewer state
   S.CARD_STARTED=false;
   S.PREVIEW_MODE=false;
   S.REQUESTER_MODE=false;
   S.CURRENT_PERSON=null;
-  // clear slides track
   try{ const t=$('slidesTrack'); if(t)t.innerHTML=''; }catch(e){}
   try{ const d=$('slideshowDots'); if(d)d.innerHTML=''; }catch(e){}
-  // scroll to top and show home
   window.scrollTo(0,0);
   $('homeScreen').classList.remove('hidden');
 }
@@ -2854,7 +2877,6 @@ $('reviewSubmit').onclick=async()=>{
         await sb.upsertReview(row);
     st.textContent='✅ Thank you!';st.className='panel-status ok';
     __showToast('💛 Review submitted');
-    // refresh reviews in-memory instead of reloading the whole page
     await loadReviews();
     setTimeout(()=>{
       hide($('reviewModal'));
